@@ -6,7 +6,7 @@ from sqlalchemy.orm import relationship
 
 
 class CustomCategory(BaseModel, Base):
-    __tablename__ = 'CustomCategory'
+    __tablename__ = 'customcategory'
     CategoryID = Column(String(60), primary_key=True)
     CategoryName = Column(String(255))
     UserID = Column(String(60), ForeignKey('User.UserID'))

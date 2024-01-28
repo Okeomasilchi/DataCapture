@@ -11,7 +11,7 @@ from sqlalchemy.orm import relationship
 
 
 class Survey(BaseModel, Base):
-    __tablename__ = 'Survey'
+    __tablename__ = 'survey'
     SurveyID = Column(String(60), primary_key=True)
     user_id = Column(String(60), ForeignKey('User.UserID'))
     Title = Column(String(255))

@@ -4,17 +4,22 @@ Contains the FileStorage class
 """
 
 import json
-from models.amenity import Amenity
+from models.customcategory import CustomCategory
 from models.base_model import BaseModel
-from models.city import City
-from models.place import Place
-from models.review import Review
-from models.state import State
+from models.question import Question
+from models.response import Response
+from models.survey import Survey
+from models.surveycategory import SurveyCategory
 from models.user import User
 
-classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
-           "Place": Place, "Review": Review, "State": State, "User": User}
-
+classes = {
+    "CustomCategory": CustomCategory,
+    "Question": Question,
+    "Response": Response,
+    "Survey": Survey,
+    "SurveyCategory": SurveyCategory,
+    "User": User
+    }
 
 class FileStorage:
     """serializes instances to a JSON file & deserializes back to instances"""

@@ -12,7 +12,7 @@ from sqlalchemy.orm import relationship
 
 
 class Question(BaseModel, Base):
-    __tablename__ = 'Question'
+    __tablename__ = 'question'
     QuestionID = Column(String(60), primary_key=True)
     QuestionText = Column(Text)
     Options = Column(JSON)
