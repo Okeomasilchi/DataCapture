@@ -1,7 +1,7 @@
 #!/usr/bin/python
 """ holds class Survey"""
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, ForeignKey, String, Text, DateTime, Date, Boolean
+from sqlalchemy import Column, ForeignKey, String, Text, DateTime, Date, Boolean, Index
 from sqlalchemy.orm import relationship
 
 
@@ -20,6 +20,10 @@ class Survey(BaseModel, Base):
     user = relationship('User', cascade="all, delete-orphan")
     questions = relationship('Question', back_populates='survey', cascade="all, delete-orphan")
     responses = relationship('Response', back_populates='survey', cascade="all, delete-orphan")
+
+    __table_args__ = (
+            Index('idx_survey_id', 'SurveyID'),
+        )
 
     def __init__(self, *args, **kwargs):
         """initializes Review"""

@@ -11,7 +11,7 @@ class Question(BaseModel, Base):
     QuestionID = Column(String(60), primary_key=True)
     QuestionText = Column(Text)
     Options = Column(JSON)
-    SurveyID = Column(String(60), ForeignKey('surveys.SurveyID'))
+    survey_id = Column(String(60), ForeignKey('surveys.SurveyID'))
     Rand_options = Column(Boolean, nullable=False)
     survey = relationship('Survey', back_populates='questions', cascade="all, delete-orphan")
 

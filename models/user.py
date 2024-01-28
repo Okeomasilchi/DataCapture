@@ -1,16 +1,10 @@
 #!/usr/bin/python3
 """ holds class User"""
-import models
 from models.base_model import BaseModel, Base
-from os import getenv
-import sqlalchemy
-from sqlalchemy import Column, String
-from sqlalchemy import Column, VARCHAR, String
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, VARCHAR, String, Index
 from sqlalchemy.orm import relationship
 
-
-class User(Base):
+class User(BaseModel, Base):
     __tablename__ = 'users'
     UserID = Column(VARCHAR(60), primary_key=True)
     FirstName = Column(String(255))
@@ -21,6 +15,10 @@ class User(Base):
     user_surveys = relationship('Survey', backref='user',
                                 lazy=True, cascade="all, delete-orphan"
                                 )
+
+    __table_args__ = (
+            Index('idx_user_id', 'UserID'),
+        )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
