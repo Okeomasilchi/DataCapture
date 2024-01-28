@@ -1,24 +1,19 @@
 #!/usr/bin/python
-""" holds class City"""
-import models
+""" holds class Question"""
 from models.base_model import BaseModel, Base
-from os import getenv
-import sqlalchemy
-from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
-from sqlalchemy import Column, ForeignKey, Integer, String, Text, DateTime, Date, Boolean
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, ForeignKey, JSON, String, Text, Boolean
 from sqlalchemy.orm import relationship
 
 
 class Question(BaseModel, Base):
-    __tablename__ = 'question'
+    __tablename__ = 'questions'
     QuestionID = Column(String(60), primary_key=True)
     QuestionText = Column(Text)
     Options = Column(JSON)
-    SurveyID = Column(String(60), ForeignKey('Survey.SurveyID'))
+    survey_id = Column(String(60), ForeignKey('surveys.SurveyID'))
     Rand_options = Column(Boolean, nullable=False)
-    survey = relationship('Survey')
+    survey = relationship('Survey', back_populates='questions', cascade="all, delete-orphan")
 
     def __init__(self, *args, **kwargs):
         """initializes city"""
