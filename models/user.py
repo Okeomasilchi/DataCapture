@@ -12,7 +12,7 @@ from sqlalchemy.orm import relationship
 
 
 class User(Base):
-    __tablename__ = 'User'
+    __tablename__ = 'user'
     UserID = Column(String(60), primary_key=True)
     FirstName = Column(String(255))
     Email = Column(String(255))
