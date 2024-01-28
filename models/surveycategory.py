@@ -1,13 +1,9 @@
 #!/usr/bin/python3
-""" holds class State"""
-import models
+""" holds class SurveyCategory"""
 from models.base_model import BaseModel, Base
-from models.city import City
-from os import getenv
-import sqlalchemy
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
-from sqlalchemy import Column, ForeignKey, Integer, String, Text, DateTime, Date, Boolean
+from sqlalchemy import Column, ForeignKey, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
