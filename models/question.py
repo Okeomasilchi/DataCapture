@@ -21,7 +21,7 @@ class Question(BaseModel, Base):
     __tablename__ = 'questions'
 
     question = Column(Text, nullable=False)
-    options = Column(JSON)
+    options = Column(JSON, nullable=False)
     survey_id = Column(String(60), ForeignKey('surveys.id'), nullable=False)
     random = Column(Boolean, nullable=False)
     survey = relationship('Survey', back_populates='questions',
