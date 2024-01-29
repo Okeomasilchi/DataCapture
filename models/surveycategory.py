@@ -1,22 +1,24 @@
 #!/usr/bin/python3
 """ holds class SurveyCategory"""
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, ForeignKey
-from sqlalchemy.orm import relationship
 from sqlalchemy import Column, ForeignKey, String
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
 
 class SurveyCategory(BaseModel, Base):
+    """
+    Represents a mapping between a survey and a custom category.
+    """
+
     __tablename__ = 'surveycategory'
 
-    SurveyCategoryID = Column(String(60), primary_key=True)
-    SurveyID = Column(String(60), ForeignKey('surveys.SurveyID'))
-    category_id = Column(String(60), ForeignKey('customcategory.CategoryID'))
-    survey = relationship('Survey')
-    category = relationship('CustomCategory')
+    survey_id = Column(String(60), ForeignKey('surveys.id'), nullable=False)
+    category_id = Column(String(60), ForeignKey('customcategory.id'),
+                         nullable=False
+                         )
 
+    survey = relationship('Survey', cascade="all, delete-orphan")
+    category = relationship('CustomCategory', cascade="all, delete-orphan")
 
     def __init__(self, *args, **kwargs):
         """initializes state"""

@@ -1,59 +1,87 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, Text, DateTime, Date, Boolean
+from sqlalchemy import Column, ForeignKey, String, Index, Text, DateTime, Date, Boolean, JSON, VARCHAR
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
+from models.base_model import BaseModel
+
 
 Base = declarative_base()
 
-class CustomCategory(Base):
-    __tablename__ = 'CustomCategory'
+
+class CustomCategory(BaseModel, Base):
+    __tablename__ = 'customcategory'
+
     CategoryID = Column(String(60), primary_key=True)
     CategoryName = Column(String(255))
-    UserID = Column(String(60), ForeignKey('User.UserID'))
+    UserID = Column(VARCHAR(60), ForeignKey('users.UserID'))  # Fix the foreign key reference
     user = relationship('User')
 
-class Question(Base):
-    __tablename__ = 'Question'
+    __table_args__ = (
+        Index('idx_category_id', 'CategoryID'),
+    )
+
+class Question(BaseModel, Base):
+    __tablename__ = 'questions'
     QuestionID = Column(String(60), primary_key=True)
     QuestionText = Column(Text)
     Options = Column(JSON)
-    SurveyID = Column(String(60), ForeignKey('Survey.SurveyID'))
+    survey_id = Column(String(60), ForeignKey('surveys.SurveyID'))
     Rand_options = Column(Boolean, nullable=False)
-    survey = relationship('Survey')
+    survey = relationship('Survey', back_populates='questions', cascade="all, delete-orphan")
 
-class Response(Base):
-    __tablename__ = 'Response'
+
+class Response(BaseModel, Base):
+    __tablename__ = 'response'
     ResponseID = Column(String(60), primary_key=True)
+    responders_bio = Column(JSON)
     Timestamp = Column(DateTime)
     Answers = Column(JSON)
-    SurveyID = Column(String(60), ForeignKey('Survey.SurveyID'))
-    survey = relationship('Survey')
+    SurveyID = Column(String(60), ForeignKey('surveys.SurveyID'))
+    survey = relationship('Survey', back_populates='responses', cascade="all, delete-orphan")
 
-class Survey(Base):
-    __tablename__ = 'Survey'
+
+class Survey(BaseModel, Base):
+    __tablename__ = 'surveys'
     SurveyID = Column(String(60), primary_key=True)
-    user_id = Column(String(60), ForeignKey('User.UserID'))
+    user_id = Column(String(60), ForeignKey('users.UserID'))
     Title = Column(String(255))
     Description = Column(Text)
     created_at = Column(DateTime)
+    updated_at = Column(DateTime)
     ExpiryDate = Column(Date)
     Visibility = Column(Boolean)
-    Randomise = Column(Boolean)
+    Randomize = Column(Boolean)
     QuestionsType = Column(String(120))
-    updated_at = Column(DateTime)
-    user = relationship('User')
+    user = relationship('User', cascade="all, delete-orphan")
+    questions = relationship('Question', back_populates='survey', cascade="all, delete-orphan")
+    responses = relationship('Response', back_populates='survey', cascade="all, delete-orphan")
 
-class SurveyCategory(Base):
-    __tablename__ = 'SurveyCategory'
+    __table_args__ = (
+            Index('idx_survey_id', 'SurveyID'),
+        )
+
+
+class SurveyCategory(BaseModel, Base):
+    __tablename__ = 'surveycategory'
+
     SurveyCategoryID = Column(String(60), primary_key=True)
-    SurveyID = Column(String(60), ForeignKey('Survey.SurveyID'))
-    CategoryID = Column(String(60), ForeignKey('CustomCategory.CategoryID'))
+    SurveyID = Column(String(60), ForeignKey('surveys.SurveyID'))
+    category_id = Column(String(60), ForeignKey('customcategory.CategoryID'))
     survey = relationship('Survey')
     category = relationship('CustomCategory')
 
-class User(Base):
-    __tablename__ = 'User'
-    UserID = Column(String(60), primary_key=True)
+
+class User(BaseModel, Base):
+    __tablename__ = 'users'
+    UserID = Column(VARCHAR(60), primary_key=True)
     FirstName = Column(String(255))
-    Email = Column(String(255))
-    Password = Column(String(255))
-    lastName = Column(String(255))
+    Email = Column(String(255), unique=True)
+    Password = Column(VARCHAR(255))
+    LastName = Column(String(255))
+
+    user_surveys = relationship('Survey', backref='user',
+                                lazy=True, cascade="all, delete-orphan"
+                                )
+
+    __table_args__ = (
+        Index('idx_user_id', 'UserID'),
+    )

@@ -4,20 +4,25 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, VARCHAR, String, Index
 from sqlalchemy.orm import relationship
 
+
 class User(BaseModel, Base):
+    """
+    Represents a user in the system.
+    """
+
     __tablename__ = 'users'
-    UserID = Column(VARCHAR(60), primary_key=True)
-    FirstName = Column(String(255))
-    Email = Column(String(255), unique=True)
-    Password = Column(VARCHAR(255))
-    LastName = Column(String(255))
+
+    first_name = Column(String(255), nullable=False)
+    email = Column(String(255), unique=True, nullable=False)
+    password = Column(VARCHAR(255), nullable=False)
+    last_name = Column(String(255), nullable=False)
 
     user_surveys = relationship('Survey', backref='user',
                                 lazy=True, cascade="all, delete-orphan"
                                 )
 
     __table_args__ = (
-            Index('idx_user_id', 'UserID'),
+            Index('idx_user_id', 'id'),
         )
 
     def __init__(self, *args, **kwargs):
