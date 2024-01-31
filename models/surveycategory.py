@@ -17,8 +17,8 @@ class SurveyCategory(BaseModel, Base):
                          nullable=False
                          )
 
-    survey = relationship('Survey', cascade="all, delete-orphan")
-    category = relationship('CustomCategory', cascade="all, delete-orphan")
+    survey = relationship('Survey', cascade="all, delete")
+    category = relationship('CustomCategory', cascade="all, delete")
 
     def __init__(self, *args, **kwargs):
         """initializes state"""
