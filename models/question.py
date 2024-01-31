@@ -21,11 +21,11 @@ class Question(BaseModel, Base):
     __tablename__ = 'questions'
 
     question = Column(Text, nullable=False)
-    options = Column(JSON)
+    options = Column(JSON, nullable=False)
     survey_id = Column(String(60), ForeignKey('surveys.id'), nullable=False)
     random = Column(Boolean, nullable=False)
     survey = relationship('Survey', back_populates='questions',
-                          cascade="all, delete-orphan"
+                          cascade="all, delete-orphan", single_parent=True
                           )
 
     def __init__(self, *args, **kwargs):

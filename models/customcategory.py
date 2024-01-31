@@ -19,7 +19,7 @@ class CustomCategory(BaseModel, Base):
 
     name = Column(String(255), nullable=False)
     user_id = Column(VARCHAR(60), ForeignKey('users.id'), nullable=False)
-    user = relationship('User', cascade="all, delete-orphan")
+    user = relationship('User', cascade="all, delete", single_parent=True)
 
     __table_args__ = (
         Index('idx_category_id', 'id'),

@@ -23,9 +23,7 @@ class Response(BaseModel, Base):
     timestamp = Column(DateTime, nullable=False)
     answers = Column(JSON, nullable=False)
     survey_id = Column(String(60), ForeignKey('surveys.id'), nullable=False)
-    survey = relationship('Survey', back_populates='responses',
-                          cascade="all, delete-orphan"
-                          )
+    survey = relationship('Survey', back_populates='responses')
 
     def __init__(self, *args, **kwargs):
         """Initializes a Response object."""

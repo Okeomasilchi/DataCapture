@@ -17,9 +17,8 @@ class User(BaseModel, Base):
     password = Column(VARCHAR(255), nullable=False)
     last_name = Column(String(255), nullable=False)
 
-    user_surveys = relationship('Survey', backref='user',
-                                lazy=True, cascade="all, delete-orphan"
-                                )
+    user_surveys = relationship('Survey', back_populates='survey_user', lazy=True, cascade="all, delete-orphan")
+
 
     __table_args__ = (
             Index('idx_user_id', 'id'),
