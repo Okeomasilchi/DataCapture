@@ -71,6 +71,13 @@ class DBStorage:
         if obj is not None:
             self.__session.delete(obj)
 
+    def exist(self, str=None):
+        if str:
+            if self.__session.query(User).filter_by(email=str).first():
+                return True
+            else:
+                return False
+
     def reload(self):
         """reloads data from the database"""
         Base.metadata.create_all(self.__engine)
