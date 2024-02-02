@@ -2,8 +2,6 @@
 
 from flask import abort, request
 import json as js
-from flask import abort, request
-import json as js
 import re
 
 
