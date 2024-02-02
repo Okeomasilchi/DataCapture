@@ -32,13 +32,11 @@ def get_survey_by_id(survey_id):
 
 @survey_views.route("users/survey/<user_id>", methods=["GET"], strict_slashes=False)
 def get_survey_by_user_id(user_id):
+    user = storage.get(User, user_id)
 
+    if not user:
+        abort(404)
     try:
-        user = storage.get(User, user_id)
-
-        if not user:
-            abort(404)
-
         surveys = user.user_surveys
         return js([survey.to_dict() for survey in surveys])
     except Exception as e:
