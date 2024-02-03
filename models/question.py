@@ -23,9 +23,9 @@ class Question(BaseModel, Base):
     question = Column(Text, nullable=False)
     options = Column(JSON, nullable=False)
     survey_id = Column(String(60), ForeignKey('surveys.id'), nullable=False)
-    random = Column(Boolean, nullable=False, default=False)
+    random = Column(Boolean, default=False)
     survey = relationship('Survey', back_populates='questions',
-                          cascade="all, delete-orphan", single_parent=True
+                          cascade="all, delete", single_parent=True
                           )
 
     def __init__(self, *args, **kwargs):

@@ -31,9 +31,6 @@ def create_question():
         )
         item["options"] = js(item["options"])
 
-    if type(data["questions"]) is not list:
-        return js({"error": "questions must be a list"}), 400
-
     data.pop("id", None)
     data.pop("created_at", None)
     data.pop("updated_at", None)
@@ -46,6 +43,9 @@ def create_question():
     """
     
     # {"question": "", "options": "", "survey_id": ""}
+    [{'question': 'What is your favorite color?', 'options': ['Red', 'Blue', 'Green'], 'survey_id': 1},
+    {'question': 'How often do you exercise?', 'options': ['Every day', 'Once a week', 'Rarely']},
+    {'question': 'Do you prefer cats or dogs?', 'options': ['Cats', 'Dogs'], 'survey_id': 2}]
     try:
         for que in data:
             que["survey_id"] = survey_id
