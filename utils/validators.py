@@ -42,3 +42,15 @@ def validate_password(password):
         abort(400, "Password should contain at least one special character")
 
     return True
+
+
+def pop_dict(data=dict, values=list):
+    if not data or type(data) is not dict :
+        raise ValueError("data must be a non empty dictionary")
+    elif not values or type(values) is not list:
+        raise ValueError("values must be a non empty list")
+
+    for value in values:
+        data.pop(value, None)
+    
+    return data

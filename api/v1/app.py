@@ -23,6 +23,7 @@ load_dotenv("./.env")
 
 app = Flask(__name__)
 
+
 @app.after_request
 def apply_caching(response):
     """
@@ -33,9 +34,10 @@ def apply_caching(response):
 
     return response
 
+
 cors = CORS(app, resources={r"/api/v1/*": {"origins": "http://0.0.0.0"}})
 
-url_prefix = '/api/v1'
+url_prefix = "/api/v1"
 
 
 app.register_blueprint(customcategory_views, url_prefix=url_prefix)
@@ -71,6 +73,7 @@ def error_404(error):
     """
     return js({"error": "Not found"}), 404
 
+
 @app.errorhandler(500)
 def error_500(error):
     """
@@ -79,13 +82,24 @@ def error_500(error):
     """
     return js({"error": "Internal Server Error"}), 500
 
+
 @app.errorhandler(400)
 def error_400(error):
     """
     returns a JSON response with an
     error message and a status code of 400.
     """
-    return js({"error": f"{error}".split(':')[1]}), 400
+    return js({"error": f"{error}".split(":")[1]}), 400
+
+
+@app.errorhandler(405)
+def error_400(error):
+    """
+    returns a JSON response with an
+    error message and a status code of 400.
+    """
+    return js({"error": "Method Not Allowed"}), 405
+
 
 @app.errorhandler(409)
 def error_400(error):
@@ -93,7 +107,8 @@ def error_400(error):
     returns a JSON response with an
     error message and a status code of 409.
     """
-    return js({"error": f"{error}".split(':')[1]}), 409
+    return js({"error": f"{error}".split(":")[1]}), 409
+
 
 if __name__ == "__main__":
     host = os.environ.get("HOST", "0.0.0.0")

@@ -29,7 +29,7 @@ class Survey(BaseModel, Base):
     title = Column(String(255), nullable=False)
     description = Column(Text, nullable=False)
     expiry_date = Column(Date, default=lambda: datetime.utcnow().date() + timedelta(days=365))
-    visibility = Column(Boolean, nullable=False, default=False)
+    visibility = Column(Boolean, nullable=False, default=True)
     randomize = Column(Boolean, nullable=False,default=False)
     question_type = Column(String(120), nullable=False)
     survey_user = relationship('User', back_populates='user_surveys', overlaps="survey_user_backref")

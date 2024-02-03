@@ -13,7 +13,8 @@ import datetime
 from models import storage
 from models.survey import Survey
 from models.user import User
-from utils.validators import parse_dict
+from models.question import Question
+from utils.validators import parse_dict, pop_dict
 from utils.error import log_error
 
 
@@ -25,7 +26,9 @@ def get_survey_by_id(survey_id):
         abort(404)
 
     try:
-        return js(survey.to_dict())
+        data = survey.to_dict()
+        data["questions"] = [question.to_dict() for question in survey.questions]
+        return js(data)
     except Exception as e:
         log_error("survey/<survey_id>['GET']", e.args, type(e).__name__, e)
         abort(500)
@@ -57,48 +60,59 @@ def create_survey_by_id():
         status_code=400,
     )
 
-    {
-        "questions": [
-            {
-                "question": "What is your favorite color?",
-                "options": ["Red", "Blue", "Green"],
-                "random": True,
-            },
-            {
-                "question": "How often do you exercise?",
-                "options": ["Every day", "Once a week", "Rarely"],
-                "random": False,
-            },
-            {
-                "question": "Do you prefer cats or dogs?",
-                "options": ["Cats", "Dogs"],
-                "random": True,
-            },
-        ],
-        "user_id": "09e394eb-2810-49d3-9024-2d154f1ee5cb",
-        "description": "This is a survey",
-        "question_type": "multiple_choice",
-        "title": "Just a survey",
-    }
-
     if not storage.get(User, data["user_id"]):
         return js({"error": "User not found"}), 404
 
     if type(data["questions"]) is not list:
         return js({"error": "questions must be a list"}), 400
 
-    g.questions = data["questions"]
-    data.pop("questions", None)
-    data.pop("id", None)
-    data.pop("created_at", None)
-    data.pop("updated_at", None)
+    questions = data["questions"]
+    data = pop_dict(data, ["id", "created_at", "updated_at", "questions"])
 
     try:
         survey = Survey(**data)
         survey.save()
-        g.survey_id = survey.to_dict()["id"]
-        return redirect("/survey/question", code=307)
+        survey_id = survey.to_dict()
+        survey_id = survey_id["id"]
+        print(survey_id)
+        for item in questions:
+            item["survey_id"] = survey_id
+            parse_dict(
+                item,
+                ["question", "options", "survey_id", "random"],
+                status_code=400,
+            )
+            pop_dict(item, ["id", "created_at", "updated_at"])
+            item["options"] = js(item["options"])
+            item = Question(**item)
+            item.save()
     except Exception as e:
-        print(e)
         log_error('/survey["POST"]', e.args, type(e).__name__, e)
         abort(500)
+    else:
+        return js(survey.to_dict()), 201
+
+
+{
+    "questions": [
+        {
+            "question": "What is your favorite color?",
+            "options": ["Red", "Blue", "Green"],
+            "random": True,
+        },
+        {
+            "question": "How often do you exercise?",
+            "options": ["Every day", "Once a week", "Rarely"],
+            "random": False,
+        },
+        {
+            "question": "Do you prefer cats or dogs?",
+            "options": ["Cats", "Dogs"],
+            "random": True,
+        },
+    ],
+    "user_id": "09e394eb-2810-49d3-9024-2d154f1ee5cb",
+    "description": "This is a survey",
+    "question_type": "multiple_choice",
+    "title": "Just a survey",
+}
