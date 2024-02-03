@@ -8,6 +8,7 @@ import models
 from os import getenv
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
+from json import loads as jl
 import uuid
 
 time = "%Y-%m-%dT%H:%M:%S.%f"
@@ -67,6 +68,9 @@ class BaseModel:
         if "expiry_date" in new_dict:
             new_dict["expiry_date"] = str(new_dict["expiry_date"])
         new_dict["__class__"] = self.__class__.__name__
+        
+        if new_dict["__class__"] == "Question" and "options" in new_dict:
+            new_dict["options"] = jl(new_dict["options"])
         if "_sa_instance_state" in new_dict:
             del new_dict["_sa_instance_state"]
         if getenv("DC_TYPE_STORAGE") == "db":

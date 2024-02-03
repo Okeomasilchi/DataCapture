@@ -6,10 +6,9 @@ Models for the routes of the reviews_views
 """
 
 
-from flask import abort, request, url_for, redirect, g
+from flask import abort, request
 from json import dumps as js
 from api.v1.views import survey_views
-import datetime
 from models import storage
 from models.survey import Survey
 from models.user import User
@@ -43,6 +42,21 @@ def get_survey_by_user_id(user_id):
     try:
         surveys = user.user_surveys
         return js([survey.to_dict() for survey in surveys])
+    except Exception as e:
+        log_error("users/survey/<user_id>['GET']", e.args, type(e).__name__, e)
+        abort(500)
+
+
+@survey_views.route("/survey/<survey_id>", methods=["DELETE"], strict_slashes=False)
+def delete_survey_by_id(survey_id):
+    survey = storage.get(Survey, survey_id)
+
+    if not survey:
+        abort(404)
+    try:
+        survey.delete()
+        storage.save()
+        return js({}), 204
     except Exception as e:
         log_error("users/survey/<user_id>['GET']", e.args, type(e).__name__, e)
         abort(500)
@@ -93,26 +107,36 @@ def create_survey_by_id():
         return js(survey.to_dict()), 201
 
 
-{
-    "questions": [
-        {
-            "question": "What is your favorite color?",
-            "options": ["Red", "Blue", "Green"],
-            "random": True,
-        },
-        {
-            "question": "How often do you exercise?",
-            "options": ["Every day", "Once a week", "Rarely"],
-            "random": False,
-        },
-        {
-            "question": "Do you prefer cats or dogs?",
-            "options": ["Cats", "Dogs"],
-            "random": True,
-        },
-    ],
-    "user_id": "09e394eb-2810-49d3-9024-2d154f1ee5cb",
-    "description": "This is a survey",
-    "question_type": "multiple_choice",
-    "title": "Just a survey",
-}
+# {
+#     "created_at": "2024-01-31 14:05:49",
+#     "id": "1bb7123c-eea0-41dd-b914-acc0f8e5035a",
+#     "title": "teching and teching techniques",
+#     "expiry_date": "2024-03-12",
+#     "randomize": true,
+#     "updated_at": "2024-01-31 14:05:49",
+#     "user_id": "08c2c669-15b5-4e0a-951b-92d17c27a370",
+#     "description": "omoku",
+#     "visibility": false,
+#     "question_type": "user prefrence",
+#     "questions": [
+#         {
+#             "question": "what is your name",
+#             "options": [
+#                 "okeoma",
+#                 "silachi",
+#                 "here"
+#             ],
+#             "random": true
+#         },
+#         {
+#             "question": "who is obu?",
+#             "options": [
+#                 "a girl",
+#                 "a boy",
+#                 "a lady",
+#                 "none"
+#             ],
+#             "random": true
+#         }
+#     ]
+# }
