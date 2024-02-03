@@ -26,7 +26,7 @@ def get_survey_by_id(survey_id):
     try:
         return js(survey.to_dict())
     except Exception as e:
-        log_error("survey/<survey_id>", e.args, type(e).__name__, e)
+        log_error("survey/<survey_id>['GET']", e.args, type(e).__name__, e)
         abort(500)
 
 
@@ -40,24 +40,8 @@ def get_survey_by_user_id(user_id):
         surveys = user.user_surveys
         return js([survey.to_dict() for survey in surveys])
     except Exception as e:
-        log_error("users/survey/<user_id>", e.args, type(e).__name__, e)
+        log_error("users/survey/<user_id>['GET']", e.args, type(e).__name__, e)
         abort(500)
-
-
-
-{
-    "updated_at": "2024-01-31 14:06:04",
-    "user_id": "0fd512fa-8fbb-4f15-b2c0-314f696f4b2f",
-    "description": "Description for Survey 5",
-    "visibility": true,
-    "question_type": "Open-ended",
-    "id": "07138bdd-fcc8-4f19-8802-c4aa1f1c10f0",
-    "created_at": "2024-01-31 14:06:04",
-    "title": "Survey 5 for User 2",
-    "expiry_date": "2024-04-24",
-    "randomize": false,
-    "__class__": "Survey"
-}
 
 
 @survey_views.route("/survey", methods=["POST"], strict_slashes=False)
@@ -66,18 +50,19 @@ def create_survey_by_id(survey_id):
         return js({"error": "Not a JSON"}), 400
 
     data = request.get_json()
-    parse_dict(data, ["email", "password", "first_name", "last_name"],
-               status_code=400)
-    
-    if storage.exist(data["email"]):
-        abort(409, "User exists")
+    parse_dict(data,
+               ["user_id", "description", "question_type", "title"],
+               status_code=400
+               )
 
-    if validate_password(data.get("password", None)):
-        data["password"] = md5(data.pop("password", None).encode()).hexdigest()
+    data.pop("id", None)
+    data.pop("created_at", None)
+    data.pop("updated_at", None)
 
     try:
-        instance = User(**data)
+        instance = Survey(**data)
         instance.save()
         return js(instance.to_dict()), 201
-    except Exception as e:  # noqa
+    except Exception as e:
+        log_error('/survey["POST"]', e.args, type(e).__name__, e)
         abort(500)

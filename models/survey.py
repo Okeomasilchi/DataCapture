@@ -3,6 +3,7 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, ForeignKey, String, Text, Date, Boolean, Index
 from sqlalchemy.orm import relationship
+from datetime import datetime, timedelta, timezone
 
 
 class Survey(BaseModel, Base):
@@ -27,9 +28,9 @@ class Survey(BaseModel, Base):
     user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
     title = Column(String(255), nullable=False)
     description = Column(Text, nullable=False)
-    expiry_date = Column(Date)
-    visibility = Column(Boolean, nullable=False)
-    randomize = Column(Boolean, nullable=False)
+    expiry_date = Column(Date, default=lambda: datetime.utcnow().date() + timedelta(days=365))
+    visibility = Column(Boolean, nullable=False, default=False)
+    randomize = Column(Boolean, nullable=False,default=False)
     question_type = Column(String(120), nullable=False)
     survey_user = relationship('User', back_populates='user_surveys', overlaps="survey_user_backref")
     questions = relationship('Question', back_populates='survey')
