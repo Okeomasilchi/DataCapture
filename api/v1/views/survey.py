@@ -6,7 +6,7 @@ Models for the routes of the reviews_views
 """
 
 
-from flask import abort, request, url_for, redirect
+from flask import abort, request, url_for, redirect, g
 from json import dumps as js
 from api.v1.views import survey_views
 import datetime
@@ -46,7 +46,7 @@ def get_survey_by_user_id(user_id):
 
 
 @survey_views.route("/survey", methods=["POST"], strict_slashes=False)
-def create_survey_by_id(survey_id):
+def create_survey_by_id():
     if not request.is_json:
         return js({"error": "Not a JSON"}), 400
 
@@ -57,10 +57,38 @@ def create_survey_by_id(survey_id):
         status_code=400,
     )
 
+    {
+        "questions": [
+            {
+                "question": "What is your favorite color?",
+                "options": ["Red", "Blue", "Green"],
+                "random": True,
+            },
+            {
+                "question": "How often do you exercise?",
+                "options": ["Every day", "Once a week", "Rarely"],
+                "random": False,
+            },
+            {
+                "question": "Do you prefer cats or dogs?",
+                "options": ["Cats", "Dogs"],
+                "random": True,
+            },
+        ],
+        "user_id": "09e394eb-2810-49d3-9024-2d154f1ee5cb",
+        "description": "This is a survey",
+        "question_type": "multiple_choice",
+        "title": "Just a survey",
+    }
+
+    if not storage.get(User, data["user_id"]):
+        return js({"error": "User not found"}), 404
+
     if type(data["questions"]) is not list:
         return js({"error": "questions must be a list"}), 400
 
-    questions = data.pop("questions", None)
+    g.questions = data["questions"]
+    data.pop("questions", None)
     data.pop("id", None)
     data.pop("created_at", None)
     data.pop("updated_at", None)
@@ -68,12 +96,9 @@ def create_survey_by_id(survey_id):
     try:
         survey = Survey(**data)
         survey.save()
-        survey_id = survey.to_dict()["id"]
-        return redirect(
-            url_for("question_views.survey/question"),
-            questions=questions,
-            survey_id=survey_id,
-        )
+        g.survey_id = survey.to_dict()["id"]
+        return redirect("/survey/question", code=307)
     except Exception as e:
+        print(e)
         log_error('/survey["POST"]', e.args, type(e).__name__, e)
         abort(500)
