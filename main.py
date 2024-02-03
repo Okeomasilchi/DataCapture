@@ -1,4 +1,4 @@
-from flask import Flask, url_for, Blueprint, jsonify, redirect
+from flask import Flask, url_for, Blueprint, jsonify, redirect, request
 
 app = Flask(__name__)
 
@@ -9,7 +9,7 @@ bp2 = Blueprint('bp2', __name__)
 # First blueprint
 @bp1.route('/route1')
 def route1():
-    data_to_pass = {"message": "Hello from Route 1", "status": "success"}
+    data_to_pass = {"message": "Hello from Route 1"}
     return redirect(url_for('bp2.route2', data=data_to_pass))
 
 # Second blueprint
