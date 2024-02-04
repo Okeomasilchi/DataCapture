@@ -8,6 +8,7 @@ import models
 from os import getenv
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
+from json import loads as jl
 import uuid
 
 time = "%Y-%m-%dT%H:%M:%S.%f"
@@ -48,8 +49,11 @@ class BaseModel:
 
     def __str__(self):
         """String representation of the BaseModel class"""
+        data = self.__dict__
+        if "_sa_instance_state" in data:
+            del data["_sa_instance_state"]
         return "[{:s}] ({:s}) {}".format(self.__class__.__name__, self.id,
-                                         self.__dict__)
+                                         data)
 
     def save(self):
         """updates the attribute 'updated_at' with the current datetime"""
@@ -61,10 +65,18 @@ class BaseModel:
         """returns a dictionary containing all keys/values of the instance"""
         new_dict = self.__dict__.copy()
         if "created_at" in new_dict:
-            new_dict["created_at"] = new_dict["created_at"].strftime(time)
+            new_dict["created_at"] = str(new_dict["created_at"])
         if "updated_at" in new_dict:
-            new_dict["updated_at"] = new_dict["updated_at"].strftime(time)
+            new_dict["updated_at"] = str(new_dict["updated_at"])
+        if "expiry_date" in new_dict:
+            new_dict["expiry_date"] = str(new_dict["expiry_date"])
         new_dict["__class__"] = self.__class__.__name__
+        
+        if new_dict["__class__"] == "Question" and "options" in new_dict:
+            try:
+                new_dict["options"] = jl(new_dict["options"])
+            except Exception as e:
+                pass
         if "_sa_instance_state" in new_dict:
             del new_dict["_sa_instance_state"]
         if getenv("DC_TYPE_STORAGE") == "db":

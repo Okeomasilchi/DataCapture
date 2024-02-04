@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# Specify the path to your Flask application
+FLASK_APP_PATH="/path/to/your/app"
+
+# Specify the name of the Flask application module
+FLASK_APP_MODULE="api.v1.app"
+
+# Initialize PID to an unlikely value
+PID=-1
+
+while true; do
+    # Check if the user has entered "exit"
+    read -t 1 -n 4 input
+    if [ "$input" == "exit" ]; then
+        # Terminate the Flask instance gracefully
+        pkill -9 -f "python3 -m $FLASK_APP_MODULE"
+        echo "
+        Terminating the script gracefully."
+        exit 0
+    fi
+
+    # Check if the Flask instance is running
+    if pgrep -f "python3 -m $FLASK_APP_MODULE" >/dev/null; then
+        CURRENT_PID=$(pgrep -o -f "python3 -m $FLASK_APP_MODULE")
+
+        # Check if PID has changed
+        if [ "$PID" != "$CURRENT_PID" ]; then
+            PID="$CURRENT_PID"
+            echo "Flask instance is already running with PID $PID."
+        fi
+    else
+        echo "Flask instance is not running. Restarting in 2 seconds..."
+        
+        # Wait for 2 seconds
+        sleep 2
+        
+        # Restart the Flask instance
+        nohup python3 -m $FLASK_APP_MODULE > /dev/null 2>&1 &
+        PID=$!
+        
+        echo "Flask instance restarted with PID $PID."
+    fi
+    
+    # Wait for a while before checking again
+    sleep 1
+done

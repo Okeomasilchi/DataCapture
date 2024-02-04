@@ -1,2 +1,2 @@
 # Data_Capture
-An for survey and data collection
+An app for survey and data collection
