@@ -58,7 +58,7 @@ def delete_survey_by_id(survey_id):
         storage.save()
         return js({}), 204
     except Exception as e:
-        log_error("users/survey/<user_id>['GET']", e.args, type(e).__name__, e)
+        log_error("survey/<user_id>['DELETE']", e.args, type(e).__name__, e)
         abort(500)
 
 
