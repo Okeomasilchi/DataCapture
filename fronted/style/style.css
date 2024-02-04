@@ -1,0 +1,140 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.contact img,
+.logo img {
+  width: 20px;
+  height: 20px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  /* border-top: 1px solid #000; */
+}
+
+.survey {
+  display: box;
+  justify-content: center;
+  width: 34%;
+  height: 100vh;
+  border-right: 1px solid #000;
+  border-top: 1px solid #000;
+  align-content: center;
+}
+
+.div2 {
+  /* display: flex; */
+  justify-content: space-between;
+  background-color: #f3f4f5;
+  border-top: 1px solid #000;
+  width: 66%;
+  border-width: 34%;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  background-color: #f3f4f5;
+  border-bottom: 1px solid #000;
+}
+
+.description {
+  display: flex;
+  margin-top: 20px;
+  /* justify-content: center; */
+  align-items: center;
+  height: 100px;
+  background-color: #f3f4f5;
+  border-bottom: 1px solid #000;
+}
+
+.expiration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  margin-top: 20px;
+  background-color: #f3f4f5;
+  border-bottom: 1px solid #000;
+}
+
+.category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  margin-top: 20px;
+  background-color: #f3f4f5;
+  border-bottom: 1px solid #000;
+}
+
+.remove {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  margin-top: 20px;
+  background-color: #f3f4f5;
+  border-bottom: 1px solid #000;
+}
+
+.checkbox {
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* height: 30px; */
+  /* background-color: #f3f4f5; */
+  /* border-bottom: 1px solid #000; */
+  margin: 0 auto;
+}
+
+.save {
+  align-items: center;
+  margin-right: 50%;
+}
+
+.question {
+  display: column;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  margin: 20px;
+  background-color: #f3f4f5;
+}
+
+.questiontype {
+  display: column;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  margin-top: 20px;
+  background-color: #f3f4f5;
+  /* border-bottom: 1px solid #000; */
+}
+
+.choices {
+  display: row;
+  justify-content: right;
+  align-items: right;
+  height: 30px;
+  margin: 20px;
+  margin-block: 50%;
+  /* background-color: #f3f4f5; */
+}
+
+.optiontype {
+  /* display: row; */
+  /* justify-content: center; */
+  align-items: center;
+  /* height: 30px; */
+  margin-bottom: 10px;
+  background-color: #f3f4f5;
+  /* border-bottom: 1px solid #000; */
+}
