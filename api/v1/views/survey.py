@@ -108,20 +108,18 @@ def create_survey_by_id():
         return js(survey.to_dict()), 201
 
 
-
-
 @survey_views.route("/survey/<survey_id>", methods=["PUT"], strict_slashes=False)
 def update_survey_by_id(survey_id):
     if not request.is_json:
         return js({"error": "Not a JSON"}), 400
-    
+
     survey = storage.get(Survey, survey_id)
     if not survey:
         abort(404)
-    
+
     data = request.get_json()
     data = pop_dict(data, ["id", "created_at", "updated_at", "questions", "user_id"])
-    
+
     for key, value in data.items():
         setattr(survey, key, value)
 
@@ -130,6 +128,7 @@ def update_survey_by_id(survey_id):
         return js(survey.to_dict()), 200
     except Exception as e:
         abort(500)
+
 
 # {
 #     "created_at": "2024-01-31 14:05:49",
