@@ -118,7 +118,7 @@ def update_survey_by_id(survey_id):
         abort(404)
 
     data = request.get_json()
-    data = pop_dict(data, ["id", "created_at", "updated_at", "questions", "user_id"])
+    data = pop_dict(data, ["__class__", "id", "created_at", "updated_at", "questions", "user_id"])
 
     for key, value in data.items():
         setattr(survey, key, value)
@@ -127,20 +127,21 @@ def update_survey_by_id(survey_id):
         survey.save()
         return js(survey.to_dict()), 200
     except Exception as e:
-        abort(500)
+        log_error('/survey/<survey_id>["PUT"]', e.args, type(e).__name__, e)
+
 
 
 # {
 #     "created_at": "2024-01-31 14:05:49",
 #     "id": "1bb7123c-eea0-41dd-b914-acc0f8e5035a",
-#     "title": "teching and teching techniques",
+#     "title": "teaching and teaching techniques",
 #     "expiry_date": "2024-03-12",
 #     "randomize": true,
 #     "updated_at": "2024-01-31 14:05:49",
 #     "user_id": "08c2c669-15b5-4e0a-951b-92d17c27a370",
 #     "description": "omoku",
 #     "visibility": false,
-#     "question_type": "user prefrence",
+#     "question_type": "user preference",
 #     "questions": [
 #         {
 #             "question": "what is your name",
