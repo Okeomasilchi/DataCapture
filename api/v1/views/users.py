@@ -12,6 +12,7 @@ from api.v1.views import user_views
 from models import storage
 from models.user import User
 from utils.validators import parse_dict, validate_password
+from utils.error import log_error
 
 @user_views.route("/users", methods=["GET"], strict_slashes=False)
 def get_all_users():
@@ -27,6 +28,7 @@ def get_all_users():
 
         return js([user.to_dict() for user in users])
     except Exception as e:  # noqa
+        log_error("/users['GET']", e.args, type(e).__name__, e)
         abort(500)
 
 
@@ -39,8 +41,13 @@ def get_single_user(user_id):
     user = storage.get(User, user_id)
     if not user:
         abort(404)
-    return js(user.to_dict())
 
+    try:
+        return js(user.to_dict())    
+    except Exception as e:
+        log_error('/users/<user_id>', e.args, type(e).__name__, e)
+        abort(500)
+    
 
 @user_views.route("/users/<user_id>", methods=["DELETE"], strict_slashes=False)
 def delete_user(user_id):
