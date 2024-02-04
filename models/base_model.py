@@ -49,8 +49,11 @@ class BaseModel:
 
     def __str__(self):
         """String representation of the BaseModel class"""
+        data = self.__dict__
+        if "_sa_instance_state" in data:
+            del data["_sa_instance_state"]
         return "[{:s}] ({:s}) {}".format(self.__class__.__name__, self.id,
-                                         self.__dict__)
+                                         data)
 
     def save(self):
         """updates the attribute 'updated_at' with the current datetime"""
@@ -70,7 +73,10 @@ class BaseModel:
         new_dict["__class__"] = self.__class__.__name__
         
         if new_dict["__class__"] == "Question" and "options" in new_dict:
-            new_dict["options"] = jl(new_dict["options"])
+            try:
+                new_dict["options"] = jl(new_dict["options"])
+            except Exception as e:
+                pass
         if "_sa_instance_state" in new_dict:
             del new_dict["_sa_instance_state"]
         if getenv("DC_TYPE_STORAGE") == "db":
