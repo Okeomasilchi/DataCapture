@@ -6,14 +6,14 @@ Models for the routes of the reviews_views
 """
 
 
-from flask import abort, request
+from flask import abort, request, redirect, url_for, session
 from json import dumps as js
 from api.v1.views import survey_views
 from models import storage
 from models.survey import Survey
 from models.user import User
 from models.question import Question
-from utils.validators import parse_dict, pop_dict
+from utils.validators import parse_dict, pop_dict, check_keys
 from utils.error import log_error
 
 
@@ -118,17 +118,31 @@ def update_survey_by_id(survey_id):
         abort(404)
 
     data = request.get_json()
-    data = pop_dict(data, ["__class__", "id", "created_at", "updated_at", "questions", "user_id"])
 
-    for key, value in data.items():
-        setattr(survey, key, value)
+    questions = data.pop("questions", None)
+    if questions:
+        session["question"] = questions
+
+    data = pop_dict(data, ["__class__", "id", "created_at", "updated_at", "user_id"])
+
+    if check_keys(data, mode="survey"):
+        for key, value in data.items():
+            setattr(survey, key, value)
+
+        survey.save()
+
+    if questions:
+        return redirect(
+            url_for("question_views.update_questions", survey_id=survey_id),
+            code=307,
+        )
 
     try:
-        survey.save()
-        return js(survey.to_dict()), 200
+        return redirect(
+            url_for("survey_views.get_survey_by_id", survey_id=survey_id)
+        )
     except Exception as e:
         log_error('/survey/<survey_id>["PUT"]', e.args, type(e).__name__, e)
-
 
 
 # {

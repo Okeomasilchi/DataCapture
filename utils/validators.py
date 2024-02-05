@@ -23,7 +23,8 @@ def parse_dict(args, fields=[], message=[], status_code=0):
         if field not in args and message:
             abort(status_code, message)
 
-    return True          
+    return True
+
 
 def validate_password(password):
     """
@@ -45,12 +46,42 @@ def validate_password(password):
 
 
 def pop_dict(data=dict, values=list):
-    if not data or type(data) is not dict :
+    if not data or type(data) is not dict:
         raise ValueError("data must be a non empty dictionary")
     elif not values or type(values) is not list:
         raise ValueError("values must be a non empty list")
 
     for value in values:
         data.pop(value, None)
-    
+
     return data
+
+
+def check_keys(dictionary, mode="None"):
+    """
+    Check if any key from the list is present in the dictionary.
+
+    Parameters:
+    - dictionary: The dictionary to check.
+    - keys_to_check: A list of keys to check.
+
+    Returns:
+    - True if any key is present, False otherwise.
+    """
+    if mode == "None":
+        raise ValueError("Mode not specified")
+
+    survey = ["title", "description", "expiry_date", "visibility", "randomize", "question_type"]
+    question = ["question", "options", "random"]
+    user = ["password"]
+
+    if mode == "survey":
+        keys_to_check = survey
+    elif mode == "question":
+        keys_to_check = question
+    elif mode == "user":
+        keys_to_check = user
+    else:
+        raise ValueError("Invalid mode")
+
+    return any(key in dictionary for key in keys_to_check)
