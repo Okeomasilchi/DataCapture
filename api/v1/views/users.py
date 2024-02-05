@@ -10,6 +10,7 @@ from hashlib import md5
 from json import dumps as js
 from api.v1.views import user_views
 from models import storage
+from utils.validators import pop_dict
 from models.user import User
 from utils.validators import parse_dict, validate_password
 from utils.error import log_error
@@ -109,10 +110,7 @@ def update_user(user_id):
         abort(400, "Not a JSON")
 
     data = request.get_json()
-    data.pop("id", None)
-    data.pop("created_at", None)
-    data.pop("updated_at", None)
-    data.pop("email", None)
+    data = pop_dict(data, ["__class__", "id", "created_at", "updated_at", "email"])
 
     if validate_password(data.get("password", None)):
         data["password"] = md5(data.pop("password", None).encode()).hexdigest()
