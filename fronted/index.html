@@ -17,40 +17,70 @@
             <div class="survey">
                 <h1>Survey Details</h1>
                 <input type="text" placeholder="Title" class="title">
-                <input type="text" placeholder="Description" class="description">
+                <textarea placeholder="Description" class="description" rows="4" cols="68"></textarea>
                 <input type="text" placeholder="Expiration date" class="expiration">
-                <input type="text" placeholder="Add Category" class="category">
-                <input type="text" placeholder="Remove Question" class="remove"><br>
-                <input type="checkbox" class="checkbox"><label>Randomize Questions</label><br>
+                <div class="input-container">
+                    <div class="add-remove">
+                        <input type="text" placeholder="Add Question" class="add">
+                        <button class="btn">+</button>
+                    </div>
+                    <div class="add-remove">
+                        <input type="text" placeholder="Remove Question" class="remove">
+                        <button class="btn">-</button>
+                    </div>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" class="checkbox">
+                    <label>Randomize Questions</label>
+                </div>
                 <button class="save">Save</button>
             </div>
 
-            <div class="div2">
-                <h1>Question Details</h1>
-                <div class="question">
-                    <label>Questions</label>
-                    <textarea rows="10" cols="50" placeholder="Type Question"></textarea><br>
-                    <select name="questiontype" id="questiontype">
-                        <option value="multiple">Multiple Type</option>
-                        <option value="userdefined">User defined</option>
-                <div>
-                
+            <div class="question-section">
+                <div class="top-section">
+                    <div class="heading">
+                        <h1>Question</h1>
+                    </div>
+                    <div>
+                        <textarea class="questionTextarea" rows="15" cols="50" placeholder="Type Question"></textarea>
+                    </div>
+
+                    <div class="question-type">
+                        <select class='questiontype' name="questiontype" id="questiontype">
+                            <option value="" disabled selected>Question Type</option>
+                            <option value="multiple">Multiple Type</option>
+                            <option value="userdefined">User defined</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="bottom-section">
+                    <div class="heading">
+                        <h1>Options</h1>
+                    </div>
                     <div class="choices">
-                        <label>Options</label><br>
-                        <input type="text" placeholder="Option 1" class="option"><br>
-                        <input type="text" placeholder="Option 2" class="option"><br>
-                        <input type="text" placeholder="Option 3" class="option"><br>
-                        <input type="checkbox" class="checkbox"><label>Randomize Options</label><br>
-                        <button class="add">Add</button>
-                    <!-- </div> -->
-                    <!-- <div class = "optiontype"> -->
-                        <p><label>Option Type</label></p>
-                        <select name="optiontype" id="optiontype">
+                        <input type="text" placeholder="Option 1" class="option">
+                        <input type="text" placeholder="Option 2" class="option">
+                        <input type="text" placeholder="Option 3" class="option">
+
+                        <button class="add-btn">+</button>
+                    </div>
+                    <div class="option-type">
+                        <select class="optiontype" name="optiontype" id="optiontype">
+                            <option value="" disabled selected>Option Type</option>
                             <option value="A">A, B, C, ...</option>
                             <option value="a">a, b, c, ...</option>
                             <option value="1">1, 2, 3, ...</option>
                             <option value="i">i, ii, iii, ...</option>
                             <option value="...">..., ...</option>
+                        </select>
+                        <div class="checkbox-container">
+                            <input type="checkbox" class="checkbox">
+                            <label>Randomize Options</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
 

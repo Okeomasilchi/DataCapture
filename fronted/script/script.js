@@ -1,17 +1,24 @@
-        fetch('header.html')
-            .then(response => response.text())
-            .then(data => document.body.insertAdjacentHTML('afterbegin', data))
-            .catch(error => console.error('Error fetching header:', error));
-    function populateDropdown() {
-        var optiontype = ['A, B, C, ...', 'a, b, c, ...', '1, 2, 3, ...', 'I, II, III, ...', 'i, ii, iii, ...', 'α, β, γ, ...', 'Α, Β, Γ, ...', 'a, b, c, ...', 'A, B, C, ...', '1, 2, 3, ...', 'I, II, III, ...', 'i, ii, iii, ...', 'α, β, γ, ...', 'Α, Β, Γ, ...', 'a, b, c, ...', 'A, B, C, ...', '1, 2, 3, ...', 'I, II, III, ...', 'i, ii, iii, ...', 'α, β, γ, ...', 'Α, Β, Γ, ...', 'a, b, c, ...', 'A, B, C, ...', '1, 2, 3, ...', 'I, II, III, ...', 'i, ii, iii, ...', 'α, β, γ, ...', 'Α, Β, Γ, ...', 'a, b, c, ...', 'A, B, C, ...', '1, 2, 3, ...', 'I, II, III, ...', 'i, ii, iii, ...', 'α, β, γ, ...', 'Α, Β, Γ, ...', 'a, b, c, ...', 'A, B, C, ...', '1, 2, 3, ...', 'I, II, III, ...', 'i, ii, iii, ...', 'α, β, γ, ...', 'Α, Β, Γ, ...', 'a, b, c, ...', 'A, B, C, ...', '1, 2, 3, ...', 'I, II, III, ...', 'i, ii, iii, ...', 'α, β, γ, ...', 'Α, Β, Γ, ...', 'a, b, c, ...', 'A, B, C, ...', '1, 2, 3, ...', 'i, ii, iii, ...', '...'];
-        var dropdown = document.getElementById('dropdown');
-        for (var i = 0; i < optiontype.length; i++) {
-            var option = document.createElement('option');
-            option.text = optiontype[i];
-            dropdown.appendChild(option);
+document.addEventListener('DOMContentLoaded', (event) => {
+    fetch('header.html')
+        .then(response => response.text())
+        .then(data => document.body.insertAdjacentHTML('afterbegin', data))
+        .catch(error => console.error('Error fetching header:', error));
+
+    // Get the select box and the bottom section
+    var selectBox = document.getElementById('questiontype');
+    var bottomSection = document.querySelector('.bottom-section');
+
+    // Hide the bottom section initially
+    bottomSection.style.display = 'none';
+
+    // Listen for changes on the select box
+    selectBox.addEventListener('change', function() {
+        // If the selected value is 'multiple', show the bottom section
+        if (this.value === 'multiple') {
+            bottomSection.style.display = 'flex';
+        } else {
+            // Otherwise, hide it
+            bottomSection.style.display = 'none';
         }
-        //fetch('index.optiontype.html')
-         //   .then(response => response.text())
-         //   .then(data => document.getElementById('dropdown').insertAdjacentHTML('afterbegin', data))
-         //   .catch(error => console.error('Error fetching dropdown:', error));
-    }
+    });
+});
