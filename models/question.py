@@ -25,7 +25,7 @@ class Question(BaseModel, Base):
     survey_id = Column(String(60), ForeignKey('surveys.id'), nullable=False)
     random = Column(Boolean, default=False)
     survey = relationship('Survey', back_populates='questions',
-                          cascade="all, delete", single_parent=True
+                          single_parent=True
                           )
 
     def __init__(self, *args, **kwargs):

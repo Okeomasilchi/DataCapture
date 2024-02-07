@@ -60,7 +60,7 @@ def delete_question(survey_id):
         return {"error": "Not a JSON"}, 400
 
     if not storage.get(Survey, survey_id):
-        return {"404": "here 1"}, 404
+        abort(404)
 
     questions = request.get_json()["questions"]
 
@@ -71,11 +71,12 @@ def delete_question(survey_id):
         print(id)
         q = storage.get(Question, id)
         if not q:
-            return {"404": "here"}, 404
-        try:
-            q.delete()
-            storage.save()
-        except Exception as e:
-            return js({"error": f"Could'nt delete {q.to_dict()['id']}"}), 500
+            abort(404)
+        print(q.to_dict())
+        if q.id != id:
+            return {"error": "Invalid id"}, 400
+        storage.delete(q)
+
+    storage.save()
 
     return js({}), 204
