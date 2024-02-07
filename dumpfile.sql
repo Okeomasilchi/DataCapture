@@ -19,6 +19,8 @@
 -- Table structure for table `customcategory`
 --
 
+USE dc_dev_db;
+
 DROP TABLE IF EXISTS `customcategory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -58,7 +60,7 @@ CREATE TABLE `questions` (
   `question` text NOT NULL,
   `options` json NOT NULL,
   `survey_id` varchar(60) NOT NULL,
-  `random` tinyint(1) NOT NULL,
+  `random` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `survey_id` (`survey_id`),
   CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`survey_id`) REFERENCES `surveys` (`id`)
@@ -210,4 +212,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-31 15:56:47
+-- Dump completed on 2024-02-06 13:17:36
