@@ -1,0 +1,27 @@
+admin {
+    flex-direction: column;
+    width: 34%;
+    height: 100vh;
+    border: 1px solid #000;
+    align-content: center;
+    padding: 0 60px;
+
+}
+.admin-image {
+    /* border-radius: 50%; */
+    width: 200px;
+    height:auto;
+    float: left; 
+    margin-right: 10px;
+    padding: 10px;
+
+}
+
+.div2 {
+  margin-top: 50px;
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  width: 64%;
+  padding: 0 60px;
+}
