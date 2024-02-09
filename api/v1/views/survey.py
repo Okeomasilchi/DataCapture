@@ -19,6 +19,19 @@ from utils.error import log_error
 
 @survey_views.route("survey/<survey_id>", methods=["GET"], strict_slashes=False)
 def get_survey_by_id(survey_id):
+    """
+    Get a survey by its ID.
+
+    Args:
+        survey_id (str): The ID of the survey.
+
+    Returns:
+        str: JSON representation of the survey.
+
+    Raises:
+        404: If the survey is not found.
+        500: If there is an internal server error.
+    """
     survey = storage.get(Survey, survey_id)
 
     if not survey:
@@ -36,6 +49,19 @@ def get_survey_by_id(survey_id):
 
 @survey_views.route("users/survey/<user_id>", methods=["GET"], strict_slashes=False)
 def get_survey_by_user_id(user_id):
+    """
+    Get surveys by user ID.
+
+    Args:
+        user_id (str): The ID of the user.
+
+    Returns:
+        str: JSON representation of the surveys.
+
+    Raises:
+        404: If the user is not found.
+        500: If there is an internal server error.
+    """
     user = storage.get(User, user_id)
 
     if not user:
@@ -50,6 +76,19 @@ def get_survey_by_user_id(user_id):
 
 @survey_views.route("/survey/<survey_id>", methods=["DELETE"], strict_slashes=False)
 def delete_survey_by_id(survey_id):
+    """
+    Delete a survey by its ID.
+
+    Args:
+        survey_id (str): The ID of the survey.
+
+    Returns:
+        str: Empty JSON response.
+
+    Raises:
+        404: If the survey is not found.
+        500: If there is an internal server error.
+    """
     survey = storage.get(Survey, survey_id)
 
     if not survey:
@@ -65,6 +104,17 @@ def delete_survey_by_id(survey_id):
 
 @survey_views.route("/survey", methods=["POST"], strict_slashes=False)
 def create_survey_by_id():
+    """
+    Create a new survey.
+
+    Returns:
+        str: JSON representation of the created survey.
+
+    Raises:
+        400: If the request is not in JSON format or if required fields are missing.
+        404: If the user is not found.
+        500: If there is an internal server error.
+    """
     if not request.is_json:
         return js({"error": "Not a JSON"}), 400
 
@@ -110,6 +160,20 @@ def create_survey_by_id():
 
 @survey_views.route("/survey/<survey_id>", methods=["PUT"], strict_slashes=False)
 def update_survey_by_id(survey_id):
+    """
+    Update a survey by its ID.
+
+    Args:
+        survey_id (str): The ID of the survey.
+
+    Returns:
+        str: JSON representation of the updated survey.
+
+    Raises:
+        400: If the request is not in JSON format or if required fields are missing.
+        404: If the survey is not found.
+        500: If there is an internal server error.
+    """
     if not request.is_json:
         return js({"error": "Not a JSON"}), 400
 
@@ -143,38 +207,3 @@ def update_survey_by_id(survey_id):
         )
     except Exception as e:
         log_error('/survey/<survey_id>["PUT"]', e.args, type(e).__name__, e)
-
-
-# {
-#     "created_at": "2024-01-31 14:05:49",
-#     "id": "1bb7123c-eea0-41dd-b914-acc0f8e5035a",
-#     "title": "teaching and teaching techniques",
-#     "expiry_date": "2024-03-12",
-#     "randomize": true,
-#     "updated_at": "2024-01-31 14:05:49",
-#     "user_id": "08c2c669-15b5-4e0a-951b-92d17c27a370",
-#     "description": "omoku",
-#     "visibility": false,
-#     "question_type": "user preference",
-#     "questions": [
-#         {
-#             "question": "what is your name",
-#             "options": [
-#                 "okeoma",
-#                 "silachi",
-#                 "here"
-#             ],
-#             "random": true
-#         },
-#         {
-#             "question": "who is obu?",
-#             "options": [
-#                 "a girl",
-#                 "a boy",
-#                 "a lady",
-#                 "none"
-#             ],
-#             "random": true
-#         }
-#     ]
-# }

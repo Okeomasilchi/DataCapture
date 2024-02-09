@@ -74,6 +74,7 @@ def check_keys(dictionary, mode="None"):
     survey = ["title", "description", "expiry_date", "visibility", "randomize", "question_type"]
     question = ["question", "options", "random"]
     user = ["password"]
+    response = ["bio", "answers", "survey_id"]
 
     if mode == "survey":
         keys_to_check = survey
@@ -81,6 +82,8 @@ def check_keys(dictionary, mode="None"):
         keys_to_check = question
     elif mode == "user":
         keys_to_check = user
+    elif mode == "response":
+        keys_to_check = response
     else:
         raise ValueError("Invalid mode")
 

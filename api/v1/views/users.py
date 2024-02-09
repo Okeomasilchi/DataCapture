@@ -20,6 +20,9 @@ def get_all_users():
     """
     Retrieves all users from storage and returns a list
     of their dictionaries.
+
+    Returns:
+        A JSON response containing a list of dictionaries representing all users.
     """
     try:
         users = storage.all(User).values()
@@ -38,6 +41,12 @@ def get_single_user(user_id):
     """
     Retrieves a single user from storage based on their
     user ID and returns the user's information in JSON format.
+
+    Args:
+        user_id (str): The ID of the user to retrieve.
+
+    Returns:
+        A JSON response containing the user's information.
     """
     user = storage.get(User, user_id)
     if not user:
@@ -53,7 +62,13 @@ def get_single_user(user_id):
 @user_views.route("/users/<user_id>", methods=["DELETE"], strict_slashes=False)
 def delete_user(user_id):
     """
-    deletes a user from storage based on their user ID.
+    Deletes a user from storage based on their user ID.
+
+    Args:
+        user_id (str): The ID of the user to delete.
+
+    Returns:
+        A JSON response indicating the success of the deletion.
     """
     user = storage.get(User, user_id)
     if not user:
@@ -70,9 +85,12 @@ def delete_user(user_id):
 @user_views.route("/users", methods=["POST"], strict_slashes=False)
 def create_new_user():
     """
-    creates a new user by extracting data from a
-    JSON request, hashing, the password, creating a
+    Creates a new user by extracting data from a
+    JSON request, hashing the password, creating a
     new User instance, and saving it to storage.
+
+    Returns:
+        A JSON response containing the newly created user's information.
     """
     if not request.is_json:
         return js({"error": "Not a JSON"}), 400
@@ -91,15 +109,21 @@ def create_new_user():
         instance = User(**data)
         instance.save()
         return js(instance.to_dict()), 201
-    except Exception as e:  # noqa
+    except Exception as e:
         abort(500)
 
 
 @user_views.route("/users/<user_id>", methods=["PUT"], strict_slashes=False)
 def update_user(user_id):
     """
-    updates a user's information in a storage system,
+    Updates a user's information in a storage system,
     including hashing the password if provided.
+
+    Args:
+        user_id (str): The ID of the user to update.
+
+    Returns:
+        A JSON response containing the updated user's information.
     """
     user = storage.get(User, user_id)
 
