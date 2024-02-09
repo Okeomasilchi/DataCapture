@@ -1,0 +1,52 @@
+#!/bin/bash
+
+my_flask_app="flask_web"
+# Create Flask application directory
+mkdir $my_flask_app
+cd $my_flask_app
+
+# Create directories for static files, templates, and Python files
+mkdir static templates
+touch app.py
+
+# Add startup text to app.py
+cat <<EOF > app.py
+from flask import Flask
+from dotenv import load_dotenv
+from models import storage
+import os
+
+load_dotenv("./.env")
+
+app = Flask(__name__)
+app.secret_key = os.environ.get("SECRET_KEY")
+
+@app.route('/')
+def hello():
+    return 'Hello, World!'
+
+if __name__ == "__main__":
+    host = os.environ.get("HOST", "0.0.0.0")
+    port = int(os.environ.get("PORT" + 1, 5001))
+    app.run(host=host, port=port, debug=True, threaded=True)
+EOF
+
+# Create a basic HTML template
+touch templates/index.html
+cat <<EOF > templates/index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Flask App</title>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+</body>
+</html>
+EOF
+
+# Create a basic stylesheet
+touch static/style.css
+
+# Output completion message
+echo "Flask application files and folders created successfully."

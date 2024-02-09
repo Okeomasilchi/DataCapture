@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="static/style.css" />
+  </head>
+  <body>
+    {% with messages = get_flashed_messages(with_categories = true) %}
+      {% if messages %}
+        {% set last_message = messages[-1] %}
+        <div class="alert alert-{{ last_message[0][:] }}">
+          <strong>{{ last_message[0][:-1] }}:</strong> {{ last_message[1] }}
+        </div>
+      {% endif %}
+    {% endwith %}
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <div class="card login-form">
+            <div class="card-header">
+              <h4>Login</h4>
+            </div>
+            <div class="card-body">
+              <form action="/login" method="POST">
+                <div class="form-group">
+                  <input type="email" name="email" class="form-control" placeholder="Email" required />
+                </div>
+                <div class="form-group">
+                  <input type="password" name="password" class="form-control" placeholder="Password" required />
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS (optional, for advanced components) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

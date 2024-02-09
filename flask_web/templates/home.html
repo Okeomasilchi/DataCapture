@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="static/style.css" />
+    <title>My Flask App</title>
+  </head>
+  <body>
+    {% with messages = get_flashed_messages(with_categories = true) %}
+      {% if messages %}
+        {% set last_message = messages[-1] %}
+        <div class="alert alert-{{ last_message[0][:] }}">
+          <strong>{{ last_message[0][:-1] }}:</strong> {{ last_message[1] }}
+        </div>
+      {% endif %}
+    {% endwith %}
+    <h1>Hello, {{ user.first_name }} {{ user.last_name }} !</h1>
+    <!-- Bootstrap JS (optional, for advanced components) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
