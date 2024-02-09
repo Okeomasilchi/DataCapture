@@ -21,6 +21,7 @@ else:
 
 class BaseModel:
     """The BaseModel class from which future classes will be derived"""
+
     if models.storage_t == "db":
         id = Column(String(60), primary_key=True)
         created_at = Column(DateTime, default=datetime.utcnow)
@@ -52,8 +53,7 @@ class BaseModel:
         data = self.__dict__
         if "_sa_instance_state" in data:
             del data["_sa_instance_state"]
-        return "[{:s}] ({:s}) {}".format(self.__class__.__name__, self.id,
-                                         data)
+        return "[{:s}] ({:s}) {}".format(self.__class__.__name__, self.id, data)
 
     def save(self):
         """updates the attribute 'updated_at' with the current datetime"""
@@ -64,21 +64,35 @@ class BaseModel:
     def to_dict(self):
         """returns a dictionary containing all keys/values of the instance"""
         new_dict = self.__dict__.copy()
+
         if "created_at" in new_dict:
             new_dict["created_at"] = str(new_dict["created_at"])
+
         if "updated_at" in new_dict:
             new_dict["updated_at"] = str(new_dict["updated_at"])
+
         if "expiry_date" in new_dict:
             new_dict["expiry_date"] = str(new_dict["expiry_date"])
+
         new_dict["__class__"] = self.__class__.__name__
-        
+
         if new_dict["__class__"] == "Question" and "options" in new_dict:
             try:
                 new_dict["options"] = jl(new_dict["options"])
             except Exception as e:
                 pass
+
+        if new_dict["__class__"] == "Response":
+            try:
+                new_dict["bio"] = jl(new_dict["bio"])
+                new_dict["answers"] = jl(new_dict["answers"])
+                new_dict["timestamp"] = str(new_dict["timestamp"])
+            except Exception as e:
+                pass
+
         if "_sa_instance_state" in new_dict:
             del new_dict["_sa_instance_state"]
+
         if getenv("DC_TYPE_STORAGE") == "db":
             new_dict.pop("password", None)
 

@@ -3,6 +3,7 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, ForeignKey, String, DateTime, JSON
 from sqlalchemy.orm import relationship
+import datetime
 
 
 class Response(BaseModel, Base):
@@ -17,13 +18,13 @@ class Response(BaseModel, Base):
         survey (Survey): The survey object associated with the response.
     """
 
-    __tablename__ = 'responses'
+    __tablename__ = "responses"
 
     bio = Column(JSON)
-    timestamp = Column(DateTime, nullable=False)
+    timestamp = Column(DateTime, default=datetime.datetime.utcnow)
     answers = Column(JSON, nullable=False)
-    survey_id = Column(String(60), ForeignKey('surveys.id'), nullable=False)
-    survey = relationship('Survey', back_populates='responses')
+    survey_id = Column(String(60), ForeignKey("surveys.id"), nullable=False)
+    survey = relationship("Survey", back_populates="responses")
 
     def __init__(self, *args, **kwargs):
         """Initializes a Response object."""

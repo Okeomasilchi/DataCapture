@@ -17,6 +17,21 @@ from utils.error import log_error
 
 @question_views.route("/question/<survey_id>", methods=["PUT"], strict_slashes=False)
 def update_questions(survey_id):
+    """
+    Updates the questions of a survey.
+
+    Args:
+        survey_id (str): The ID of the survey.
+
+    Returns:
+        Response: The updated survey.
+
+    Raises:
+        404: If the survey is not found.
+        400: If the request is not in JSON format or the questions are not in a list.
+        400: If a question is missing an ID.
+        404: If a question is not found.
+    """
     if not request.is_json:
         return {"error": "Not a JSON"}, 400
 
@@ -56,6 +71,21 @@ def update_questions(survey_id):
 
 @question_views.route("/question/<survey_id>", methods=["DELETE"], strict_slashes=False)
 def delete_question(survey_id):
+    """
+    Deletes a question from a survey.
+
+    Args:
+        survey_id (str): The ID of the survey.
+
+    Returns:
+        Response: An empty response.
+
+    Raises:
+        404: If the survey is not found.
+        400: If the request is not in JSON format or the questions are not in a list.
+        404: If a question is not found.
+        400: If an invalid question ID is provided.
+    """
     if not request.is_json:
         return {"error": "Not a JSON"}, 400
 
