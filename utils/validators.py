@@ -5,6 +5,8 @@ import json as js
 import re
 
 
+
+
 def parse_dict(args, fields=[], message=[], status_code=0):
     """
     parses a dictionary to ensure that it only contains
@@ -31,16 +33,16 @@ def validate_password(password):
     Validates if a password is strong enough.
     Returns an error code and message if the password is weak.
     """
-    if len(password) < 8:
-        abort(400, "Password should be at least 8 characters long")
-    if not re.search(r"\d", password):
-        abort(400, "Password should contain at least one digit")
-    if not re.search(r"[A-Z]", password):
-        abort(400, "Password should contain at least one uppercase letter")
-    if not re.search(r"[a-z]", password):
-        abort(400, "Password should contain at least one lowercase letter")
-    if not re.search(r"[!@#$%^&*()\-_=+{};:,<.>]", password):
-        abort(400, "Password should contain at least one special character")
+    # if len(password) < 8:
+    #     abort(400, "Password should be at least 8 characters long")
+    # if not re.search(r"\d", password):
+    #     abort(400, "Password should contain at least one digit")
+    # if not re.search(r"[A-Z]", password):
+    #     abort(400, "Password should contain at least one uppercase letter")
+    # if not re.search(r"[a-z]", password):
+    #     abort(400, "Password should contain at least one lowercase letter")
+    # if not re.search(r"[!@#$%^&*()\-_=+{};:,<.>]", password):
+    #     abort(400, "Password should contain at least one special character")
 
     return True
 

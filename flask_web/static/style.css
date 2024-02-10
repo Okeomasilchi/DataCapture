@@ -1,30 +1,166 @@
 body {
-    background-color: #f8f9fa;
+    background: #fafafa;
+    color: #333333;
+    margin-top: 5rem;
 }
 
-.login-form {
-    margin-top: 100px;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #444444;
 }
 
-.card {
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+.bg-steel {
+    background-color: #5f788a;
 }
 
-.card-header {
-    background-color: #007bff;
-    color: #fff;
-    text-align: center;
-    border-radius: 15px 15px 0 0;
+.site-header .navbar-nav .nav-link {
+    color: #cbd5db;
 }
 
-.form-control {
-    border-radius: 15px;
+.site-header .navbar-nav .nav-link:hover {
+    color: #ffffff;
 }
 
-.btn-primary {
-    border-radius: 15px;
+.site-header .navbar-nav .nav-link.active {
+    font-weight: 500;
+}
+
+.content-section {
+    background: #ffffff;
     padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.article-title {
+    color: #444444;
+    text-decoration: none;
+}
+
+a.article-title:hover {
+    color: #428bca;
+}
+
+.article-content {
+    white-space: pre-line;
+}
+
+.article-img {
+    height: 65px;
+    width: 65px;
+    margin-right: 1px;
+}
+
+.article-metadata {
+    padding-bottom: 1px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid #e3e3e3;
+    text-decoration: none;
+}
+
+.article-metadata a:hover {
+    color: #333;
+    text-decoration: none;
+}
+
+.article-svg {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+
+}
+
+.account-img {
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+}
+
+.account-heading {
+    font-size: 2.5rem;
+}
+
+.space {
+    margin-top: 1rem;
+}
+
+.team {
+    text-decoration: none;
+}
+
+/* Add 3D effect to buttons */
+.btn-3d {
+    border: none;
+    box-shadow: 0.5px 0px 1px rgba(88, 88, 88, 0.2);
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.3s;
+}
+
+.btn-3d:hover {
+    transform: translate3d(0, -3px, 0);
+}
+
+/* Add 3D effect to tabs */
+.nav-tabs .nav-link.active {
+    background: linear-gradient(to bottom, #ff7e5f, #feb47b);
+    border: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    transform: translate3d(0, 0, 0);
+}
+
+/* Add 3D effect to sidebar items */
+.list-group-item-3d {
+    background: linear-gradient(to bottom, #ff7e5f, #feb47b);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    transform: translate3d(0, 0, 0);
+}
+
+.list-group-item-3d:hover {
+    transform: translate3d(0, -3px, 0);
+}
+
+
+.a-img {
+    height: 40px;
+    width: 40px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.article-content {
+    word-wrap: break-word;
+}
+
+#popupContainer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+}
+
+#popupContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+#top {
+    margin-top: 0;
+    padding-top: 0;
 }
