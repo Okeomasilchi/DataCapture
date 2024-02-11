@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="style/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/6d617ef3fb.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="./script/script.js"></script>
+</head>
+
+<body>
+    <div class="main">
+        <section class="container">
+            <div class="survey">
+                <h1>Survey Details</h1>
+                <input type="text" placeholder="Title" class="title">
+                <textarea placeholder="Description" class="description" rows="4" cols="68"></textarea>
+                <input type="text" placeholder="Expiration date" class="expiration">
+                <div class="input-container">
+                    <div class="add-remove">
+                        <input type="text" placeholder="Add Question" class="add">
+                        <button class="btn">+</button>
+                    </div>
+                    <div class="add-remove">
+                        <input type="text" placeholder="Remove Question" class="remove">
+                        <button class="btn">-</button>
+                    </div>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" class="checkbox">
+                    <label>Randomize Questions</label>
+                </div>
+                <button class="save">Save</button>
+            </div>
+
+            <div class="question-section">
+                <div class="top-section">
+                    <div class="heading">
+                        <h1>Question</h1>
+                    </div>
+                    <div>
+                        <textarea class="questionTextarea" rows="15" cols="50" placeholder="Type Question"></textarea>
+                    </div>
+
+                    <div class="question-type">
+                        <select class='questiontype' name="questiontype" id="questiontype">
+                            <option value="" disabled selected>Question Type</option>
+                            <option value="multiple">Multiple Type</option>
+                            <option value="userdefined">User defined</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="bottom-section">
+                    <div class="heading">
+                        <h1>Options</h1>
+                    </div>
+                    <div class="choices">
+                        <input type="text" placeholder="Option 1" class="option">
+                        <input type="text" placeholder="Option 2" class="option">
+                        <input type="text" placeholder="Option 3" class="option">
+
+                        <button class="add-btn">+</button>
+                    </div>
+                    <div class="option-type">
+                        <select class="optiontype" name="optiontype" id="optiontype">
+                            <option value="" disabled selected>Option Type</option>
+                            <option value="A">A, B, C, ...</option>
+                            <option value="a">a, b, c, ...</option>
+                            <option value="1">1, 2, 3, ...</option>
+                            <option value="i">i, ii, iii, ...</option>
+                            <option value="...">..., ...</option>
+                        </select>
+                        <div class="checkbox-container">
+                            <input type="checkbox" class="checkbox">
+                            <label>Randomize Options</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+</body>
+
+</html>
