@@ -1,0 +1,56 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 34%;
+  height: 100vh;
+  border-right: 2px solid #0000002c;
+  align-content: center;
+  padding: 0 60px;
+  box-sizing: border-box;
+}
+
+.user-image {
+  width: 200px;
+  height: auto;
+  float: left;
+  margin-right: 10px;
+  padding: 10px;
+  background-color: rgba(10, 17, 17, 0.678);
+  border-radius: 10px;
+}
+
+.btn {
+  margin-top: 20px;
+  background-color: white;
+  color: red;
+  border: 1px solid red;
+  width: 100px;
+  height: 40px;
+  font-size: 15px;
+}
+
+.profile-info {
+  width: 64%;
+  height: 100vh;
+  margin-left: 10px;
+  padding: 10px;
+}
+
+.delete {
+  margin-right: 10px;
+}
+
+.email, .add-firstName, .add-lastName, .id {
+  margin-left: 10px;
+
+}
+
+.email,
+.firstName,
+.lastName,
+.id {
+  margin: 20px;
+  padding: 10px;
+  justify-content: center;
+}
