@@ -77,8 +77,8 @@ def login():
             "password": hp,
         }
         r = rq.post(f"{root}users/login", json=data)
-        user_data = r.json()
         if r.status_code == 200:
+            user_data = r.json()
             user = User(user_data["id"])
             login_user(user, remember=form.remember.data)
             flash(f"Welcome Back {user_data['first_name']}", "success")
@@ -131,28 +131,28 @@ def save_pic(form_pic):
     return new_file_name
 
 
-@app.route("/account", methods=["POST"])
-@login_required
-def account():
-    form = UpdateAccountFrom()
-    # if form.validate_on_submit():
-    #     old_img = None
-    #     if form.picture.data:
-    #         old_img = current_user.image_file
-    #         pic = save_pic(form.picture.data)
-    #         current_user.image_file = pic
-    #     current_user.username = form.username.data
-    #     current_user.email = form.email.data
-    #     db.session.commit()
-    #     if old_img and old_img != "default.jpg":
-    #         path = os.path.join(app.root_path, "static/dpics", old_img)
-    #         if os.path.exists(path):
-    #             os.remove(path)
-    #     flash("Account Info Updated", "success")
-    #     return redirect(url_for("account"))
-    # elif request.method == "GET":
-    #     form.username.data = current_user.username
-    #     form.email.data = current_user.email
-    image_file = url_for("static", filename="dpics/okeoma.jpg")
-    return render_template("account.html", title="Account",
-                           image_file=image_file, form=form)
+# @app.route("/account", methods=["POST"])
+# @login_required
+# def account():
+#     form = UpdateAccountFrom()
+#     # if form.validate_on_submit():
+#     #     old_img = None
+#     #     if form.picture.data:
+#     #         old_img = current_user.image_file
+#     #         pic = save_pic(form.picture.data)
+#     #         current_user.image_file = pic
+#     #     current_user.username = form.username.data
+#     #     current_user.email = form.email.data
+#     #     db.session.commit()
+#     #     if old_img and old_img != "default.jpg":
+#     #         path = os.path.join(app.root_path, "static/dpics", old_img)
+#     #         if os.path.exists(path):
+#     #             os.remove(path)
+#     #     flash("Account Info Updated", "success")
+#     #     return redirect(url_for("account"))
+#     # elif request.method == "GET":
+#     #     form.username.data = current_user.username
+#     #     form.email.data = current_user.email
+#     image_file = url_for("static", filename="dpics/okeoma.jpg")
+#     return render_template("account.html", title="Account",
+#                            image_file=image_file, form=form)

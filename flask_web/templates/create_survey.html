@@ -1,17 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-    <link rel="stylesheet" href="style/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/6d617ef3fb.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="./script/script.js"></script>
-</head>
-
-<body>
+{% extends 'layout.html' %}
+{% block script %}
+<script src="{{ url_for('static', filename = 'script.js') }}"></script>
+{% endblock script %}
+{% block content %}
     <div class="main">
         <section class="container">
             <div class="survey">
@@ -83,8 +74,4 @@
             </div>
         </section>
     </div>
-
-
-</body>
-
-</html>
+{% endblock %}

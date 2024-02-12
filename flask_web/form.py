@@ -7,6 +7,11 @@ import requests as rq
 from flask_web import root
 
 
+import re
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
+
 class Regfrom(FlaskForm):
     first_name = StringField('First Name',
                         validators=[DataRequired(), Length(min=2, max=21)])
@@ -14,10 +19,22 @@ class Regfrom(FlaskForm):
                         validators=[DataRequired(), Length(min=2, max=21)])
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired(),])
+    password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password',
                                      validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
+
+    def validate_password(self, password):
+        if len(password.data) < 8:
+            raise ValidationError("Password should be at least 8 characters long")
+        if not re.search(r"\d", password.data):
+            raise ValidationError("Password should contain at least one digit")
+        if not re.search(r"[A-Z]", password.data):
+            raise ValidationError("Password should contain at least one uppercase letter")
+        if not re.search(r"[a-z]", password.data):
+            raise ValidationError("Password should contain at least one lowercase letter")
+        if not re.search(r"[!@#$%^&*()\-_=+{};:,<.>]", password.data):
+            raise ValidationError("Password should contain at least one special character")
 
     def validate_email(self, field):
         r = rq.get(f"{root}users/validate", json={"email": field.data})

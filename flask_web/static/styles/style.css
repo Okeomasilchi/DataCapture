@@ -14,7 +14,7 @@ h6 {
 }
 
 .bg-steel {
-    background-color: #5f788a;
+    background-color: #198754;
 }
 
 .site-header .navbar-nav .nav-link {
@@ -144,7 +144,7 @@ a.article-title:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(51, 49, 49, 0.5);
     backdrop-filter: blur(2px);
     z-index: 9999;
 }
@@ -162,11 +162,45 @@ a.article-title:hover {
 }
 
 .glow-border {
-    border: 2px solid rgb(112, 112, 112);
-    box-shadow: 0 0 20px rgb(153, 146, 146);
+    border: 1px solid #105535;
+    box-shadow: 0 0 20px #098a4dcb;
 }
 
 #top {
     margin-top: 0;
     padding-top: 0;
+}
+
+input::placeholder {
+    color: black;
+    font-style: italic;
+}
+
+.in {
+    width: 40%;
+    justify-self: center;
+    align-self: center;
+    margin: 20px auto 10px;
+    border-radius: 10px;
+    padding: 20px 20px 25px;
+    background-color: #e7e7e7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+legend {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.parent {
+    display: flex;
+    align-items: stretch;
+}
+
+.fill {
+    flex: 1;
+    background-color: lightcoral;
 }
