@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     bottomSection.style.display = 'none';
 
     // Listen for changes on the select box
-    selectBox.addEventListener('change', function() {
+    selectBox.addEventListener('change', function () {
         // If the selected value is 'multiple', show the bottom section
         if (this.value === 'multiple') {
             bottomSection.style.display = 'flex';

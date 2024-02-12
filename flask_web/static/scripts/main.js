@@ -25,5 +25,12 @@ $(document).ready(() => {
         $('input[name="confirm_password"]').attr('type', $('input[name="confirm_password"]').attr('type') === 'password' ? 'text' : 'password');
         $("#confirm_now").toggleClass('fa-eye fa-eye-slash');
     });
+    
+    $(document).ready(function() {
+        // After 5 seconds, hide the element with id="top"
+        setTimeout(function() {
+            $("#top").addClass("hidden");
+        }, 5000); // 5000 milliseconds = 5 seconds
+    });
 
 });
