@@ -10,10 +10,12 @@ $(document).ready(() => {
 
 
     $("span[id='#toggle-login-password']").addClass("fill");
-
-    $('.navbar-toggler').click(() => {
-        $('#popupContainer').fadeIn(150);
+    
+    $('button.navbar-toggler').click(() => {
+        $('#navbarToggle').slideToggle();
     });
+    
+
     $('#popupButton').click(() => {
         $('#popupContainer').fadeIn(150);
     });
