@@ -9,6 +9,7 @@ from PIL import Image
 from flask_web.form import Regfrom, Loginfrom, UpdateAccountFrom
 from flask_login import login_user, current_user, logout_user, login_required
 import requests as rq
+from flask_login import login_required
 
 
 # @app.route("/login", methods=["GET", "POST"], strict_slashes=False)
@@ -90,18 +91,20 @@ def login():
 
 
 @app.route("/logout", methods=["GET"])
+@login_required
 def logout():
     logout_user()
     return redirect(url_for("login"))
 
 
 @app.route("/", methods=["GET"], strict_slashes=False)
+@login_required
 def home():
     if current_user.is_authenticated:
         user_id = session["user_id"]  # Retrieve user_id from session
         r = rq.get(f"{root}users/{user_id}")
         user = r.json()[0]
-        print(r.json())
+        session["user"] = user
         form = UpdateAccountFrom()
         image_file = url_for("static", filename="dpics/okeoma.jpg")
         if user_id:
@@ -116,6 +119,11 @@ def home():
     else:
         return redirect(url_for("login"))
 
+@app.route("/app/create_survey", methods=["GET"], strict_slashes=False)
+@login_required
+def create_survey():
+    if current_user.is_authenticated:
+        return render_template("create_survey.html", title="Create Survey")
 
 def save_pic(form_pic):
     rand_hex = secrets.token_hex(8)
