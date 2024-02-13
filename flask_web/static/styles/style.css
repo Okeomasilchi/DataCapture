@@ -29,6 +29,9 @@ h6 {
     background-color: #198754;
 }
 
+.navbar {
+    height: 13%;
+}
 .site-header .navbar-nav .nav-link {
     color: #cbd5db;
 }
@@ -223,4 +226,10 @@ legend {
 .fill {
     flex: 1;
     background-color: lightcoral;
+}
+
+.media {
+    position: absolute;
+    top: calc(100% - 40px);
+    right: 25px;
 }

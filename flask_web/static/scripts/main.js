@@ -11,6 +11,9 @@ $(document).ready(() => {
 
     $("span[id='#toggle-login-password']").addClass("fill");
 
+    $('.navbar-toggler').click(() => {
+        $('#popupContainer').fadeIn(150);
+    });
     $('#popupButton').click(() => {
         $('#popupContainer').fadeIn(150);
     });

@@ -104,7 +104,6 @@ def home():
         user_id = session["user_id"]  # Retrieve user_id from session
         r = rq.get(f"{root}users/{user_id}")
         user = r.json()[0]
-        session["user"] = user
         form = UpdateAccountFrom()
         image_file = url_for("static", filename="dpics/okeoma.jpg")
         if user_id:
