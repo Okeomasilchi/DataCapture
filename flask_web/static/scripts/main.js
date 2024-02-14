@@ -1,4 +1,7 @@
 $(document).ready(() => {
+
+    let root = "{{ my_variable }}";
+
     setTimeout(() => {
         $("#top").hide();
     }, 4000);
@@ -6,7 +9,6 @@ $(document).ready(() => {
     $('#questiontype').on('change', function () {
         $('.bottom-section').toggle($(this).val() === 'multiple');
     }).trigger('change'); // Triggering the change event once to handle initial state
-
 
 
     $("span[id='#toggle-login-password']").addClass("fill");
@@ -17,6 +19,21 @@ $(document).ready(() => {
     
 
     $('#popupButton').click(() => {
+        // $('#btn').click(() => {
+        //     $.ajax({
+        //         url: root + '/users/,
+        //         method: 'GET',
+        //         dataType: 'json',
+        //         success: function(response) {
+        //             // Handle successful response
+        //             console.log(response);
+        //         },
+        //         error: function(xhr, status, error) {
+        //             // Handle errors
+        //             console.error(status, error);
+        //         }
+        //     });
+        // });
         $('#popupContainer').fadeIn(150);
     });
 
