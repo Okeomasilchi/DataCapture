@@ -1,8 +1,7 @@
 $(document).ready(() => {
 
-    let root = "{{ my_variable }}";
-
     setTimeout(() => {
+
         $("#top").hide();
     }, 4000);
 
@@ -12,40 +11,72 @@ $(document).ready(() => {
 
 
     $("span[id='#toggle-login-password']").addClass("fill");
-    
+
     $('button.navbar-toggler').click(() => {
         $('#navbarToggle').slideToggle();
     });
-    
 
-    $('#popupButton').click(() => {
-        // $('#btn').click(() => {
-        //     $.ajax({
-        //         url: root + '/users/,
-        //         method: 'GET',
-        //         dataType: 'json',
-        //         success: function(response) {
-        //             // Handle successful response
-        //             console.log(response);
-        //         },
-        //         error: function(xhr, status, error) {
-        //             // Handle errors
-        //             console.error(status, error);
-        //         }
-        //     });
-        // });
-        $('#popupContainer').fadeIn(150);
-    });
 
-    $('#popupContainer').click((e) => {
-        if (e.target.id === 'popupContainer') {
-            $('#popupContainer').fadeOut(150);
-        }
-    });
 
-    $("#closeButton").click(() => {
-        $('#popupContainer').fadeOut(150);
-    });
+    if ($.userData) {
+        let user = $.userData;
+        let root = user.root;
+        let originalValues = {
+            first_name: user.first_name,
+            last_name: user.last_name,
+            email: user.email
+        };
+
+        $('#popupButton').click(() => {
+            $('div input[id="first_name"]').val(user.first_name);
+            $('div input[id="last_name"]').val(user.last_name);
+            $('div input[id="email"]').val(user.email);
+            $('#popupContainer').fadeIn(150);
+        });
+
+        $('#popupContainer').click((e) => {
+            if (e.target.id === 'popupContainer') {
+                $('#popupContainer').fadeOut(150);
+            }
+        });
+
+        $("#closeButton").click(() => {
+            let updatedValues = {
+                first_name: $('div input[id="first_name"]').val(),
+                last_name: $('div input[id="last_name"]').val(),
+                email: $('div input[id="email"]').val()
+            };
+
+            let changes = {};
+            for (let key in updatedValues) {
+                if (updatedValues[key] !== originalValues[key]) {
+                    changes[key] = updatedValues[key];
+                }
+            }
+
+            if (Object.keys(changes).length > 0) {
+                $.ajax({
+                    url: root + 'users/' + user.id,
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(changes),
+                    success: (response) => {
+                        // Handle successful response
+                        $('div input[id="first_name"]').val(response.first_name);
+                        $('div input[id="last_name"]').val(response.last_name);
+                        $('div input[id="email"]').val(response.email);            
+                        console.log('API response:', response);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error('API error:', textStatus, errorThrown);
+                    }
+                });
+            } else {
+                $('#popupContainer').fadeOut(150);
+            }
+        });
+    }
+
 
     $('#toggle-login-password').click(() => {
         $('input[name="password"]').attr('type', $('input[name="password"]').attr('type') === 'password' ? 'text' : 'password');
@@ -67,5 +98,5 @@ $(document).ready(() => {
     $("button.remove-btn").click(() => {
         $("div.choices").children(".form-group").last().remove();
     });
-    
+
 });

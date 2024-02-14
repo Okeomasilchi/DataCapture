@@ -10,7 +10,12 @@
     <script src="https://kit.fontawesome.com/6d617ef3fb.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="{{ url_for('static', filename = 'scripts/main.js') }}"></script>
+    <script>
+        {% if user_data %}
+        $.userData = {{ user_data | tojson }};
+        {% endif %}
+    </script>
+    <script src="{{ url_for('static', filename='scripts/main.js') }}"></script>
     {% block script %}
     {% endblock script %}
     {%- if title -%}
@@ -20,6 +25,29 @@
     {%- endif -%}
   </head>
   <body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top bg-f">
+          <div class="container .nav-link.active">
+            <a class="navbar-brand mr-4 " href="/"><i class="fa-solid fa-magnifying-glass-chart fa-flip-horizontal fa-2xl" style="color: white;"></i>       DataCapture</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+
+              <!-- Navbar Right Side -->
+              <div class="navbar-nav ms-auto">
+                {%- if current_user.is_authenticated -%}
+                  <a class="nav-item nav-link btn-3d" href="#" id="popupButton">Account</b>
+                  <a class="nav-item nav-link btn-3d" href="{{ url_for('home') }}">Home</a>
+                  <a class="nav-item nav-link btn-3d" href="{{ url_for('create_survey') }} ">New</a>
+                  <a class="nav-item nav-link btn-3d" href="{{ url_for('logout') }} ">Logout</a>
+                {%- else -%}
+                  <a class="nav-item nav-link btn-3d" href="{{ url_for('login') }} ">Login</a>
+                  <a class="nav-item nav-link btn-3d" href="{{ url_for('register') }}">Register</a>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
     <div class="row" id="top">
         <div class="col-md-12">
           {%- with messages = get_flashed_messages(with_categories = true) -%}
@@ -39,7 +67,7 @@
                 </div>
                 <!-- FORM HERE -->
                 <div>
-                    <form method="POST" action="" enctype="multipart/form-data">
+                    <form method="" action="" enctype="multipart/form-data">
                         {{ form.hidden_tag() }}
                         <fieldset class="form-group">
                             <legend class="border-bottom mb-4">Account Info</legend>
@@ -103,30 +131,7 @@
         </div>
     </div>
     {%- endif -%}
-    <header class="site-header">
-      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top bg-f">
-        <div class="container .nav-link.active">
-          <a class="navbar-brand mr-4 " href="/"><i class="fa-solid fa-magnifying-glass-chart fa-flip-horizontal fa-2xl" style="color: white;"></i>       DataCapture</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-          <div class="collapse navbar-collapse" id="navbarToggle">
-            <!-- <div class="navbar-nav mr-auto">
-        </div>
-            <!-- Navbar Right Side -->
-            <div class="navbar-nav ms-auto">
-              {%- if current_user.is_authenticated -%}
-                <a class="nav-item nav-link btn-3d" href="{{ url_for('account') }} id="popupButton">Account</b>
-                <a class="nav-item nav-link btn-3d" href="{{ url_for('home') }}">Home</a>
-                <a class="nav-item nav-link btn-3d" href="{{ url_for('create_survey') }} ">New</a>
-                <a class="nav-item nav-link btn-3d" href="{{ url_for('logout') }} ">Logout</a>
-              {%- else -%}
-                <a class="nav-item nav-link btn-3d" href="{{ url_for('login') }} ">Login</a>
-                <a class="nav-item nav-link btn-3d" href="{{ url_for('register') }}">Register</a>
-              {%- endif -%}
-            </div>
-          </div>
-        </div>
-      </nav>
-    </header>
+    
     <main role="main" class="container">
       <div class="row">
           {%- block content -%}

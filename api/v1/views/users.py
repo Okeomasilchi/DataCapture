@@ -134,10 +134,10 @@ def update_user(user_id):
         abort(400, "Not a JSON")
 
     data = request.get_json()
-    data = pop_dict(data, ["__class__", "id", "created_at", "updated_at", "email"])
+    data = pop_dict(data, ["__class__", "id", "created_at", "updated_at"])
 
-    if validate_password(data.get("password", None)):
-        data["password"] = md5(data.pop("password", None).encode()).hexdigest()
+    # if validate_password(data.get("password", None)):
+    #     data["password"] = md5(data.pop("password", None).encode()).hexdigest()
 
     for key, value in data.items():
         setattr(user, key, value)

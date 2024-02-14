@@ -84,7 +84,7 @@ def login():
             login_user(user, remember=form.remember.data)
             flash(f"Welcome Back {user_data['first_name']}", "success")
             session["user_id"] = user_data["id"]
-            user_data.root = root
+            user_data["root"] = root
             session["user_data"] = user_data
             return redirect(url_for("home"))
         else:
@@ -110,9 +110,6 @@ def home():
         image_file = url_for("static", filename="dpics/okeoma.jpg")
         if user_id:
             if r.status_code == 200:
-                form.first_name.data = user["first_name"]
-                form.last_name.data = user["last_name"]
-                form.email.data = user["email"]
                 return render_template(
                     "home.html",
                     user=user,
@@ -152,42 +149,42 @@ def save_pic(form_pic):
     return new_file_name
 
 
-@app.route("/account", methods=["GET", "POST"])
-@login_required
-def account():
-    form = UpdateAccountFrom()
-    if form.validate_on_submit():
-        # old_img = None
-        # if form.picture.data:
-        #     old_img = current_user.image_file
-        #     pic = save_pic(form.picture.data)
-        #     current_user.image_file = pic
-        # current_user.username = form.username.data
-        # current_user.email = form.email.data
-        # if old_img and old_img != "default.jpg":
-        #     path = os.path.join(app.root_path, "static/dpics", old_img)
-        #     if os.path.exists(path):
-        #         os.remove(path)
-        flash("Account Info Updated", "success")
-        return redirect(url_for("account"))
-    elif request.method == "GET":
-        user_id = session["user_id"]
-        r = rq.get(f"{root}users/{user_id}")
-        user = r.json()[0]
-        print(user)
-        form = UpdateAccountFrom()
-        if r.status_code == 200:
-            form.first_name.data = user["first_name"]
-            form.last_name.data = user["last_name"]
-            form.email.data = user["email"]
-        else:
-            flash("could'nt get User Data", "warning")
+# @app.route("/account", methods=["GET", "POST"])
+# @login_required
+# def account():
+#     form = UpdateAccountFrom()
+#     if form.validate_on_submit():
+#         # old_img = None
+#         # if form.picture.data:
+#         #     old_img = current_user.image_file
+#         #     pic = save_pic(form.picture.data)
+#         #     current_user.image_file = pic
+#         # current_user.username = form.username.data
+#         # current_user.email = form.email.data
+#         # if old_img and old_img != "default.jpg":
+#         #     path = os.path.join(app.root_path, "static/dpics", old_img)
+#         #     if os.path.exists(path):
+#         #         os.remove(path)
+#         flash("Account Info Updated", "success")
+#         return redirect(url_for("account"))
+#     elif request.method == "GET":
+#         user_id = session["user_id"]
+#         r = rq.get(f"{root}users/{user_id}")
+#         user = r.json()[0]
+#         print(user)
+#         form = UpdateAccountFrom()
+#         if r.status_code == 200:
+#             form.first_name.data = user["first_name"]
+#             form.last_name.data = user["last_name"]
+#             form.email.data = user["email"]
+#         else:
+#             flash("could'nt get User Data", "warning")
 
-    image_file = url_for("static", filename="dpics/okeoma.jpg")
-    return render_template(
-        "account.html",
-        title="Account",
-        image_file=image_file,
-        form=form,
-        user_data=session.get("user_data"),
-    )
+#     image_file = url_for("static", filename="dpics/okeoma.jpg")
+#     return render_template(
+#         "account.html",
+#         title="Account",
+#         image_file=image_file,
+#         form=form,
+#         user_data=session.get("user_data"),
+#     )
