@@ -55,22 +55,39 @@ $(document).ready(() => {
             }
 
             if (Object.keys(changes).length > 0) {
-                $.ajax({
-                    url: root + 'users/' + user.id,
-                    type: 'PUT',
-                    contentType: 'application/json',
-                    data: JSON.stringify(changes),
-                    success: (response) => {
-                        // Handle successful response
-                        $('div input[id="first_name"]').val(response.first_name);
-                        $('div input[id="last_name"]').val(response.last_name);
-                        $('div input[id="email"]').val(response.email);            
-                        console.log('API response:', response);
+                fetch(root + 'users/' + user.id, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
                     },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.error('API error:', textStatus, errorThrown);
-                    }
-                });
+                    body: JSON.stringify(changes)
+                })
+                    .then(response => {
+                        // Check if response is successful
+                        if (!response.ok) {
+                            throw new Error('API error: ' + response.status + response.headers);
+                        }
+
+                        // Access status code
+                        console.log('Status code:', response.status);
+
+                        // Access other headers
+                        console.log('Content-Type header:', response.headers.get('Content-Type'));
+
+                        // Parse JSON response
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Handle successful response
+                        $('div input[id="first_name"]').val(data.first_name);
+                        $('div input[id="last_name"]').val(data.last_name);
+                        $('div input[id="email"]').val(data.email);
+                        $('#popupContainer').fadeOut(150);
+                    })
+                    .catch(error => {
+                        console.error('API error:', error.message);
+                    });
+
             } else {
                 $('#popupContainer').fadeOut(150);
             }

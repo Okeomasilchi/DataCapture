@@ -6,37 +6,17 @@ import secrets
 from hashlib import md5
 import os
 from PIL import Image
-from flask_web.form import Regfrom, Loginfrom, UpdateAccountFrom
+from flask_web.form import (
+    Regfrom,
+    Loginfrom,
+    UpdateAccountFrom,
+    ResetEmail,
+    ResetPassword,
+    Token,
+)
 from flask_login import login_user, current_user, logout_user, login_required
 import requests as rq
 from flask_login import login_required
-
-
-# @app.route("/login", methods=["GET", "POST"], strict_slashes=False)
-# def login():
-#     if request.method == "POST":
-#         email = request.form["email"]
-#         password = request.form["password"]
-#         user_data = storage.exist(email, data=True)
-#         if user_data:
-#             user = User(user_data["id"])
-#             login_user(user)
-#             flash("Login successful!", "success")
-#             session["user_id"] = user_data["id"]  # Store user_id in session
-#             return redirect(url_for("home"))
-#         else:
-#             flash("Invalid email or password", "danger")
-#             return redirect(url_for("login"))
-
-#     return render_template("login.html")
-
-
-# @app.route("/logout", methods=["GET"], strict_slashes=False)
-# def logout():
-#     logout_user()
-#     session.pop("user_id", None)  # Remove user_id from session
-#     flash("You have been logged out.", "success")
-#     return redirect(url_for("login"))
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -92,7 +72,7 @@ def login():
     return render_template("login.html", title="Login", form=form)
 
 
-@app.route("/logout", methods=["GET"])
+@app.route("/logout", methods=["GET"], strict_slashes=False)
 @login_required
 def logout():
     logout_user()
@@ -135,6 +115,11 @@ def create_survey():
         )
 
 
+
+@app.route("/reset_passwor", methods=["GET"], strict_slashes=False)
+@login_required
+def home():
+
 def save_pic(form_pic):
     rand_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_pic.filename)
@@ -147,44 +132,3 @@ def save_pic(form_pic):
     img.save(path)
 
     return new_file_name
-
-
-# @app.route("/account", methods=["GET", "POST"])
-# @login_required
-# def account():
-#     form = UpdateAccountFrom()
-#     if form.validate_on_submit():
-#         # old_img = None
-#         # if form.picture.data:
-#         #     old_img = current_user.image_file
-#         #     pic = save_pic(form.picture.data)
-#         #     current_user.image_file = pic
-#         # current_user.username = form.username.data
-#         # current_user.email = form.email.data
-#         # if old_img and old_img != "default.jpg":
-#         #     path = os.path.join(app.root_path, "static/dpics", old_img)
-#         #     if os.path.exists(path):
-#         #         os.remove(path)
-#         flash("Account Info Updated", "success")
-#         return redirect(url_for("account"))
-#     elif request.method == "GET":
-#         user_id = session["user_id"]
-#         r = rq.get(f"{root}users/{user_id}")
-#         user = r.json()[0]
-#         print(user)
-#         form = UpdateAccountFrom()
-#         if r.status_code == 200:
-#             form.first_name.data = user["first_name"]
-#             form.last_name.data = user["last_name"]
-#             form.email.data = user["email"]
-#         else:
-#             flash("could'nt get User Data", "warning")
-
-#     image_file = url_for("static", filename="dpics/okeoma.jpg")
-#     return render_template(
-#         "account.html",
-#         title="Account",
-#         image_file=image_file,
-#         form=form,
-#         user_data=session.get("user_data"),
-#     )

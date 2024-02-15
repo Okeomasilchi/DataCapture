@@ -34,8 +34,9 @@ def apply_caching(response):
 
     return response
 
+CORS(app, resources={r"/api/*": {"origins": ["http://localhost:5001", "http://0.0.0.0", "*"]}})
+# cors = CORS(app, resources={r"/api/v1/*": {"origins": "0.0.0.0"}})
 
-cors = CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 url_prefix = "/api/v1"
 
