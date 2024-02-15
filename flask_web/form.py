@@ -5,8 +5,7 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 from flask_login import current_user
 import requests as rq
 from flask_web import root
-from itsdangerous import TimeedJSONWebSignatureSerializer as Sz
-
+import jwt
 import re
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
@@ -95,9 +94,8 @@ class ResetEmail(FlaskForm):
         r = rq.get(f"{root}users/validate", json={"email": field.data, "data": True})
         if r.status_code == 200:
             user = r.json()
-            if not user:
+            if not user['response']:
                 raise ValidationError(f"{field.data} not found")
-        raise ValidationError(f"{field.data} not found")
 
 
 class ResetPassword(FlaskForm):
@@ -127,19 +125,22 @@ class ResetPassword(FlaskForm):
 
 
 class Token:
-
     @staticmethod
     def get(expiration=1800, id=None):
         if id is None:
             id = current_user.id
-        s = Sz(current_user.secret, expiration)
-        return s.dumps({"id": id}).decode("utf-8")
+        payload = {"id": id}
+        token = jwt.encode(payload, current_user.secret, algorithm='HS256')
+        return token.decode("utf-8")
 
     @staticmethod
     def validate(token):
-        s = Sz(current_user.secret)
         try:
-            user_id = s.loads(token)["id"]
-        except Exception as e:
+            payload = jwt.decode(token, current_user.secret, algorithms=['HS256'])
+            user_id = payload["id"]
+            return user_id
+        except jwt.ExpiredSignatureError:
             return None
-        return user_id
+        except jwt.DecodeError:
+            return None
+

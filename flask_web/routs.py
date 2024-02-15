@@ -116,9 +116,40 @@ def create_survey():
 
 
 
-@app.route("/reset_passwor", methods=["GET"], strict_slashes=False)
-@login_required
-def home():
+@app.route("/reset_password", methods=["GET", "POST"], strict_slashes=False)
+def reset_request():
+    if current_user.is_authenticated:
+        return redirect(url_for("home"))
+    form = ResetEmail()
+    if request.method == "POST":
+        if form.validate_on_submit():
+            send_reset_email(user)
+            flash("An email has been sent with instructions to reset your password", "info")
+            return redirect(url_for("login"))
+        else:
+            flash("Email not found", "danger")
+    return render_template("reset_request.html", title="Reset Request", form=form)
+
+
+send_reset_email(user)
+"""
+@app.route("/reset_password/<token>", methods=["GET", "POST"], strict_slashes=False)
+def reset_request(token):
+    if current_user.is_authenticated:
+        return redirect(url_for("home"))
+    user = User.verify_reset_token(token)
+    if user is None:
+        flash("That is an invalid or expired token", "warning")
+        return redirect(url_for("reset_request"))
+    form = ResetPassword()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
+        user.password = hashed_password
+        db.session.commit()
+        flash(f"Your password has been updated! You are now able to log in", "success")
+        return redirect(url_for("login"))
+    return render_template("reset_token.html", title="Reset Password", form=form)
+"""
 
 def save_pic(form_pic):
     rand_hex = secrets.token_hex(8)
