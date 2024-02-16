@@ -71,12 +71,17 @@ class DBStorage:
         if obj is not None:
             self.__session.delete(obj)
 
-    def exist(self, str=None):
+    def exist(self, str=None, data=False):
         if str:
-            if self.__session.query(User).filter_by(email=str).first():
+            user = self.__session.query(User).filter_by(email=str).first()
+
+            if data is False and user:
                 return True
+            elif data is True and user:
+                return user.to_dict()
             else:
                 return False
+            
 
     def reload(self):
         """reloads data from the database"""

@@ -92,11 +92,11 @@ class BaseModel:
 
         if "_sa_instance_state" in new_dict:
             del new_dict["_sa_instance_state"]
-
+        passwd = None
         if getenv("DC_TYPE_STORAGE") == "db":
-            new_dict.pop("password", None)
+            passwd = new_dict.pop("password", None)
 
-        return new_dict
+        return new_dict, passwd
 
     def delete(self):
         """delete the current instance from the storage"""

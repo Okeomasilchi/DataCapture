@@ -15,6 +15,7 @@ from models.user import User
 from utils.validators import parse_dict, validate_password
 from utils.error import log_error
 
+
 @user_views.route("/users", methods=["GET"], strict_slashes=False)
 def get_all_users():
     """
@@ -53,11 +54,11 @@ def get_single_user(user_id):
         abort(404)
 
     try:
-        return js(user.to_dict())    
+        return js(user.to_dict())
     except Exception as e:
-        log_error('/users/<user_id>', e.args, type(e).__name__, e)
+        log_error("/users/<user_id>", e.args, type(e).__name__, e)
         abort(500)
-    
+
 
 @user_views.route("/users/<user_id>", methods=["DELETE"], strict_slashes=False)
 def delete_user(user_id):
@@ -96,14 +97,13 @@ def create_new_user():
         return js({"error": "Not a JSON"}), 400
 
     data = request.get_json()
-    parse_dict(data, ["email", "password", "first_name", "last_name"],
-               status_code=400)
-    
+    parse_dict(data, ["email", "password", "first_name", "last_name"], status_code=400)
+
     if storage.exist(data["email"]):
         abort(409, "User exists")
 
-    if validate_password(data.get("password", None)):
-        data["password"] = md5(data.pop("password", None).encode()).hexdigest()
+    # if validate_password(data.get("password", None)):
+    #     data["password"] = md5(data.pop("password", None).encode()).hexdigest()
 
     try:
         instance = User(**data)
@@ -134,10 +134,7 @@ def update_user(user_id):
         abort(400, "Not a JSON")
 
     data = request.get_json()
-    data = pop_dict(data, ["__class__", "id", "created_at", "updated_at", "email"])
-
-    if validate_password(data.get("password", None)):
-        data["password"] = md5(data.pop("password", None).encode()).hexdigest()
+    data = pop_dict(data, ["__class__", "id", "created_at", "updated_at"])
 
     for key, value in data.items():
         setattr(user, key, value)
@@ -145,5 +142,66 @@ def update_user(user_id):
     try:
         user.save()
         return js(user.to_dict()), 200
+    except Exception as e:
+        abort(500)
+
+
+@user_views.route("/users/login", methods=["POST"], strict_slashes=False)
+def login_user():
+    """
+    Logs in a user by checking the provided email and password
+    against the stored user data.
+
+    Returns:
+        A JSON response indicating the success of the login.
+    """
+    if not request.is_json:
+        return js({"error": "Not a JSON"}), 400
+
+    res = request.get_json()
+    parse_dict(res, ["email", "password"], status_code=400)
+
+    user, passwd = storage.exist(res["email"], data=True)
+
+    if not user:
+        abort(402, "Invalid email")
+
+    if validate_password(res["password"]):
+        if passwd != res["password"]:
+            abort(401, "Invalid password")
+    else:
+        abort(400, "Invalid password")
+
+    user = pop_dict(user, ["__class__", "created_at", "updated_at"])
+    try:
+        return js(user), 200
+    except Exception as e:
+        abort(500)
+
+
+@user_views.route("/users/validate", methods=["GET"], strict_slashes=False)
+def validate_user_email():
+    """
+    validates user by email checking the provided email
+    against the stored user data.
+
+    Returns:
+        A JSON response indicating the success of the login.
+    """
+    if not request.is_json:
+        return js({"error": "Not a JSON"}), 400
+
+    res = request.get_json()
+    parse_dict(res, ["email"], status_code=400)
+
+
+    if "data" in res:
+        user = storage.exist(res["email"], data=True)
+    else:
+        user = storage.exist(res["email"])
+        user = {"response": user}
+
+    try:
+        return js(user), 200
     except Exception as e:
         abort(500)

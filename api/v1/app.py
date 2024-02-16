@@ -34,8 +34,9 @@ def apply_caching(response):
 
     return response
 
+CORS(app, resources={r"/api/*": {"origins": ["http://localhost:5001", "http://0.0.0.0", "*"]}})
+# cors = CORS(app, resources={r"/api/v1/*": {"origins": "0.0.0.0"}})
 
-cors = CORS(app, resources={r"/api/v1/*": {"origins": "http://0.0.0.0"}})
 
 url_prefix = "/api/v1"
 
@@ -113,4 +114,4 @@ def error_400(error):
 if __name__ == "__main__":
     host = os.environ.get("HOST", "0.0.0.0")
     port = int(os.environ.get("PORT", 5000))
-    app.run(host=host, port=port, debug=True, threaded=True)
+    app.run(host=host, port=port, threaded=True)

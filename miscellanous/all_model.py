@@ -12,7 +12,7 @@ class CustomCategory(BaseModel, Base):
 
     CategoryID = Column(String(60), primary_key=True)
     CategoryName = Column(String(255))
-    UserID = Column(VARCHAR(60), ForeignKey('users.UserID'))  # Fix the foreign key reference
+    UserID = Column(VARCHAR(60), ForeignKey('users.UserID'))
     user = relationship('User')
 
     __table_args__ = (
