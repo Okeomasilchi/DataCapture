@@ -136,9 +136,6 @@ def update_user(user_id):
     data = request.get_json()
     data = pop_dict(data, ["__class__", "id", "created_at", "updated_at"])
 
-    # if validate_password(data.get("password", None)):
-    #     data["password"] = md5(data.pop("password", None).encode()).hexdigest()
-
     for key, value in data.items():
         setattr(user, key, value)
 
@@ -198,9 +195,13 @@ def validate_user_email():
     parse_dict(res, ["email"], status_code=400)
 
 
-    user = storage.exist(res["email"])
+    if "data" in res:
+        user = storage.exist(res["email"], data=True)
+    else:
+        user = storage.exist(res["email"])
+        user = {"response": user}
 
     try:
-        return js({"response": user}), 200
+        return js(user), 200
     except Exception as e:
         abort(500)

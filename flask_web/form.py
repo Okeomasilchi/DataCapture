@@ -64,12 +64,11 @@ class Loginfrom(FlaskForm):
     submit = SubmitField("Login")
 
     def validate_email(self, field):
-        r = rq.get(f"{root}users/validate", json={"email": field.data, "data": True})
+        r = rq.get(f"{root}users/validate", json={"email": field.data})
         if r.status_code == 200:
-            user = r.json()
-            if not user:
+            email = r.json()["response"]
+            if not email:
                 raise ValidationError(f"{field.data} not found")
-        raise ValidationError(f"{field.data} not found")
 
 
 class UpdateAccountFrom(FlaskForm):
@@ -91,11 +90,14 @@ class ResetEmail(FlaskForm):
     submit = SubmitField("Request Password Reset")
 
     def validate_email(self, field):
+        user = None
         r = rq.get(f"{root}users/validate", json={"email": field.data, "data": True})
         if r.status_code == 200:
             user = r.json()
-            if not user['response']:
+            if "id" not in user:
+                user = None
                 raise ValidationError(f"{field.data} not found")
+            return user
 
 
 class ResetPassword(FlaskForm):
@@ -142,5 +144,9 @@ class Token:
         except jwt.ExpiredSignatureError:
             return None
         except jwt.DecodeError:
+            return None
+        except jwt.InvalidTokenError:
+            None
+        except Exception as e:
             return None
 
