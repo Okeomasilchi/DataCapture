@@ -122,27 +122,30 @@ def reset_request():
         return redirect(url_for("home"))
     form = ResetEmail()
     if request.method == "POST":
-        user = form.validate_on_submit()
-        if user and "id" in user:
-            send_reset_email(user)
-            flash("An email has been sent with instructions to reset your password", "info")
-            return redirect(url_for("login"))
-        else:
-            flash("Email not found", "danger")
+        if form.validate_on_submit():
+            user = form.validate_email(form.email)
+            if user and "id" in user:
+                send_reset_email(user)
+                flash("An email has been sent with instructions to reset your password", "info")
+                return redirect(url_for("login"))
+            else:
+                flash("Email not found", "danger")
     return render_template("reset_request.html", title="Reset Request", form=form)
 
 
 def send_reset_email(user):
-    token = Token.get(id=user['id'], expires_sec=1800)
-    msg = msg(
+    token = Token.get(id=user['id'])
+    mg = msg(
         "Password Reset Request",
         sender="noreply@demo.com",
         recipients=[user['email']])
-    msg.body = f"""To reset your password, visit the following link:
+    mg.body = f"""To reset your password, visit the following link:
 {url_for('reset_token', token=token, _external=True)}
 
 If you did not make this request then simply ignore this email and no changes will be made.
 """
+    mail.send(mg)
+
 
 @app.route("/reset_password/<token>", methods=["GET", "POST"], strict_slashes=False)
 def reset_token(token):
@@ -150,7 +153,7 @@ def reset_token(token):
         return redirect(url_for("home"))
     user = Token.validate(token)
     if user is None:
-        flash("That is an invalid or expired token", "warning")
+        flash(f"That is an invalid or expired token", "warning")
         return redirect(url_for("reset_request"))
     form = ResetPassword()
     if form.validate_on_submit():

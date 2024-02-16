@@ -4,12 +4,13 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextA
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import current_user
 import requests as rq
-from flask_web import root
+from flask_web import root, app
 import jwt
 import re
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
+import datetime
 
 
 class Regfrom(FlaskForm):
@@ -93,10 +94,10 @@ class ResetEmail(FlaskForm):
         user = None
         r = rq.get(f"{root}users/validate", json={"email": field.data, "data": True})
         if r.status_code == 200:
-            user = r.json()
+            user = r.json()[0]
             if "id" not in user:
                 user = None
-                raise ValidationError(f"{field.data} not found")
+                raise ValidationError(f"{field.data} {r.json()} {r.status_code} not found")
             return user
 
 
@@ -128,25 +129,44 @@ class ResetPassword(FlaskForm):
 
 class Token:
     @staticmethod
-    def get(expiration=1800, id=None):
+    def get(id=None):
         if id is None:
-            id = current_user.id
-        payload = {"id": id}
-        token = jwt.encode(payload, current_user.secret, algorithm='HS256')
-        return token.decode("utf-8")
+            raise
+        current_time = datetime.datetime.now()
+        target_time = current_time + datetime.timedelta(minutes=10)
+        # Convert expiration time to Unix timestamp
+        exp_time = int(target_time.timestamp())
+        payload = {
+            "id": id,
+            "exp": exp_time
+        }
+        token = jwt.encode(payload, app.config["SECRET_KEY"], algorithm='HS256')
+        return token
 
     @staticmethod
     def validate(token):
         try:
-            payload = jwt.decode(token, current_user.secret, algorithms=['HS256'])
+            payload = jwt.decode(token, app.config["SECRET_KEY"], algorithms=['HS256'])
             user_id = payload["id"]
-            return user_id
-        except jwt.ExpiredSignatureError:
-            return None
-        except jwt.DecodeError:
-            return None
-        except jwt.InvalidTokenError:
-            None
-        except Exception as e:
-            return None
+            exp_time = payload["exp"]
 
+            current_time = datetime.datetime.now()
+            current_time_unix = int(current_time.timestamp())
+
+            if current_time_unix > exp_time:
+                # print(f"current_time_unix: {current_time_unix} > exp_time: {exp_time}")
+                return None
+
+            return user_id
+        except jwt.ExpiredSignatureError as e:
+            # print(e, "ExpiredSignatureError")
+            return None
+        except jwt.DecodeError as e:
+            # print(e, "DecodeError")
+            return None
+        except jwt.InvalidTokenError as e:
+            # print(e, "InvalidTokenError")
+            return None
+        except Exception as e:
+            # print(e, "Exception")
+            return None
