@@ -1,4 +1,22 @@
 $(document).ready(() => {
+    var currentYear = new Date().getFullYear();
+
+    $('#copyright-year').text(currentYear);
+
+
+    $(".entry-animation").each(function () {
+        let element = $(this);
+        if (!element.hasClass("animated")) {
+            element.addClass("animated");
+        }
+    });
+
+    $(".lead").each(function () {
+        let element = $(this);
+        if (!element.hasClass("animatedX")) {
+            element.addClass("animatedX");
+        }
+    });
 
     setTimeout(() => {
 
@@ -12,12 +30,17 @@ $(document).ready(() => {
 
     $("span[id='#toggle-login-password']").addClass("fill");
 
-    $('button.navbar-toggler').click(() => {
-        $('#navbarToggle').slideToggle();
+ 
+    // $("#navbtn").click((e) => { 
+    //     // e.preventDefault();
+    //     $("#navcol-2").slideToggle()    
+    // });
+
+    $('#navbtn').click(function() {
+        var target = $(this).data('bs-target');
+        $(target).collapse('toggle');
     });
-
-
-
+    
     if ($.userData) {
         let user = $.userData;
         let root = user.root;

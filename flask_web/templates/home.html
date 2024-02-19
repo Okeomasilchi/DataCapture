@@ -1,6 +1,161 @@
 {% extends 'layout.html' %}
-{% block content %}
-{% if user_data %}
-<h1>{{ user_data }}</h1>
-{% endif %}
+
+{% block landing %}
+  <header class="container-fluid hero text-white py-5 d-flex align-items-center justify-content-center" id="heading">
+    <div class="col-md-6 h-75" style="z-index: 1;">
+      <h1 class="display-4 fw-bolder entry-animation" style="color: #ffffff;">DataCapture</h1>
+      <h2 class="lead tex+t-danger entry-animation">Unleash actionable insights with customizable surveys and powerful data analysis.</h2>
+      <a href="#feature" class="btn btn-light btn-lg btn-3d btn-outline-success entry-animation">Learn More</a>
+    </div>
+  </header>
+
+<br id="feature" />
+<br />
+<br />
+
+  <section id="features" class="py-5 d-flex flex-column vh-100 align-items-center justify-content-center">
+    <h2 class="text-center mb-4">Key Features</h2>
+
+    <div class="row row-cols-2 row-cols-md-4 g-4 d-flex justify-content-center">
+      <div class="col cd glow-border p-4 m-2">
+        <i class="big fas fa-question-circle feature-icon"></i>
+        <h4>Seamless Survey Creation</h4>
+        <p>Easily craft engaging surveys with various question types and an intuitive interface.</p>
+      </div>
+
+      <div class="col cd glow-border p-4 m-2">
+        <i class="big fas fa-chart-bar feature-icon"></i>
+        <h4>Customizable Data Analysis</h4>
+        <p>Segment responses based on predefined or user-defined categories for in-depth insights.</p>
+      </div>
+
+      <div class="col cd glow-border p-4 m-2">
+        <i class="big fas fa-file-alt feature-icon"></i>
+        <h4>Comprehensive Reporting</h4>
+        <p>Generate informative reports in multiple formats (Excel, charts, PDFs) for clear communication.</p>
+      </div>
+
+      <div class="col cd glow-border p-4 m-2">
+        <i class="big fas fa-lock feature-icon"></i>
+        <h4>Robust Security Measures</h4>
+        <p>Rest assured with secure data storage, encryption, and authentication practices.</p>
+      </div>
+
+      <div class="col cd glow-border p-4 m-2">
+        <i class="big fas fa-envelope feature-icon"></i>
+        <h4>Email Notifications</h4>
+        <p>Stay updated on survey activity and system updates with timely email alerts.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="team" class="bg-success d-flex flex-column align-items-center vh-100 justify-content-center">
+    <h2 class="text-center text-white-50 mb-1">Meet the Team</h2>
+  
+    <div class="row container d-flex align-items-stretch">
+      <!-- Team member cards -->
+      <div class="col-sm-4 col-md-4">
+        <div class="card team-card cd glow-border d-flex flex-column">
+          <img src="{{ url_for('static', filename = 'dpics/document.jpeg') }}" alt="Khadijat Rasaq" class="card-img-top .rounded" />
+          <div class="card-body flex-grow-1">
+            <h4>Khadijat Rasaq</h4>
+            <p>Frontend & Data Analysis</p>
+            <p>Leverages front-end expertise and data analysis skills to ensure a user-friendly interface and insightful data processing.</p>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-sm-4 col-md-4">
+        <div class="card team-card cd glow-border d-flex flex-column">
+          <img src="{{ url_for('static', filename = 'dpics/document.jpeg') }}" alt="Okeomasilachi Onyedibia" class="card-img-top .rounded" />
+          <div class="card-body flex-grow-1">
+            <h4>Okeomasilachi Onyedibia</h4>
+            <p>API Backend</p>
+            <p>Develops the robust backend infrastructure, handles data storage, and ensures secure communication between the frontend and server.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="technology" class="d-flex flex-column align-items-center vh-100 justify-content-center">
+    <h2 class="text-center mb-4">Technology Stack</h2>
+
+    <div class="row text-center">
+      <!-- Technology icons -->
+      <div class="col-2 cd glow-border">
+        <i class="big fa-brands fa-html5 fa-2xl"></i><br />HTML
+      </div>
+
+      <div class="col-2 cd glow-border">
+        <i class="big fa-brands fa-css3 fa-2xl"></i><br />CSS
+      </div>
+
+      <div class="col-2 cd glow-border">
+        <i class="big fa-brands fa-bootstrap fa-2xl"></i><br /> Bootstrap
+      </div>
+
+      <div class="col-2 cd glow-border">
+        <i class="big fa-brands fa-js fa-2xl"></i><br /> JavaScript
+      </div>
+
+      <div class="col-2 cd glow-border">
+        <i class="big fa-brands fa-python fa-flip-both"></i><br />Python
+      </div>
+
+      <div class="col-2 cd glow-border">
+        <i class="fa-solid fa-database fa-2xl"></i><br />SQLAlchemy
+      </div>
+    </div>
+  </section>
+
+  <section id="benefits" class="bg-success d-flex flex-column align-items-center vh-100 justify-content-center">
+    <h2 class="text-center mb-4">Benefits of DataCapture</h2>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+      <!-- Benefit cards -->
+      <div class="col cd glow-border">
+        <i class="big fa-regular fa-magnifying-glass-chart fa-2xl"></i>
+        <h4>Efficient Data Collection</h4>
+        <p>Streamline the survey creation and distribution process to gather valuable data effortlessly.</p>
+      </div>
+
+      <div class="col cd glow-border">
+        <i class="big fa-regular fa-handshake-angle fa-2xl"></i>
+        <h4>Actionable Insights</h4>
+        <p>Extract meaningful insights from your data with customizable analysis and reporting tools.</p>
+      </div>
+
+      <div class="col cd glow-border">
+        <i class="big fa-regular fa-sitemap fa-2xl"></i>
+        <h4>Informed Decision-Making</h4>
+        <p>Gain data-driven insights to make better decisions for your organization or project.</p>
+      </div>
+
+      <div class="col cd glow-border">
+        <i class="big fa-regular fa-user-group fa-2xl"></i>
+        <h4>User-Friendly Interface</h4>
+        <p>Enjoy a simple and intuitive interface that makes creating, taking, and analyzing surveys a breeze.</p>
+      </div>
+
+      <div class="col cd glow-border">
+        <i class="big fa-regular fa-lock fa-2xl ms-auto"></i>
+        <h4>Secure & Reliable</h4>
+        <p>Trust DataCapture with robust security measures to protect your valuable data.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="get-started" class="container-fluid call-to-action p-5 text-center text-white vh-100 d-flex flex-column align-items-center justify-content-center">
+    <h2 class="display-4 fw-bold">Unlock Data-Driven Insights</h2>
+    <a href="{{ url_for('register') }}" class="btn btn-lg btn-success btn-3d glow-border">Get Started Now</a>
+  </section>
+
+  <footer class="footer bg-success bg-outline-success py-4">
+    <div class="container text-center">
+      <p>
+        &copy; <span id="copyright-year"></span> DataCapture
+      </p>
+    </div>
+  </footer>
 {% endblock %}

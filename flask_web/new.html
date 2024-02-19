@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/Navbar-Right-Links-icons.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-steel bg-f">
+            <div class="container .nav-link.active"><a class="navbar-brand mr-4" href="/"><i class="fa-solid fa-magnifying-glass-chart fa-flip-horizontal fa-2xl" style="color:white;"></i> DataCapture</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarToggle" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarToggle">
+                    <div class="ms-auto navbar-nav"><a class="nav-item nav-link btn-3d m-2" href="#" id="popupButton"><i class="fa-solid fa-user fa-2xl"></i></a><a class="nav-item nav-link btn-3d m-2" href="{{ url_for('create_survey') }} "><i class="fa-solid fa-square-poll-vertical fa-2xl"></i></a><a class="nav-item nav-link btn-3d m-2" href="{{ url_for('logout') }} "><i class="fa-solid fa-right-from-bracket fa-2xl"></i></a><a class="nav-item nav-link btn-3d" href="{{ url_for('login') }} ">Login</a><a class="nav-item nav-link btn-3d" href="{{ url_for('register') }}">Register</a></div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
