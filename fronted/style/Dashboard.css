@@ -1,0 +1,90 @@
+.Dashboard {
+  /* display: flex; */
+  flex-direction: column;
+  /* align-items: center; */
+  width: 34%;
+  height: 100vh;
+  border-right: 2px solid #0000002c;
+  align-content: center;
+  padding: 0 60px;
+  box-sizing: border-box;
+  margin: 10px;
+}
+
+.table-row {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.table-column {
+  border: 1px solid #0000002c;
+  padding: 10px;
+  background-color: rgba(128, 128, 128, 0.068);
+  width: 100%;
+  text-align: center;
+  font-size: 25px;
+}
+
+.table-data {
+  border: 1px solid #0000002c;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.table-data textarea {
+  width: 100%;
+  height: 100%;
+  border: none;
+  resize: none;
+  outline: none;
+  overflow: auto;
+}
+
+.Response-Collection-Form {
+  width: 66%;
+  height: 100vh;
+  background-color: #00000004;
+}
+
+.response-form {
+  text-align: left;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  padding: 10px 60px;
+  margin: 20px;
+  background-color: white;
+  box-sizing: border-box;
+  height: calc(100vh - 70px);
+  overflow: auto;
+}
+
+.question {
+  margin-bottom: 20px;
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.options input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.progress-bar {
+  width: 150px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  height: 20px;
+  margin-left: 10px;
+}
+
+.progress {
+  background-color: #4caf50;
+  height: 100%;
+}
