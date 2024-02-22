@@ -1,4 +1,27 @@
+function capitalizeFirstLetters(obj) {
+    if (typeof obj === 'string') {
+        // Capitalize only if the value is a string
+        newObj = obj.split(' ').map(word => word[0].toUpperCase() + word.slice(1)).join(' ');
+    } else {
+        newObj = obj;
+    }
+    return newObj;
+}
+
+
 $(document).ready(() => {
+    const progressBar = document.getElementById("progressBar");
+
+    // Function to update the progress bar
+    function updateProgress() {
+        // Count the number of answered questions
+        var answeredQuestions = $('.question').filter(function () {
+            return $(this).find('input[type="checkbox"]:checked').length > 0;
+        }).length;
+        // Update the value of the progress bar
+        progressBar.value = answeredQuestions;
+    }
+    updateProgress()
     var currentYear = new Date().getFullYear();
 
     $('#copyright-year').text(currentYear);
@@ -190,9 +213,9 @@ $(document).ready(() => {
         $("div.choices").children(".form-group").last().remove();
     });
 
-    // $('#popup').show();
+    $('#popup').show();
 
-    // $('.section-container, #dashboard-result').addClass('blurred-background');
+    $('#dashboard-info, #dashboard-result').addClass('blurred-background');
 
     // Remove the blur when the popup is closed
     $('#popup').on('hidden.bs.modal', () => {
@@ -224,16 +247,29 @@ $(document).ready(() => {
         // Displaying errors or creating the JSON object
         if (isValid) {
             const bio = {
-                name: fullName,
+                name: capitalizeFirstLetters(fullName),
                 sex: selectedSex
             };
 
             console.log(bio);
             $('#popup').hide();
-            $('.section-container, #dashboard-result').removeClass('blurred-background');
+            $('#dashboard-info, #dashboard-result').removeClass('blurred-background');
+            $("#responder").text(bio.name);
 
         } else {
             $('#error-message').html(errorMessage);
         }
+    });
+
+    $('#collapseButton').click(function () {
+        $('#dashboard-info').toggleClass('show');
+        $('#dashboard-result').toggleClass('slide');
+        $('#collapseButton').toggleClass('hide');
+    });
+
+    $('.options').click(function () {
+        var checkbox = $(this).find('input[type="checkbox"]');
+        checkbox.prop('checked', !checkbox.prop('checked'));
+        updateProgress();
     });
 });

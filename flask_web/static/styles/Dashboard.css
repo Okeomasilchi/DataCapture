@@ -1,6 +1,7 @@
 .table-row {
     display: flex;
     flex-direction: column;
+    align-self: flex-start;
     width: 100%;
 }
 
@@ -40,7 +41,7 @@
     margin-bottom: 5px;
     display: flex;
     flex-direction: column;
-    align-items: left;
+    align-items: center;
     padding: 10px 10px;
     margin: 20px;
     box-sizing: border-box;
@@ -63,19 +64,6 @@
     margin-left: 33px;
 }
 
-.progress-bar {
-    width: 100%;
-    background-color: #ffffff;
-    border-radius: 5px;
-    height: 30px;
-}
-
-.progress {
-    height: 100%;
-    margin-left: 30px;
-    margin: 15px auto;
-}
-
 label {
     z-index: 1;
 }
@@ -83,27 +71,26 @@ label {
 #dashboard {
     position: relative;
     /* Make it a reference for absolute positioning */
-    
+
 }
 
-/* .section-container {
-    display: flex;
-    align-items: center;
-} */
 
 #dashboard-info {
     position: fixed;
     display: flex;
     top: 88px;
     left: 0px;
-    max-width: 400px;
+    width: 400px;
+    max-width: 500px;
     height: 100vh;
+    padding: 45px 20px;
     background-color: #ffffffb6;
     border-right: 1px solid #ccc;
     overflow-X: hidden;
     z-index: 1;
     transition: width 0.3s ease;
 }
+
 
 .collapsed {
     width: 0;
@@ -137,10 +124,12 @@ label {
 } */
 
 .full-width {
-    flex: 1;
+    display: flexbox;
+    align-items: center;
+    justify-content: center;
     margin-left: 400px;
-    padding: 20px;
-    transition: margin-left 0.3s ease;
+    padding: 50px 20px 20px;
+    transition: margin-left 0.2s ease;
 }
 
 /* Customize scrollbar track */
@@ -164,7 +153,37 @@ label {
     background-color: #198754;
 }
 
+.progress-bar-container {
+    width: 100%;
+    position: fixed;
+    /* To keep the progress bar at the top */
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    /* Ensure it's above other elements */
+}
 
+#progressBar {
+    background-color: #000805;
+    /* Green */
+}
+
+#commit, #commit1 {
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    /* display: inline-block; */
+    font-size: 16px;
+    margin: 20px 2px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+#commit1 {
+    visibility: hidden;
+}
 /* ****************************************************** */
 
 
@@ -178,13 +197,14 @@ label {
         width: 300px;
     }
 
-    #dashboard-result {
-        margin-left: 200px;
-    }
 }
 
 /* Media Query for Medium Screens */
 @media screen and (max-width: 992px) {
+    #dashboard-info {
+        overflow: hidden;
+    }
+
     .Response-Collection-Form {
         width: 95%;
     }
@@ -193,13 +213,23 @@ label {
         width: 250px;
     }
 
-    #dashboard-result {
-        margin-left: 150px;
-    }
 }
 
 /* Media Query for Small Screens */
 @media screen and (max-width: 768px) {
+
+    #commit{
+        visibility: hidden;
+    }
+
+    #commit1 {
+        visibility: visible;
+        margin-bottom: 30px;
+    }
+    #collapseButton {
+        visibility: hidden;
+    }
+
     .Response-Collection-Form {
         width: 100%;
     }
@@ -207,12 +237,29 @@ label {
     #dashboard-info {
         position: static;
         width: 100%;
-        padding: 10px;
+        padding: 30px;
         border-right: none;
         overflow-y: visible;
+        height: auto;
     }
+
+    /* #dashboard-info {
+        position: fixed;
+        display: flex;
+        top: 88px;
+        left: 0px;
+        width: 400px;
+        max-width: 500px;
+        padding: 45px 20px;
+        background-color: #ffffffb6;
+        border-right: 1px solid #ccc;
+        overflow-X: hidden;
+        z-index: 1;
+        transition: width 0.3s ease;
+    } */
 
     #dashboard-result {
         margin-left: 0;
+        margin-top: 0;
     }
 }
