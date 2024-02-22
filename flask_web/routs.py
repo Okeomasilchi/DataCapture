@@ -216,7 +216,7 @@ def home():
     )
 
 
-@app.route("/app/survey/response/<survey_id>", methods=["GET"], strict_slashes=False)
+@app.route("/app/survey/respond/<survey_id>", methods=["GET"], strict_slashes=False)
 def response(survey_id):
     if not survey_id:
         flash("Survey ID not found", "danger")
@@ -321,8 +321,7 @@ def reset_token(token):
         if password is not None:
             hp = md5(password.encode()).hexdigest()
             data = {
-                "password": hp,
-            }
+                "password": hp
             }
             r = rq.put(f"{root}users/{user}", json=data)
             if r.status_code != 200:

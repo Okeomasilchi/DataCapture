@@ -83,27 +83,26 @@ label {
 #dashboard {
     position: relative;
     /* Make it a reference for absolute positioning */
-    display: flex;
+    
 }
 
-.section-container {
+/* .section-container {
     display: flex;
     align-items: center;
-}
+} */
 
 #dashboard-info {
     position: fixed;
-    top: 0;
+    display: flex;
+    top: 88px;
     left: 0px;
-    width: 400px;
-    height: 150%;
-    padding: 450px 20px 400px;
-    background-color: #fff;
+    max-width: 400px;
+    height: 100vh;
+    background-color: #ffffffb6;
     border-right: 1px solid #ccc;
     overflow-X: hidden;
-    /* Hide scrollbar by default */
     z-index: 1;
-    transition: width 0.5s ease;
+    transition: width 0.3s ease;
 }
 
 .collapsed {
@@ -129,7 +128,7 @@ label {
     /* Adjust horizontal positioning */
     z-index: 999;
     /* Ensure the button is above other elements */
-    transition: left 0.7s ease;
+    transition: left 0.3s ease;
 }
 
 
@@ -141,7 +140,7 @@ label {
     flex: 1;
     margin-left: 400px;
     padding: 20px;
-    transition: margin-left 0.7s ease;
+    transition: margin-left 0.3s ease;
 }
 
 /* Customize scrollbar track */

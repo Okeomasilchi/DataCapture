@@ -79,7 +79,7 @@ $(document).ready(() => {
             $("#collapseButton").animate({ left: "0px" }); // Animate back to 0px
         }
     });
-    
+
 
     // $("#navbtn").click((e) => { 
     //     // e.preventDefault();
@@ -190,4 +190,50 @@ $(document).ready(() => {
         $("div.choices").children(".form-group").last().remove();
     });
 
+    // $('#popup').show();
+
+    // $('.section-container, #dashboard-result').addClass('blurred-background');
+
+    // Remove the blur when the popup is closed
+    $('#popup').on('hidden.bs.modal', () => {
+        $('.section-container, #dashboard-result').removeClass('blurred-background');
+    });
+
+    $('#bioSubmit').click((event) => {
+        event.preventDefault(); // Prevent default form submission
+
+        // Input values
+        const fullName = $('#full-name').val().trim();
+        const selectedSex = $('#sex').val();
+
+        // Validation
+        let isValid = true;
+        let errorMessage = '';
+
+        if (fullName === '') {
+            isValid = false;
+            errorMessage += 'Please enter your full name.<br>';
+        }
+
+        const allowedSexValues = ['male', 'female', 'Prefer not to say'];
+        if (!allowedSexValues.includes(selectedSex)) {
+            isValid = false;
+            errorMessage += `'Please select a valid sex option.<br>'`;
+        }
+
+        // Displaying errors or creating the JSON object
+        if (isValid) {
+            const bio = {
+                name: fullName,
+                sex: selectedSex
+            };
+
+            console.log(bio);
+            $('#popup').hide();
+            $('.section-container, #dashboard-result').removeClass('blurred-background');
+
+        } else {
+            $('#error-message').html(errorMessage);
+        }
+    });
 });

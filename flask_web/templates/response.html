@@ -10,51 +10,77 @@
 
 {% block content %}
   <main id="dashboard">
-    <div class="section-container">
-      <section id="dashboard-info">
-        <div class="Dashboard">
-          <div class="respondent">
-            <h1></h1>
-            <div class="table-row">
-              <div class="table-column">Title</div>
-              <div class="table-data">{{ data["title"] }}</div>
-            </div>
-            <div class="table-row">
-              <div class="table-column">Description</div>
-              <div class="table-data">
-                <p>{{ data["description"] }}</p>
+    <div id="popup" class="modal glow-border">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-success-subtle">
+          <div class="modal-header">
+            <h5 class="modal-title">Enter Your Information</h5>
+            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="full-name">Full Name</label>
+                <input type="text" class="form-control" autocapitalize autocomplete="on" autofocus id="full-name" placeholder="Enter your full name" />
               </div>
-            </div>
-            <div class="table-row">
-              <div class="table-column">Author</div>
-              <div class="table-data">{{ user_data["first_name"] }} {{ user_data["last_name"] }}</div>
-            </div>
-            <div class="table-row">
-              <div class="table-column">Respondent Name</div>
-              <div class="table-data">Micheal Alex</div>
-            </div>
-            <button class="btn btn-success glow-border btn-3d">Submit</button>
+              <div class="form-group">
+                <label for="sex">Sex</label>
+                <select class="form-control" id="sex">
+                  <option value="None" selected>None selected</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="Prefer not to say">Prefer not to say</option>
+                </select>
+              </div>
+              <br />
+              <div id="error-message" style="color: red"></div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button id="bioSubmit" type="button" class="btn btn-outline-success btn-3d">Submit</button>
           </div>
         </div>
-      </section>
-      <button class="btn btn-3d btn-outline-success" id="collapseButton"><i class="fa-solid fa-chevron-left"></i></button>
+      </div>
     </div>
+
+    <section id="dashboard-info">
+      <div class="table-row">
+        <div class="table-column">Title</div>
+        <div class="table-data">{{ data['title'] }}</div>
+      </div>
+      <div class="table-row">
+        <div class="table-column">Description</div>
+        <div class="table-data">
+          <p>{{ data['description'] }}</p>
+        </div>
+      </div>
+      <div class="table-row">
+        <div class="table-column">Author</div>
+        <div class="table-data">{{ user_data['first_name'] }} {{ user_data['last_name'] }}</div>
+      </div>
+      <div class="table-row">
+        <div class="table-column">Respondent Name</div>
+        <div class="table-data">Micheal Alex</div>
+      </div>
+      <button class="btn btn-success glow-border btn-3d">Submit</button>
+    </section>
+    <button class="btn btn-3d btn-outline-success" id="collapseButton"><i class="fa-solid fa-chevron-left"></i></button>
     <section id="dashboard-result" class="full-width">
       <div class="Response-Collection-Form">
         <form id="response-form">
           <div class="questions">
-            {% for q in data["questions"] %}
-            <div class="question" id="{{ q['id'] }}">
-              <p>{{ q["question"] }}</p>
-              {% for opt in q["options"] %}
-              <div class="options" name="{{ opt }}">
-                <div>
-                  <input type="checkbox" id="option1-1" name="{{ opt }}" onchange="updateProgress()" />
-                  <label for="option1-1">{{ opt }}</label>
-                </div>
+            {% for q in data['questions'] %}
+              <div class="question" id="{{ q['id'] }}">
+                <p>{{ q['question'] }}</p>
+                {% for opt in q['options'] %}
+                  <div class="options" name="{{ opt }}">
+                    <div>
+                      <input type="checkbox" id="option1-1" name="{{ opt }}" onchange="updateProgress()" />
+                      <label for="option1-1">{{ opt }}</label>
+                    </div>
+                  </div>
+                {% endfor %}
               </div>
-              {% endfor %}
-            </div>
             {% endfor %}
           </div>
         </form>
