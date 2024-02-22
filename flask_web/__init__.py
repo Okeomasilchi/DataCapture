@@ -8,7 +8,7 @@ import secrets
 from PIL import Image
 
 load_dotenv("./.env")
-
+# http://localhost:5001/app/survey/response/1bb7123c-eea0-41dd-b914-acc0f8e5035a
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
 bc = Bcrypt(app)
