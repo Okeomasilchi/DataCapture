@@ -80,31 +80,36 @@ def logout():
 
 
 @app.route("/", methods=["GET"], strict_slashes=False)
-@login_required
 def home():
-    if current_user.is_authenticated:
-        user_id = session["user_id"]
-        r = rq.get(f"{root}users/{user_id}")
-        user = r.json()[0]
-        form = UpdateAccountFrom()
-        image_file = url_for("static", filename="dpics/okeoma.jpg")
-        if user_id:
-            if r.status_code == 200:
-                return render_template(
-                    "home.html",
-                    user=user,
-                    user_data=session.get("user_data"),
-                    image_file=image_file,
-                    form=form,
-                )
-        else:
-            flash("User ID not found in session.", "danger")
-            return redirect(url_for("login"))
-    else:
-        return redirect(url_for("login"))
+    # if current_user.is_authenticated:
+        # user_id = session["user_id"]
+        # r = rq.get(f"{root}users/{user_id}")
+        # user = r.json()[0]
+    form = UpdateAccountFrom()
+    image_file = url_for("static", filename="dpics/okeoma.jpg")
+    return render_template(
+        "home.html",
+        title="Empowering Insights through Interactive Surveys",
+        user_data=session.get("user_data"),
+        image_file=image_file,
+        form=form,
+    )
+    
+
+@app.route("/app/survey/response/<survey_id>", methods=["GET"], strict_slashes=False)
+def response(survey_id):
+    # if not survey_id:
+    #     flash("Survey ID not found", "danger")
+    #     return redirect(url_for("home"))
+    return render_template(
+        "response.html",
+        user_data=session.get("user_data"),
+        survey_id=survey_id,
+        title="Survey Response",
+    )
 
 
-@app.route("/app/create_survey", methods=["GET"], strict_slashes=False)
+@app.route("/app/survey/new", methods=["GET"], strict_slashes=False)
 @login_required
 def create_survey():
     if current_user.is_authenticated:
@@ -113,7 +118,6 @@ def create_survey():
             user_data=session.get("user_data"),
             title="Create Survey",
         )
-
 
 
 @app.route("/reset_password", methods=["GET", "POST"], strict_slashes=False)
@@ -126,7 +130,10 @@ def reset_request():
             user = form.validate_email(form.email)
             if user and "id" in user:
                 send_reset_email(user)
-                flash("An email has been sent with instructions to reset your password", "info")
+                flash(
+                    "An email has been sent with instructions to reset your password",
+                    "info",
+                )
                 return redirect(url_for("login"))
             else:
                 flash("Email not found", "danger")
@@ -134,11 +141,10 @@ def reset_request():
 
 
 def send_reset_email(user):
-    token = Token.get(id=user['id'])
+    token = Token.get(id=user["id"])
     mg = msg(
-        "Password Reset Request",
-        sender="noreply@demo.com",
-        recipients=[user['email']])
+        "Password Reset Request", sender="noreply@demo.com", recipients=[user["email"]]
+    )
     mg.body = f"""To reset your password, visit the following link:
 {url_for('reset_token', token=token, _external=True)}
 
@@ -162,12 +168,14 @@ def reset_token(token):
             hp = md5(password.encode()).hexdigest()
             data = {
                 "password": hp,
-                }
+            }
             r = rq.put(f"{root}users/{user}", json=data)
             if r.status_code != 200:
                 flash("Invalid or expired token", "warning")
                 return redirect(url_for("reset_request"))
-            flash("Your password has been updated! You are now able to log in", "success")
+            flash(
+                "Your password has been updated! You are now able to log in", "success"
+            )
         return redirect(url_for("login"))
     return render_template("reset_token.html", title="Reset Password", form=form)
 

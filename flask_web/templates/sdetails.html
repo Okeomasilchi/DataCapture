@@ -1,24 +1,192 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="style/style.css">
-    <script src="https://kit.fontawesome.com/6d617ef3fb.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="./script/script.js"></script>
-</head>
-<body>
-    <div class="container">
-        <div class="Survey-list"></div>
-        <h1></h1>
-        <nav>
-            <div class="admin">
-                <h1>Admin</h1>
-            </div>
-            <div class="nav">
-                <h1>Survey</h1>                
+{% extends 'layout.html' %}
 
-</body>
-</html>
+{% block content %}
+
+  {% if user_data %}
+
+    <header class="container-fluid hero p-5 d-flex align-items-center justify-content-between bg-success text-light">
+
+      <div class="col-md-6">
+
+        <h1>DataCapture</h1>
+
+        <p class="lead">Unleash actionable insights with customizable surveys and powerful data analysis.</p>
+
+        <a href="#features" class="btn btn-light btn-lg">Learn More</a>
+
+      </div>
+
+      <div class="col-md-6 d-none d-md-block">
+        <!-- Replace 'hero-image.png' with your actual image -->
+        <img src="hero-image.png" alt="DataCapture illustration" class="img-fluid" />
+      </div>
+
+    </header>
+
+
+
+    <section id="features" class="container p-5 bg-light">
+
+      <h2 class="text-center mb-4">Key Features</h2>
+
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <!-- Feature cards -->
+        <div class="col">
+          <i class="bi bi-question-circle-fill feature-icon"></i>
+          <h4>Seamless Survey Creation</h4>
+          <p>Easily craft engaging surveys with various question types and an intuitive interface.</p>
+        </div>
+
+        <div class="col">
+          <i class="bi bi-bar-chart-fill feature-icon"></i>
+          <h4>Customizable Data Analysis</h4>
+          <p>Segment responses based on predefined or user-defined categories for in-depth insights.</p>
+        </div>
+
+        <div class="col">
+          <i class="bi bi-file-earmarked-text-fill feature-icon"></i>
+          <h4>Comprehensive Reporting</h4>
+          <p>Generate informative reports in multiple formats (Excel, charts, PDFs) for clear communication.</p>
+        </div>
+
+        <div class="col">
+          <i class="bi bi-lock-fill feature-icon"></i>
+          <h4>Robust Security Measures</h4>
+          <p>Rest assured with secure data storage, encryption, and authentication practices.</p>
+        </div>
+
+        <div class="col">
+          <i class="bi bi-envelope-fill feature-icon"></i>
+          <h4>Email Notifications</h4>
+          <p>Stay updated on survey activity and system updates with timely email alerts.</p>
+        </div>
+      </div>
+    </section>
+
+
+
+    <section id="team" class="container p-5 bg-light">
+
+      <h2 class="text-center mb-4">Meet the Team</h2>
+
+      <div class="row">
+        <!-- Team member cards -->
+        <div class="col-sm-6 col-md-4">
+          <div class="card team-card">
+            <img src="team-member-1.jpg" alt="Khadijat Rasaq" class="card-img-top" />
+            <div class="card-body">
+              <h4>Khadijat Rasaq</h4>
+              <p>Frontend & Data Analysis</p>
+              <p>Leverages front-end expertise and data analysis skills to ensure a user-friendly interface and insightful data processing.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-md-4">
+          <div class="card team-card">
+            <img src="team-member-2.jpg" alt="Okeomasilachi Onyedibia" class="card-img-top" />
+            <div class="card-body">
+              <h4>Okeomasilachi Onyedibia</h4>
+              <p>API Backend</p>
+              <p>Develops the robust backend infrastructure, handles data storage, and ensures secure communication between the frontend and server.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <section id="technology" class="container p-5 bg-light">
+
+      <h2 class="text-center mb-4">Technology Stack</h2>
+
+      <div class="row text-center">
+        <!-- Technology icons -->
+        <div class="col-2">
+          <i class="bi bi-code-slash"></i> HTML
+        </div>
+
+        <div class="col-2">
+          <i class="bi bi-css3"></i> CSS
+        </div>
+
+        <div class="col-2">
+          <i class="bi bi-bootstrap"></i> Bootstrap
+        </div>
+
+        <div class="col-2">
+          <i class="bi bi-javascript"></i> JavaScript
+        </div>
+
+        <div class="col-2">
+          <i class="bi bi-jquery"></i> jQuery
+        </div>
+
+        <div class="col-2">
+          <i class="bi bi-python"></i> Python
+        </div>
+
+        <div class="col-2">
+          <i class="bi bi-database"></i> SQLAlchemy
+        </div>
+      </div>
+    </section>
+
+
+
+    <section id="benefits" class="container p-5 bg-light">
+
+      <h2 class="text-center mb-4">Benefits of DataCapture</h2>
+
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+        <!-- Benefit cards -->
+        <div class="col">
+          <h4>Efficient Data Collection</h4>
+          <p>Streamline the survey creation and distribution process to gather valuable data effortlessly.</p>
+        </div>
+
+        <div class="col">
+          <h4>Actionable Insights</h4>
+          <p>Extract meaningful insights from your data with customizable analysis and reporting tools.</p>
+        </div>
+
+        <div class="col">
+          <h4>Informed Decision-Making</h4>
+          <p>Gain data-driven insights to make better decisions for your organization or project.</p>
+        </div>
+
+        <div class="col">
+          <h4>User-Friendly Interface</h4>
+          <p>Enjoy a simple and intuitive interface that makes creating, taking, and analyzing surveys a breeze.</p>
+        </div>
+
+        <div class="col">
+          <h4>Secure & Reliable</h4>
+          <p>Trust DataCapture with robust security measures to protect your valuable data.</p>
+        </div>
+      </div>
+    </section>
+
+
+
+    <section id="get-started" class="container-fluid call-to-action p-5 text-center bg-success text-light">
+
+      <h2>Ready to Empower Your Insights?</h2>
+
+      <a href="#" class="btn btn-lg btn-light">Get Started Now</a>
+
+    </section>
+
+
+
+    <footer class="footer bg-dark text-light">
+      <div class="container py-4">
+        <p>&copy; 2024 DataCapture</p>
+      </div>
+    </footer>
+
+  {% endif %}
+
+{% endblock %}
+--

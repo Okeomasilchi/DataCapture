@@ -1,113 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'layout.html' %}
+{% block script %}
+  <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+  <script src="{{ url_for('static', filename='scripts/response.js') }}"></script>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/response.css') }}" />
+{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-    <link rel="stylesheet" href="style/style.css">
-    <link rel="stylesheet" href="style/response.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/6d617ef3fb.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="./script/script.js"></script>
-    <script src="./script/response.js"></script>
-</head>
-
-<body>
-    <div class="main">
-        <section class="container">
-            <div class="respondent">
-                <h1></h1>
-                <div class="table-row">
-                    <div class="table-column">Title</div>
-                    <div class="table-data">Home coming</div>
-                </div>
-                <div class="table-row">
-                    <div class="table-column">Description</div>
-                    <div class="table-data">
-                        <p>A general survey is a research method used
-                            to collect data from a sample population to
-                            gain insights into various aspects such as
-                            opinions, preferences, behaviors, or demographics.
-                            It typically involves asking a series of structured questions
-                            to respondents, either through interviews, questionnaires,
-                            or online forms.
-                        </p>
-                    </div>
-                </div>
-                <div class="table-row">
-                    <div class="table-column">Author</div>
-                    <div class="table-data">John Doe</div>
-                </div>
-                <div class="table-row">
-                    <div class="table-column">Respondent Name</div>
-                    <div class="table-data">Micheal Alex</div>
-                </div>
-                <div class="table-row">
-                    <div class="table-column">Feedback</div>
-                    <div class="table-data">
-                        <textarea name="feedback" rows="5"></textarea>
-                    </div>
-                </div>
-                <button class="submit-button">Submit</button>
+{% block content %}
+  <div class="main">
+    <section class="survey-section">
+      <div class="respondent">
+        <h1></h1>
+        <div class="table-row">
+          <div class="table-column">Title</div>
+          <div class="table-data">Home coming</div>
+        </div>
+        <div class="table-row">
+          <div class="table-column">Description</div>
+          <div class="table-data">
+            <p>A general survey is a research method used to collect data from a sample population to gain insights into various aspects such as opinions, preferences, behaviors, or demographics. It typically involves asking a series of structured questions to respondents, either through interviews, questionnaires, or online forms.</p>
+          </div>
+        </div>
+        <div class="table-row">
+          <div class="table-column">Author</div>
+          <div class="table-data">John Doe</div>
+        </div>
+        <div class="table-row">
+          <div class="table-column">Respondent Name</div>
+          <div class="table-data">Micheal Alex</div>
+        </div>
+        <div class="table-row">
+          <div class="table-column">Feedback</div>
+          <div class="table-data">
+            <textarea name="feedback" rows="5"></textarea>
+          </div>
+        </div>
+        <button class="submit-button">Submit</button>
+      </div>
+      <
+      <section class="question-section">
+      <div class="questionier">
+        <div class="progress-bar-container">
+          <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+          </div>
+        </div>
+        <div class="questions">
+          <div class="question">
+            <p>Question 1</p>
+            <div class="options">
+              <div>
+                <input type="checkbox" id="option1-1" name="option1-1" onchange="updateProgress()" />
+                <label for="option1-1">Option 1</label>
+              </div>
+              <div>
+                <input type="checkbox" id="option1-2" name="option1-2" onchange="updateProgress()" />
+                <label for="option1-2">Option 2</label>
+              </div>
+              <div>
+                <input type="checkbox" id="option1-3" name="option1-3" onchange="updateProgress()" />
+                <label for="option1-3">Option 3</label>
+              </div>
+              <div>
+                <input type="checkbox" id="option1-4" name="option1-4" onchange="updateProgress()" />
+                <label for="option1-4">Option 4</label>
+              </div>
             </div>
-
-            <div class="questionier">
-                <div class="progress-bar-container">
-                    <div class="progress-bar">
-                        <div class="progress" id="progress"></div>
-                    </div>
-                </div>
-                <div class="questions">
-                    <div class="question">
-                        <p>Question 1</p>
-                        <div class="options">
-                            <div>
-                                <input type="checkbox" id="option1-1" name="option1-1" onchange="updateProgress()">
-                                <label for="option1-1">Option 1</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="option1-2" name="option1-2" onchange="updateProgress()">
-                                <label for="option1-2">Option 2</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="option1-3" name="option1-3" onchange="updateProgress()">
-                                <label for="option1-3">Option 3</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="option1-4" name="option1-4" onchange="updateProgress()">
-                                <label for="option1-4">Option 4</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="question">
-                        <p>Question 2</p>
-                        <div class="options">
-                            <div>
-                                <input type="checkbox" id="option2-1" name="option2-1" onchange="updateProgress()">
-                                <label for="option2-1">Option 1</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="option2-2" name="option2-2" onchange="updateProgress()">
-                                <label for="option2-2">Option 2</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="option2-3" name="option2-3" onchange="updateProgress()">
-                                <label for="option2-3">Option 3</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="option2-4" name="option2-4" onchange="updateProgress()">
-                                <label for="option2-4">Option 4</label>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Add more questions as needed -->
-                </div>
+          </div>
+          <div class="question">
+            <p>Question 2</p>
+            <div class="options">
+              <div>
+                <input type="checkbox" id="option2-1" name="option2-1" onchange="updateProgress()" />
+                <label for="option2-1">Option 1</label>
+              </div>
+              <div>
+                <input type="checkbox" id="option2-2" name="option2-2" onchange="updateProgress()" />
+                <label for="option2-2">Option 2</label>
+              </div>
+              <div>
+                <input type="checkbox" id="option2-3" name="option2-3" onchange="updateProgress()" />
+                <label for="option2-3">Option 3</label>
+              </div>
+              <div>
+                <input type="checkbox" id="option2-4" name="option2-4" onchange="updateProgress()" />
+                <label for="option2-4">Option 4</label>
+              </div>
             </div>
-        </section>
-    </div>
-
-
-</body>
-
-</html>
+          </div>
+          <!-- Add more questions as needed -->
+        </div>
+      </div>
+    </section>
+  </div>
+{% endblock %}
