@@ -1,11 +1,11 @@
-from flask import Flask, request, render_template, redirect, url_for, flash, session
-from flask_login import LoginManager, login_user, logout_user, current_user, UserMixin
-from models import storage
+from flask import Flask
+from flask_login import LoginManager, current_user, UserMixin
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
 from dotenv import load_dotenv
-import requests as rq
 import os
+import secrets
+from PIL import Image
 
 load_dotenv("./.env")
 
@@ -28,14 +28,37 @@ mail = Mail(app)
 
 root = "http://0.0.0.0:5000/api/v1/"
 
-# Define a User class for Flask-Login
+
 class User(UserMixin):
-    def __init__(self, id):
-        self.id = id
+    def __init__(
+        self, id, first_name=None, last_name=None, email=None, picture=None, **kwargs
+    ):
+        if kwargs:
+            for k, v in kwargs.items():
+                setattr(self, k, v)
+        else:
+            self.id = id
+            self.first_name = first_name
+            self.last_name = last_name
+            self.email = email
+            self.picture = picture
 
     @staticmethod
     def get(user_id):
         return User(user_id)
+
+def save_pic(form_pic):
+    rand_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_pic.filename)
+    new_file_name = rand_hex + f_ext
+    path = os.path.join(app.root_path, "static/dpics", new_file_name)
+
+    size = (125, 125)
+    img = Image.open(form_pic)
+    img.thumbnail(size)
+    img.save(path)
+
+    return new_file_name
 
 
 @login_manager.user_loader

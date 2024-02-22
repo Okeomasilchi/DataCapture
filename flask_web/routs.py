@@ -1,11 +1,9 @@
 #!/usr/bin/python3
 
 from flask import render_template, url_for, flash, redirect, request, abort, session
-from flask_web import app, root, User, mail
-import secrets
+from flask_web import app, root, User, mail, save_pic
 from hashlib import md5
-import os
-from PIL import Image
+from datetime import datetime
 from flask_web.form import (
     Regfrom,
     Loginfrom,
@@ -18,6 +16,134 @@ from flask_login import login_user, current_user, logout_user, login_required
 import requests as rq
 from flask_login import login_required
 from flask_mail import Message as msg
+
+
+def to_dict(user):
+    user_dict = {}
+
+    user_dict["id"] = user.id
+    user_dict["first_name"] = user.first_name
+    user_dict["last_name"] = user.last_name
+    user_dict["email"] = user.email
+    return user_dict
+
+
+def update():
+    form = UpdateAccountFrom()
+    if current_user.is_authenticated:
+        form.first_name.data = current_user.first_name
+        form.last_name.data = current_user.last_name
+        form.email.data = current_user.email
+    return form
+
+
+data = [
+    {
+        "question": "Do you agree with the statement?",
+        "a": 25,
+        "b": 50,
+        "c": 75,
+        "d": 100,
+    },
+    {
+        "question": "What is your favorite color?",
+        "a": 20,
+        "b": 30,
+        "c": 40,
+        "d": 50,
+    },
+    {
+        "question": "What is the capital of France?",
+        "a": 10,
+        "b": 20,
+        "c": 70,
+        "d": 80,
+    },
+    {
+        "question": "What is the meaning of life?",
+        "a": 5,
+        "b": 10,
+        "c": 15,
+        "d": 85,
+    },
+    {
+        "question": "What is your favorite food?",
+        "a": 30,
+        "b": 40,
+        "c": 50,
+        "d": 60,
+    },
+    {
+        "question": "What is your dream job?",
+        "a": 25,
+        "b": 35,
+        "c": 45,
+        "d": 55,
+    },
+    {
+        "question": "What is your biggest fear?",
+        "a": 15,
+        "b": 25,
+        "c": 35,
+        "d": 65,
+    },
+    {
+        "question": "What is your favorite movie?",
+        "a": 40,
+        "b": 50,
+        "c": 60,
+        "d": 70,
+    },
+    {
+        "question": "What is your favorite book?",
+        "a": 20,
+        "b": 30,
+        "c": 40,
+        "d": 55,
+    },
+    {
+        "question": "What is your favorite sport?",
+        "a": 35,
+        "b": 45,
+        "c": 55,
+        "d": 65,
+    },
+    {
+        "question": "What is your favorite hobby?",
+        "a": 25,
+        "b": 35,
+        "c": 45,
+        "d": 55,
+    },
+    {
+        "question": "What is your favorite place to visit?",
+        "a": 40,
+        "b": 50,
+        "c": 60,
+        "d": 70,
+    },
+    {
+        "question": "What is your favorite animal?",
+        "a": 30,
+        "b": 40,
+        "c": 50,
+        "d": 60,
+    },
+    {
+        "question": "What is your favorite song?",
+        "a": 20,
+        "b": 30,
+        "c": 40,
+        "d": 50,
+    },
+    {
+        "question": "What is your favorite season?",
+        "a": 35,
+        "b": 45,
+        "c": 55,
+        "d": 65,
+    },
+]
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -60,7 +186,7 @@ def login():
         r = rq.post(f"{root}users/login", json=data)
         if r.status_code == 200:
             user_data = r.json()
-            user = User(user_data["id"])
+            user = User(**user_data)
             login_user(user, remember=form.remember.data)
             flash(f"Welcome Back {user_data['first_name']}", "success")
             session["user_id"] = user_data["id"]
@@ -81,43 +207,62 @@ def logout():
 
 @app.route("/", methods=["GET"], strict_slashes=False)
 def home():
-    # if current_user.is_authenticated:
-        # user_id = session["user_id"]
-        # r = rq.get(f"{root}users/{user_id}")
-        # user = r.json()[0]
-    form = UpdateAccountFrom()
     image_file = url_for("static", filename="dpics/okeoma.jpg")
     return render_template(
         "home.html",
         title="Empowering Insights through Interactive Surveys",
-        user_data=session.get("user_data"),
         image_file=image_file,
-        form=form,
+        update_account=update(),
     )
-    
+
 
 @app.route("/app/survey/response/<survey_id>", methods=["GET"], strict_slashes=False)
 def response(survey_id):
-    # if not survey_id:
-    #     flash("Survey ID not found", "danger")
-    #     return redirect(url_for("home"))
+    if not survey_id:
+        flash("Survey ID not found", "danger")
+        return redirect(url_for(request.referrer or "home"))
+    r = rq.get(f"{root}survey/{survey_id}")
+    if r.status_code != 200:
+        flash("Survey not found", "danger")
+        return redirect(url_for("home"))
+    data=r.json()
+    ur = rq.get(f"{root}users/{data['user_id']}")
+    if ur.status_code != 200:
+        flash("User Survey not found", "danger")
+        return redirect(url_for("home"))
     return render_template(
         "response.html",
-        user_data=session.get("user_data"),
-        survey_id=survey_id,
+        data=data,
+        user_data=ur.json()[0],
         title="Survey Response",
+        update_account=update(),
     )
 
 
+@app.route("/app/survey/new", methods=["GET"], strict_slashes=False)
 @app.route("/app/survey/new", methods=["GET"], strict_slashes=False)
 @login_required
 def create_survey():
     if current_user.is_authenticated:
         return render_template(
             "create_survey.html",
-            user_data=session.get("user_data"),
+            user_data=to_dict(current_user),
             title="Create Survey",
+            update_account=update(),
         )
+
+
+@app.route("/app/user/dashboard", methods=["GET", "POST"], strict_slashes=False)
+@login_required
+def dashboard():
+
+    return render_template(
+        "Dashboard.html",
+        title="Dashboard",
+        user_data=to_dict(current_user),
+        data=data,
+        update_account=update(),
+    )
 
 
 @app.route("/reset_password", methods=["GET", "POST"], strict_slashes=False)
@@ -134,6 +279,10 @@ def reset_request():
                     "An email has been sent with instructions to reset your password",
                     "info",
                 )
+                flash(
+                    "An email has been sent with instructions to reset your password",
+                    "info",
+                )
                 return redirect(url_for("login"))
             else:
                 flash("Email not found", "danger")
@@ -142,13 +291,18 @@ def reset_request():
 
 def send_reset_email(user):
     token = Token.get(id=user["id"])
+    token = Token.get(id=user["id"])
     mg = msg(
         "Password Reset Request", sender="noreply@demo.com", recipients=[user["email"]]
     )
-    mg.body = f"""To reset your password, visit the following link:
-{url_for('reset_token', token=token, _external=True)}
-
-If you did not make this request then simply ignore this email and no changes will be made.
+    mg.html = f"""<h1 class="text-center text-justify bg-success text-white">DataCapture</h1>
+<p>To reset your password, visit the following link:</p>
+<p><a href="{url_for('reset_token', token=token, _external=True)}">Reset Password</a></p>
+<p>If you did not make this request then simply ignore this email and no changes will be made.</p>
+<footer>
+    <p>&copy; {datetime.now().year} DataCapture. All rights reserved.</p>
+    <p>Corporate Symbol</p>
+</footer>
 """
     mail.send(mg)
 
@@ -169,6 +323,7 @@ def reset_token(token):
             data = {
                 "password": hp,
             }
+            }
             r = rq.put(f"{root}users/{user}", json=data)
             if r.status_code != 200:
                 flash("Invalid or expired token", "warning")
@@ -176,19 +331,37 @@ def reset_token(token):
             flash(
                 "Your password has been updated! You are now able to log in", "success"
             )
+            flash(
+                "Your password has been updated! You are now able to log in", "success"
+            )
         return redirect(url_for("login"))
     return render_template("reset_token.html", title="Reset Password", form=form)
 
 
-def save_pic(form_pic):
-    rand_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(form_pic.filename)
-    new_file_name = rand_hex + f_ext
-    path = os.path.join(app.root_path, "static/dpics", new_file_name)
+@app.route("/account", methods=["POST"], strict_slashes=False)
+@login_required
+def account():
+    form = UpdateAccountFrom()
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_pic(form.picture.data)
+            if picture_file != current_user.picture:
+                current_user.picture = picture_file
 
-    size = (125, 125)
-    img = Image.open(form_pic)
-    img.thumbnail(size)
-    img.save(path)
+        if form.first_name.data != current_user.first_name:
+            current_user.first_name = form.first_name.data
 
-    return new_file_name
+        if form.last_name.data != current_user.last_name:
+            current_user.last_name = form.last_name.data
+
+        if form.email.data != current_user.email:
+            current_user.email = form.email.data
+
+        r = rq.put(
+            f"{root}users/{current_user.id}", json=to_dict(current_user)
+        )
+        if r.status_code == 200:
+            flash("Your account has been updated!", "success")
+        else:
+            flash("Failed to update your account", "danger")
+        return redirect(request.referrer or url_for("home"))

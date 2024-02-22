@@ -37,9 +37,8 @@ def get_survey_by_id(survey_id):
     if not survey:
         abort(404)
 
-    data = survey.to_dict()
-    data["questions"] = [question.to_dict() for question in survey.questions]
-
+    data = survey.to_dict()[0]
+    data["questions"] = [question.to_dict()[0] for question in survey.questions]
     try:
         return js(data)
     except Exception as e:
@@ -202,8 +201,6 @@ def update_survey_by_id(survey_id):
         )
 
     try:
-        return redirect(
-            url_for("survey_views.get_survey_by_id", survey_id=survey_id)
-        )
+        return redirect(url_for("survey_views.get_survey_by_id", survey_id=survey_id))
     except Exception as e:
         log_error('/survey/<survey_id>["PUT"]', e.args, type(e).__name__, e)

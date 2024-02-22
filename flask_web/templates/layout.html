@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html data-bs-theme="light" lang="en">
+<html data-bs-theme="light" lang="en">
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/Navbar-Right-Links-icons.css" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
 
@@ -11,10 +19,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
     <script src="https://kit.fontawesome.com/6d617ef3fb.js" crossorigin="anonymous"></script>
+
+    <script src="https://kit.fontawesome.com/6d617ef3fb.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-    
-    <!-- personal-->
+    <!-- personal -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'styles/style.css') }}" />
 
     <script>
@@ -23,9 +32,11 @@
         {% endif %}
     </script>
 
-    <script src="{{ url_for('static', filename='scripts/main.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'scripts/main.js') }}"></script>
 
     {% block script %}
+
+    {% endblock %}
 
     {% endblock %}
     {%- if title -%}
@@ -35,135 +46,129 @@
     {%- endif -%}
   </head>
 
+
   <body>
     <nav class="navbar navbar-expand-md bg-success bg-steel fixed-top bg-f py-3">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center text-white" href="/">
-            <i class="fa-solid fa-magnifying-glass-chart fa-flip-horizontal fa-2xl" style="color: white;"></i>
-            <span class="m-2">Brand</span>
-          </a>
-          <button data-bs-toggle="collapse" class="navbar-toggler" id="navbtn" data-bs-target="#navcol-2">
-            <span class="visually-hidden"></span>
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navcol-2">
-            <ul class="navbar-nav ms-auto">
-              {%- if current_user.is_authenticated -%}
-              <li class="nav-item"><a class="nav-link m-2 btn-3d grayish-text" href="#" id="popupButton"><i class="fa-solid fa-user fa-2xl"></i></a></li>
-              <li class="nav-item"><a class="nav-link m-2 btn-3d grayish-text" href="{{ url_for('create_survey') }}"><i class="fa-solid fa-square-poll-vertical fa-2xl" ></i></a></li>
-              <li class="nav-item"><a class="nav-link m-2 btn-3d grayish-text" href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket fa-2xl"></i></a></li>
-              {%- else -%}
-              <li class="nav-item"><a class="nav-link m-2 btn-3d grayish-text" href="{{ url_for('login') }}">Login</a></li>
-              <li class="nav-item"><a class="nav-link m-2 btn-3d grayish-text" href="{{ url_for('register') }}">Register</a></li>
-              {%- endif -%}
-            </ul>
-          </div>
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center text-white" href="/">
+          <i class="fa-solid fa-magnifying-glass-chart fa-flip-horizontal fa-2xl" style="color: white;"></i>
+          <span class="m-2">DataCapture</span>
+        </a>
+        <button data-bs-toggle="collapse" class="navbar-toggler" id="navbtn" data-bs-target="#navcol-2">
+          <span class="visually-hidden"></span>
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navcol-2">
+          <ul class="navbar-nav ms-auto">
+            {%- if current_user.is_authenticated -%}
+              <li class="nav-item">
+                <a class="nav-link m-2 btn-3d grayish-text" href="#" id="popupButton"><i class="fa-solid fa-user fa-2xl"></i></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link m-2 btn-3d grayish-text" href="{{ url_for('create_survey') }}"><i class="fa-solid fa-square-poll-vertical fa-2xl"></i></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link m-2 btn-3d grayish-text" href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
+              </li>
+            {%- else -%}
+              <li class="nav-item">
+                <a class="nav-link m-2 btn-3d grayish-text" href="{{ url_for('login') }}">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link m-2 btn-3d grayish-text" href="{{ url_for('register') }}">Register</a>
+              </li>
+            {%- endif -%}
+          </ul>
         </div>
-      </nav>
-      
+      </div>
+    </nav>
     <br />
     <div class="row" id="top">
-        <div class="col-md-12">
-          {%- with messages = get_flashed_messages(with_categories = true) -%}
-            {%- if messages -%}
-              {%- for category, message in messages -%}
-                <div class="alert alert-{{ category }}">{{ message }}</div>
-              {%- endfor -%}
-            {%- endif -%}
-          {%- endwith -%}
-        </div>
+      <div class="col-md-12">
+        {%- with messages = get_flashed_messages(with_categories = true) -%}
+          {%- if messages -%}
+            {%- for category, message in messages -%}
+              <div class="alert alert-{{ category }}">{{ message }}</div>
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endwith -%}
+      </div>
     </div>
-    {%- if current_user.is_authenticated and form-%}
-    <div id="popupContainer">
+    {%- if current_user.is_authenticated and update_account -%}
+      <div id="popupContainer">
         <div id="popupContent" class="d-flex justify-content-center align-items-center">
-            <div class="media">
-                <img class="rounded-circle account-img " src="{{ image_file }}">
-            </div>
-            <!-- FORM HERE -->
-            <div>
-                <form method="" action="" enctype="multipart/form-data">
-                    {{ form.hidden_tag() }}
-                    <fieldset class="form-group">
-                        <legend class="border-bottom mb-4">Account Info</legend>
-                        <div class="form-group">
-                            {{ form.first_name.label(class="form-control-label") }}
-                            {% if  form.first_name.errors %}
-                                {{ form.first_name(class="form-control-lg is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.first_name.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                {{ form.first_name(class="form-control form-control-lg") }}
-                            {% endif %}
-                        </div>
-                        <div class="form-group">
-                            {{ form.last_name.label(class="form-control-label") }}
-                            {% if  form.last_name.errors %}
-                                {{ form.last_name(class="form-control-lg is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.last_name.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                {{ form.last_name(class="form-control form-control-lg") }}
-                            {% endif %}
-                        </div>
-                        <div class="form-group">
-                            {{ form.email.label(class="form-control-label") }}
-                            {% if  form.email.errors %}
-                                {{ form.email(class="form-control-lg is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.email.errors %}
-                                        <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                {{ form.email(class="form-control form-control-lg") }}
-                            {% endif %}
-                            </div>
-                            <div class="form-group space">
-                                {{ form.picture.label() }}
-                                {{ form.picture(class="form-control-file") }}
-                                {% if form.picture.errors %}
-                                    {% for error in form.picture.errors %}
-                                        <span class="text-danger">{{ error }}</span></br>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-                    </fieldset>
-                    <div class="pt-1 pb-1">
-                        <div class="form-group space btn-3d" style="display: inline-block;">
-                            <a href="#" class="btn btn-outline-success" id="closeButton">Close</a>
-                            <!-- {{ form.submit(class="btn btn-outline-danger", id="closeButton") }} -->
-                        </div>
-                    </div>            
-                </form>
-            </div>
+          <div class="media">
+            <img class="rounded-circle account-img" src="{{ image_file }}" />
+          </div>
+          <!-- FORM HERE -->
+          <div>
+            <form method="" action="" enctype="multipart/form-data">
+              {{ update_account.hidden_tag() }}
+              <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Account Info</legend>
+                <div class="form-group">
+                  {{ update_account.first_name.label(class = 'form-control-label') }}
+                  {% if update_account.first_name.errors %}
+                    {{ update_account.first_name(class = 'form-control-lg is-invalid') }}
+                    <div class="invalid-feedback">
+                      {% for error in update_account.first_name.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    {{ update_account.first_name(class = 'form-control form-control-lg') }}
+                  {% endif %}
+                </div>
+                <div class="form-group">
+                  {{ update_account.last_name.label(class = 'form-control-label') }}
+                  {% if update_account.last_name.errors %}
+                    {{ update_account.last_name(class = 'form-control-lg is-invalid') }}
+                    <div class="invalid-feedback">
+                      {% for error in update_account.last_name.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    {{ update_account.last_name(class = 'form-control form-control-lg') }}
+                  {% endif %}
+                </div>
+                <div class="form-group">
+                  {{ update_account.email.label(class = 'form-control-label') }}
+                  {% if update_account.email.errors %}
+                    {{ update_account.email(class = 'form-control-lg is-invalid') }}
+                    <div class="invalid-feedback">
+                      {% for error in update_account.email.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    {{ update_account.email(class = 'form-control form-control-lg') }}
+                  {% endif %}
+                </div>
+                <div class="form-group space">
+                  {{ update_account.picture.label() }}
+                  {{ update_account.picture(class = 'form-control-file') }}
+                  {% if update_account.picture.errors %}
+                    {% for error in update_account.picture.errors %}
+                      <span class="text-danger">{{ error }}</span><br />
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </fieldset>
+              <div class="pt-1 pb-1">
+                <div class="form-group space btn-3d" style="display: inline-block;">
+                  <a href="#" class="btn btn-outline-success" id="closeButton">Close</a>
+                  {{ update_account.submit(class = 'btn btn-outline-danger', id = 'closeButton') }}
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
-    </div>
+      </div>
     {%- endif -%}
-    
-    {% if  title == "Empowering Insights through Interactive Surveys" %}
-    <main role="main">
-        <!-- <div class="row"> -->
-            {%- block landing -%}
-  
-            {%- endblock -%}
-        <!-- </div> -->
-      </main>
+    {%- block content -%}
 
-    {% else %}
-    <main role="main" >
-        <!-- <div class="row"> -->
-            {%- block content -%}
-  
-            {%- endblock -%}
-        <!-- </div> -->
-      </main>
-      {% endif %}
+    {%- endblock -%}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

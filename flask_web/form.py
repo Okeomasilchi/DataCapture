@@ -97,7 +97,7 @@ class ResetEmail(FlaskForm):
             user = r.json()
             if "id" not in user:
                 user = None
-                raise ValidationError(f"{field.data} {r.json()} {r.status_code} not found")
+                raise ValidationError(f"{field.data} not found")
             return user
 
 
@@ -131,7 +131,7 @@ class Token:
     @staticmethod
     def get(id=None, minutes=10):
         if id is None:
-            raise
+            id = current_user.id
         current_time = datetime.datetime.now()
         target_time = current_time + datetime.timedelta(minutes)
         # Convert expiration time to Unix timestamp

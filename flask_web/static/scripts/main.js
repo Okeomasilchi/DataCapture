@@ -17,6 +17,24 @@ $(document).ready(() => {
             element.addClass("animatedX");
         }
     });
+    var currentYear = new Date().getFullYear();
+
+    $('#copyright-year').text(currentYear);
+
+
+    $(".entry-animation").each(function () {
+        let element = $(this);
+        if (!element.hasClass("animated")) {
+            element.addClass("animated");
+        }
+    });
+
+    $(".lead").each(function () {
+        let element = $(this);
+        if (!element.hasClass("animatedX")) {
+            element.addClass("animatedX");
+        }
+    });
 
     setTimeout(() => {
 
@@ -30,17 +48,50 @@ $(document).ready(() => {
 
     $("span[id='#toggle-login-password']").addClass("fill");
 
- 
+    // Add hover event listener to dashboard-info section
+    $('#dashboard-info').hover(
+        function () {
+            $(this).addClass('active');
+        },
+        function () {
+            $(this).removeClass('active');
+        }
+    );
+
+    $("#collapseButton").click(() => {
+        $("#collapseButton").toggleClass("fa-chevron-left fa-chevron-right");
+        $("#dashboard-info").animate({
+            width: 'toggle'
+        });
+        var currentMarginLeft = $("#dashboard-result").css("marginLeft");
+        var currentBtn = $("#collapseButton").css("left");
+
+        // Toggle between the two values
+        if (currentMarginLeft === "0px") {
+            $("#dashboard-result").animate({ marginLeft: "400px" }); // Animate to 400px
+        } else {
+            $("#dashboard-result").animate({ marginLeft: "0px" }); // Animate back to 0px
+        }
+
+        if (currentBtn === "0px") {
+            $("#collapseButton").animate({ left: "400px" }); // Animate to 400px
+        } else {
+            $("#collapseButton").animate({ left: "0px" }); // Animate back to 0px
+        }
+    });
+    
+
     // $("#navbtn").click((e) => { 
     //     // e.preventDefault();
     //     $("#navcol-2").slideToggle()    
     // });
 
-    $('#navbtn').click(function() {
+    $('#navbtn').click(function () {
         var target = $(this).data('bs-target');
         $(target).collapse('toggle');
     });
-    
+
+
     if ($.userData) {
         let user = $.userData;
         let root = user.root;
@@ -51,9 +102,9 @@ $(document).ready(() => {
         };
 
         $('#popupButton').click(() => {
-            $('div input[id="first_name"]').val(user.first_name);
-            $('div input[id="last_name"]').val(user.last_name);
-            $('div input[id="email"]').val(user.email);
+            // $('div input[id="first_name"]').val(user.first_name);
+            // $('div input[id="last_name"]').val(user.last_name);
+            // $('div input[id="email"]').val(user.email);
             $('#popupContainer').fadeIn(150);
         });
 
