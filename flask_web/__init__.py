@@ -102,4 +102,8 @@ def save_pic(form_pic):
     return new_file_name
 
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(user_id)
+
 from flask_web import routs
