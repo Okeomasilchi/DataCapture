@@ -192,7 +192,7 @@ def login():
             session["user_id"] = user_data["id"]
             user_data["root"] = root
             session["user_data"] = user_data
-            return redirect(url_for("home"))
+            return redirect(url_for("user_survey"))
         else:
             flash("Login Unsuccessful, Please check Credentials", "danger")
     return render_template("login.html", title="Login", form=form)
@@ -201,8 +201,9 @@ def login():
 @app.route("/logout", methods=["GET"], strict_slashes=False)
 @login_required
 def logout():
-    logout_user()
-    return redirect(url_for("login"))
+    if current_user.is_authenticated:
+        logout_user()
+        return redirect(url_for("login"))
 
 
 @app.route("/", methods=["GET"], strict_slashes=False)

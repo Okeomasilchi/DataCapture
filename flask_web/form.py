@@ -61,7 +61,7 @@ class Loginfrom(FlaskForm):
             DataRequired(),
         ],
     )
-    remember = BooleanField("Remeber Me")
+    remember = BooleanField("Remember Me")
     submit = SubmitField("Login")
 
     def validate_email(self, field):
@@ -158,15 +158,6 @@ class Token:
                 return None
 
             return user_id
-        except jwt.ExpiredSignatureError as e:
-            # print(e, "ExpiredSignatureError")
-            return None
-        except jwt.DecodeError as e:
-            # print(e, "DecodeError")
-            return None
-        except jwt.InvalidTokenError as e:
-            # print(e, "InvalidTokenError")
-            return None
         except Exception as e:
             # print(e, "Exception")
             return None
