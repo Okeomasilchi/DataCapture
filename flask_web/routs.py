@@ -240,7 +240,6 @@ def response(survey_id):
 
 
 @app.route("/app/survey/new", methods=["GET"], strict_slashes=False)
-@app.route("/app/survey/new", methods=["GET"], strict_slashes=False)
 @login_required
 def create_survey():
     if current_user.is_authenticated:
@@ -252,17 +251,37 @@ def create_survey():
         )
 
 
+@app.route("/app/user/surveys", methods=["GET", "POST"], strict_slashes=False)
+@login_required
+def user_survey():
+    if current_user.is_authenticated:
+        if request.method == "POST":
+            pass
+        r = rq.get(f"{root}users/survey/08c2c669-15b5-4e0a-951b-92d17c27a370")
+        if r.status_code != 200:
+            flash("User not found", "danger")
+            return redirect(url_for("home"))
+        print(r.json())
+        return render_template(
+            "user_surveys.html",
+            user_data=to_dict(current_user),
+            title="User Survey",
+            surveys=r.json(),
+            update_account=update(),
+        )
+
+
 @app.route("/app/user/dashboard", methods=["GET", "POST"], strict_slashes=False)
 @login_required
 def dashboard():
-
-    return render_template(
-        "Dashboard.html",
-        title="Dashboard",
-        user_data=to_dict(current_user),
-        data=data,
-        update_account=update(),
-    )
+    if current_user.is_authenticated:
+        return render_template(
+            "Dashboard.html",
+            title="Dashboard",
+            user_data=to_dict(current_user),
+            data=data,
+            update_account=update(),
+        )
 
 
 @app.route("/reset_password", methods=["GET", "POST"], strict_slashes=False)

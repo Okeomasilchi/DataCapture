@@ -79,7 +79,7 @@ h6 {
 }
 
 a.article-title:hover {
-    color: #428bca;
+    color: #ffffff;
 }
 
 .article-content {
@@ -133,14 +133,14 @@ a.article-title:hover {
 
 /* Add 3D effect to buttons */
 .btn-3d {
-    border: none;
+    /* border: none;
     box-shadow: 0.5px 0px 1px rgba(88, 88, 88, 0.2);
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0); */
     transition: transform 0.3s;
 }
 
 .btn-3d:hover {
-    transform: translate3d(0, -3px, 0);
+    transform: translate3d(0, -4px, 0);
 }
 
 /* Add 3D effect to tabs */
@@ -203,7 +203,6 @@ a.article-title:hover {
 }
 
 a:hover {
-    border: 1px solid #f1f1f1e7;
     color: #ffffff;
     border-radius: 5px;
 }

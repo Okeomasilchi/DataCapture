@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% block script %}
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/usersurveys.css') }}" />
+  <script src="https://kit.fontawesome.com/6d617ef3fb.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+{% endblock %}
+
+{% block content %}
+  <main id="dashboard">
+    <section id="dashboard-info">
+      <div class="table-row">
+        <div class="table-column">Surveys</div>
+        {% if surveys %}
+          {% for survey in surveys %}
+            <div class="table-data" id="survey[0].id">
+              <span class="survey-title">{{ survey.title }}</span>
+              <!--                
+                <div class="tooltip">
+                <button onclick="myFunction()" onmouseout="outFunc()">Copy text</button>
+              </div>
+             -->
+              <button id="copy-button" class="copy-button btn btn-outline-success">
+                <i class="fa-solid fa-link"></i>
+              </button>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="table-data">
+            <p></p>
+          </div>
+        {% endif %}
+      </div>
+    </section>
+    <section id="dashboard-result" class="full-width">
+      <div class="Response-Collection-Form"></div>
+    </section>
+    <script>
+        $('button').click(() => {
+            alert("Copied the text")
+            console.log("clicked")
+            // Retrieve the survey ID from the closest table-data element
+            var copyText = $(this).closest('.table-data');
+    
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+    
+            Copy the text inside the text field
+            navigator.clipboard.writeText(copyText.value);
+    
+            Alert the copied text
+            alert("Copied the text: " + copyText.value);
+        });
+    </script>
+  </main>
+{% endblock %}

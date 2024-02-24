@@ -222,6 +222,8 @@ $(document).ready(() => {
         $('.section-container, #dashboard-result').removeClass('blurred-background');
     });
 
+    let bio;
+
     $('#bioSubmit').click((event) => {
         event.preventDefault(); // Prevent default form submission
 
@@ -241,17 +243,17 @@ $(document).ready(() => {
         const allowedSexValues = ['male', 'female', 'Prefer not to say'];
         if (!allowedSexValues.includes(selectedSex)) {
             isValid = false;
-            errorMessage += `'Please select a valid sex option.<br>'`;
+            errorMessage += `Please select a valid sex option.<br>`;
         }
 
         // Displaying errors or creating the JSON object
         if (isValid) {
-            const bio = {
+            bio = {
                 name: capitalizeFirstLetters(fullName),
                 sex: selectedSex
             };
 
-            console.log(bio);
+            // console.log(bio);
             $('#popup').hide();
             $('#dashboard-info, #dashboard-result').removeClass('blurred-background');
             $("#responder").text(bio.name);
@@ -272,4 +274,50 @@ $(document).ready(() => {
         checkbox.prop('checked', !checkbox.prop('checked'));
         updateProgress();
     });
+
+    $("#commit, #commit1").click(function () {
+        // Check if all questions have been answered
+        var unansweredQuestions = $(".question").filter(function () {
+            return $(this).find('input[type="checkbox"]:checked').length === 0;
+        });
+
+        if (unansweredQuestions.length > 0) {
+            // If there are unanswered questions, display the Bootstrap modal alert
+            // $("main").toggleClass("blurred-background");
+            $('#confirmationModal').modal('show');
+
+            // Handle the Continue Survey button click
+            $('#continueBtn').click(function () {
+                // If the user chooses to continue, close the modal and proceed
+                $('#confirmationModal').modal('hide');
+                submitResponses();
+            });
+        } else {
+            // If all questions have been answered, proceed with submitting responses
+            submitResponses();
+        }
+    });
+
+    function submitResponses() {
+        var responses = [];
+        $(".question").each(function () {
+            var questionId = $(this).attr("id");
+            var selectedOptions = [];
+            $(this).find("input[type='checkbox']:checked").each(function () {
+                selectedOptions.push($(this).attr("name"));
+            });
+            responses.push({
+                "question_id": questionId,
+                "response": selectedOptions
+            });
+        });
+        var data = {
+            "bio": bio,
+            "answers": responses
+        };
+
+        console.log(JSON.stringify(data));
+    }
+
+    
 });

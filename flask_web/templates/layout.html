@@ -48,7 +48,7 @@
       <nav class="navbar navbar-expand-md bg-success bg-steel fixed-top bg-f py-3">
         <div class="container">
           <a class="navbar-brand d-flex align-items-center text-white" href="/">
-            <i class="fa-solid fa-magnifying-glass-chart fa-flip-horizontal fa-2xl" style="color: white;"></i>
+            <i class="fa-solid fa-magnifying-glass-chart fa-flip-horizontal fa-xl" style="color: white;"></i>
             <span class="m-2">DataCapture</span>
           </a>
           <button data-bs-toggle="collapse" class="navbar-toggler" id="navbtn" data-bs-target="#navcol-2">
@@ -59,13 +59,16 @@
             <ul class="navbar-nav ms-auto">
               {%- if current_user.is_authenticated and title != 'Survey Response' -%}
                 <li class="nav-item">
-                  <a class="nav-link m-2 btn-3d grayish-text" href="#" id="popupButton"><i class="fa-solid fa-user fa-2xl"></i></a>
+                  <a class="nav-link m-2 btn-3d grayish-text" href="#" id="popupButton"><i class="fa-solid fa-user fa-xl"></i></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link m-2 btn-3d grayish-text" href="{{ url_for('create_survey') }}"><i class="fa-solid fa-square-poll-vertical fa-2xl"></i></a>
+                  <a class="nav-link m-2 btn-3d grayish-text" href="{{ url_for('create_survey') }}"><i class="fa-solid fa-square-plus fa-xl"></i></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link m-2 btn-3d grayish-text" href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket fa-2xl"></i></a>
+                    <a class="nav-link m-2 btn-3d grayish-text" href="{{ url_for('user_survey') }}"><i class="fa-solid fa-square-poll-vertical fa-xl"></i></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link m-2 btn-3d grayish-text" href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket fa-xl"></i></a>
                 </li>
               {% elif title == 'Survey Response' -%}
                 <li class="nav-item">
@@ -168,6 +171,23 @@
           </div>
         </div>
       {%- endif -%}
+      <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content bg-success-subtle">
+            <div class="modal-header">
+              <h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              You have not finished answering all the questions in the survey. Are you sure you want to continue commit?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success btn-3d" data-bs-dismiss="modal">Back to Survey</button>
+              <button type="button" class="btn btn-outline-success btn-3d glow-border" id="continueBtn">Continue commit</button>
+            </div>
+          </div>
+        </div>
+      </div>
       {%- block content -%}
 
       {%- endblock -%}

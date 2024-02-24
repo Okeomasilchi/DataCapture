@@ -4,6 +4,20 @@ from flask import abort, request
 import json as js
 import re
 
+def sort_list_of_dicts(list_of_dicts, key, reverse=False):
+    """Sorts a list of dictionaries based on the specified key.
+
+    Args:
+        list_of_dicts: The list of dictionaries to be sorted.
+        key: The key to use for sorting.
+        reverse: If True, sorts in descending order. Defaults to False (ascending).
+
+    Returns:
+        The sorted list of dictionaries.
+    """
+
+    sorted_list = sorted(list_of_dicts, key=lambda item: item[key], reverse=reverse)
+    return sorted_list
 
 
 

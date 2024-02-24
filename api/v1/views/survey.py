@@ -13,7 +13,7 @@ from models import storage
 from models.survey import Survey
 from models.user import User
 from models.question import Question
-from utils.validators import parse_dict, pop_dict, check_keys
+from utils.validators import parse_dict, pop_dict, check_keys, sort_list_of_dicts
 from utils.error import log_error
 
 
@@ -67,7 +67,8 @@ def get_survey_by_user_id(user_id):
         abort(404)
     try:
         surveys = user.user_surveys
-        return js([survey.to_dict() for survey in surveys])
+        print([survey.to_dict()[0] for survey in surveys])
+        return js(sort_list_of_dicts([survey.to_dict()[0] for survey in surveys], "title")), 200
     except Exception as e:
         log_error("users/survey/<user_id>['GET']", e.args, type(e).__name__, e)
         abort(500)

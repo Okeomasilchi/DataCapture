@@ -3,10 +3,11 @@
     flex-direction: column;
     align-self: flex-start;
     width: 100%;
+    margin-bottom: 80px;
 }
 
 .table-column {
-    border: 1px solid #0000002c;
+    border: 1px solid #0000003a;
     padding: 10px;
     background-color: rgba(128, 128, 128, 0.068);
     width: 100%;
@@ -15,10 +16,76 @@
 }
 
 .table-data {
+    display: flex;
+    justify-content: space-between;
+    /* Align items to the left and right */
+    align-items: center;
     border: 1px solid #0000002c;
     padding: 10px;
     width: 100%;
-    text-align: center;
+}
+
+.table-data button::before {
+    content: "Copied";
+    position: absolute;
+    top: -45px;
+    right: 0;
+    border-radius: 20px;
+    display: none;
+}
+
+
+.table-data button::after {
+    content: "";
+    position: absolute;
+    top: -20px;
+    right: 25px;
+    width: 10px;
+    height: 10px;
+    background: #198754;
+    transform: rotate(45deg);
+    display: none;
+}
+
+.table-data button::before,
+.table-data button::after {
+    display: block;
+}
+
+
+.survey-title {
+    font-style: italic;
+    flex: 1;
+    /* Allow title to grow and shrink */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    /* Display ellipsis for overflow text */
+    cursor: pointer;
+    /* Show pointer cursor on hover */
+}
+
+.copy-button {
+    padding: 5px 10px;
+    margin: 0 2px;
+    border-radius: 10px;
+}
+
+.copy-success-overlay {
+    position: absolute;
+    /* Overlay on top of the button */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 128, 0, 0.5);
+    /* Semi-transparent green */
+    opacity: 0;
+    /* Initially hidden */
+    transition: opacity 0.5s ease;
+    /* Smooth fade effect */
+    display: none;
+    /* Hidden by default */
 }
 
 .table-data textarea {
@@ -265,4 +332,43 @@ label {
         margin-left: 0;
         margin-top: 0;
     }
+}
+
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 140px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -75px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
 }

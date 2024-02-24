@@ -21,7 +21,7 @@ class Response(BaseModel, Base):
     __tablename__ = "responses"
 
     bio = Column(JSON)
-    timestamp = Column(DateTime, default=datetime.datetime.utcnow)
+    timestamp = Column(DateTime, default=datetime.datetime.utcnow())
     answers = Column(JSON, nullable=False)
     survey_id = Column(String(60), ForeignKey("surveys.id"), nullable=False)
     survey = relationship("Survey", back_populates="responses")
