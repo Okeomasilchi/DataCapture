@@ -77,67 +77,6 @@ class User(UserMixin):
         """
         return User(user_id)
 
-# Represents a user in the system.
-class User(UserMixin):
-    """
-    Represents a user in the system.
-
-    Args:
-        id (int): The unique identifier of the user.
-        first_name (str, optional): The first name of the user. Defaults to None.
-        last_name (str, optional): The last name of the user. Defaults to None.
-        email (str, optional): The email address of the user. Defaults to None.
-        picture (str, optional): The profile picture of the user. Defaults to None.
-        **kwargs: Additional attributes that can be set dynamically.
-
-    Attributes:
-        id (int): The unique identifier of the user.
-        first_name (str): The first name of the user.
-        last_name (str): The last name of the user.
-        email (str): The email address of the user.
-        picture (str): The profile picture of the user.
-
-    Methods:
-        get(user_id): Static method that returns a User instance based on the given user_id.
-    """
-
-    def __init__(
-        self, id, first_name=None, last_name=None, email=None, picture=None, **kwargs
-    ):
-        """
-        Initialize a User instance.
-
-        Args:
-            id (int): The unique identifier of the user.
-            first_name (str, optional): The first name of the user. Defaults to None.
-            last_name (str, optional): The last name of the user. Defaults to None.
-            email (str, optional): The email address of the user. Defaults to None.
-            picture (str, optional): The profile picture of the user. Defaults to None.
-            **kwargs: Additional attributes that can be set dynamically.
-        """
-        if kwargs:
-            for k, v in kwargs.items():
-                setattr(self, k, v)
-        else:
-            self.id = id
-            self.first_name = first_name
-            self.last_name = last_name
-            self.email = email
-            self.picture = picture
-
-    @staticmethod
-    def get(user_id):
-        """
-        Static method that returns a User instance based on the given user_id.
-
-        Args:
-            user_id (int): The unique identifier of the user.
-
-        Returns:
-            User: The User instance with the specified user_id.
-        """
-        return User(user_id)
-
 
 # Saves the profile picture.
 def save_pic(form_pic):

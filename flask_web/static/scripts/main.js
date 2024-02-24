@@ -10,6 +10,15 @@ function capitalizeFirstLetters(obj) {
 
 
 $(document).ready(() => {
+
+    $(document).on('keydown', function (e) {
+        if (e.originalEvent.getModifierState('CapsLock')) {
+            $('#elementId').show();
+        } else {
+            $('#elementId').hide();
+        }
+    });
+
     const progressBar = document.getElementById("progressBar");
 
     // Function to update the progress bar
@@ -319,5 +328,5 @@ $(document).ready(() => {
         console.log(JSON.stringify(data));
     }
 
-    
+
 });
