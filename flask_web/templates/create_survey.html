@@ -1,101 +1,33 @@
 {% extends 'layout.html' %}
 {% block script %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'styles/create.css') }}" />
-<script src="https://kit.fontawesome.com/6d617ef3fb.js" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'styles/create.css') }}" />
+  <script type="application/js" src="{{ url_for('static', filename = 'scripts/create.js') }}"></script>
 {% endblock %}
 
 {% block content %}
-<main id="dashboard">
-    <section id="dashboard-info">
-        <div class="table-row">
-            <div class="survey col-md-12 mx-auto"> <!-- Add mx-auto to center the column -->
-                <h1 class="text-center mb-6">Survey Details</h1> <!-- Added mb-6 for bottom margin -->
-                <div class="form-group mb-6"> <!-- Added mb-6 for bottom margin -->
-                    <input type="text" placeholder="Title" class="form-control title mb-3">
-                    <!-- Added mb-3 for bottom margin -->
-                    <textarea placeholder="Description" class="form-control description mb-3" rows="4"></textarea>
-                    <!-- Added mb-3 for bottom margin -->
-                    <input type="date" id="exp_date" name="exp_date" placeholder="Expiration date"
-                        class="form-control expiration mb-3"> <!-- Added mb-3 for bottom margin -->
-                    <div class="d-flex justify-content-start align-items-center mb-3">
-                        <!-- Added mb-3 for bottom margin -->
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input checkbox">
-                            <label class="form-check-label">Randomize Questions</label>
-                        </div>
-                    </div>
-                </div>
-                <button class="btn btn-success d-block mx-auto">Save</button>
-                <!-- Add d-block and mx-auto to center the button -->
-            </div>
-        </div>
-    </section>
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Clients</a>
+    <a href="#">Contact</a>
+  </div>
 
+  <div id="main">
+    <h2>Sidenav Push Example</h2>
+    <p>Click on the element below to open the side navigation menu, and push this content to the right.</p>
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+  </div>
 
-    <section id="dashboard-result" class="full-width">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8"> <!-- Adjusted to take 70% of the width -->
-                    <div class="top-section">
-                        <div class="heading">
-                            <h1>Question</h1>
-                        </div>
-                        <div class="input-group mb-4">
-                            <textarea class="form-control questionTextarea" rows="5"
-                                placeholder="Type Question"></textarea>
-                        </div>
-                        <div class="input-group mb-4">
-                            <select class='form-control  questiontype-dropdown' name="questiontype" id="questiontype">
-                                <option value="" disabled>Question Type</option>
-                                <option value="multiple" selected>Multiple Type</option>
-                                <option value="userdefined">User defined</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4"> <!-- Adjusted to take 30% of the width -->
-                    <div class="bottom-section">
-                        <div class="heading">
-                            <h1>Options</h1>
-                        </div>
-                        <div class="input-group mb-4" id="option-gen">
-                            <div class="choices">
-                                <div class="form-group">
-                                    <input type="text" placeholder="Option 1" class="form-control option">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" placeholder="Option 2" class="form-control option">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" placeholder="Option 3" class="form-control option">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12"> <!-- Adjusted to take 100% of the width -->
-                                <div class="input-group mb-4">
-                                    <button class="btn btn-outline-success add-btn">+</button>
-                                    <button class="btn btn-outline-danger remove-btn">-</button>
-                                    <select class="form-control optiontype" name="optiontype" id="optiontype">
-                                        <option value="" disabled selected>Option Type</option>
-                                        <option value="A">A, B, C, ...</option>
-                                        <option value="a">a, b, c, ...</option>
-                                        <option value="1">1, 2, 3, ...</option>
-                                        <option value="i">i, ii, iii, ...</option>
-                                        <option value="...">..., ...</option>
-                                    </select>
-                                </div>
-                                <div class="form-check mb-4">
-                                    <input type="checkbox" class="form-check-input checkbox" id="randomize-options">
-                                    <label class="form-check-label" for="randomize-options">Randomize Options</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</main>
+  <script>
+    function openNav() {
+      document.getElementById('mySidenav').style.width = '250px'
+      document.getElementById('main').style.marginLeft = '250px'
+    }
+    
+    function closeNav() {
+      document.getElementById('mySidenav').style.width = '0'
+      document.getElementById('main').style.marginLeft = '0'
+    }
+  </script>
 {% endblock %}
