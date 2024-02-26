@@ -97,278 +97,92 @@
     overflow: auto;
 }
 
-.Response-Collection-Form {
-    width: 80%;
-    height: auto;
-    background-color: rgba(255, 255, 255, 0.658);
+
+/* ------------------------------------------------------------------ */
+
+body {
+    font-family: "Lato", sans-serif;
 }
 
-.response-form {
-    text-align: left;
-    margin-bottom: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px 10px;
-    margin: 20px;
-    box-sizing: border-box;
-    overflow: auto;
-}
-
-.question {
-    margin: 0 0 50px;
-}
-
-.options {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-    padding-left: 50px;
-}
-
-
-#prog {
-    margin-left: 33px;
-}
-
-label {
-    z-index: 1;
-}
-
-#dashboard {
-    position: relative;
-    /* Make it a reference for absolute positioning */
-
-}
-
-
-#dashboard-info {
-    position: fixed;
-    display: flex;
-    top: 88px;
-    left: 0px;
-    width: 400px;
-    max-width: 500px;
-    height: 100vh;
-    padding: 45px 20px;
-    background-color: #ffffffb6;
-    border-right: 1px solid #ccc;
-    overflow-X: hidden;
-    z-index: 1;
-    transition: width 0.3s ease;
-}
-
-
-.collapsed {
+.sidenav {
+    height: 100%;
     width: 0;
-    /* Collapsed width */
-}
-
-#dashboard-info.active {
-    overflow-y: auto;
-    /* Activate scrollbar on hover */
-}
-
-#collapseButton {
-    width: fit-content;
-    height: fit-content;
     position: fixed;
-    /* Position fixed to keep it visible */
-    top: 50%;
-    /* Center vertically */
-    transform: translateY(-50%);
-    /* Adjust vertical centering */
-    left: 400px;
-    /* Adjust horizontal positioning */
-    z-index: 999;
-    /* Ensure the button is above other elements */
-    transition: left 0.3s ease;
-}
-
-
-/* #dashboard-result {
-    margin-left: 0px;
-} */
-
-.full-width {
-    display: flexbox;
-    align-items: center;
-    justify-content: center;
-    margin-left: 400px;
-    padding: 50px 20px 20px;
-    transition: margin-left 0.2s ease;
-}
-
-/* Customize scrollbar track */
-#dashboard-info::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
-}
-
-/* Customize scrollbar thumb */
-#dashboard-info::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-    border-radius: 5px;
-}
-
-/* Change scrollbar width */
-#dashboard-info::-webkit-scrollbar {
-    width: 5px;
-}
-
-/* Change scrollbar behavior on hover */
-#dashboard-info.active::-webkit-scrollbar-thumb {
-    background-color: #198754;
-}
-
-.progress-bar-container {
-    width: 100%;
-    position: fixed;
-    /* To keep the progress bar at the top */
-    bottom: 0;
+    z-index: 1;
+    top: 88px;
     left: 0;
-    z-index: 100;
-    /* Ensure it's above other elements */
+    background-color: #fafafa;
+    overflow-x: hidden;
+    overflow-y: auto;
+    transition: 0.5s;
+    padding: 60px 0 30px;
+    border-right: 1px solid #e7e7e7;
 }
 
-#progressBar {
-    background-color: #cecfcf;
-    /* Green */
-}
-
-#commit,
-#commit1 {
-    color: white;
-    padding: 5px 10px;
-    text-align: center;
+.sidenav a {
+    padding: 8px 8px 8px 32px;
     text-decoration: none;
-    /* display: inline-block; */
-    font-size: 16px;
-    margin: 20px 2px 2px;
-    cursor: pointer;
-    border-radius: 5px;
+    font-size: 25px;
+    color: #818181;
+    display: block;
     transition: 0.3s;
 }
 
-#commit1 {
-    visibility: hidden;
+.sidenav a:hover {
+    color: #f1f1f1;
 }
 
-/* ****************************************************** */
-
-
-/* Media Query for Wide Screens */
-@media screen and (max-width: 1200px) {
-    .Response-Collection-Form {
-        width: 90%;
-    }
-
-    #dashboard-info {
-        width: 300px;
-    }
-
-}
-
-/* Media Query for Medium Screens */
-@media screen and (max-width: 992px) {
-    #dashboard-info {
-        overflow: hidden;
-    }
-
-    .Response-Collection-Form {
-        width: 95%;
-    }
-
-    #dashboard-info {
-        width: 250px;
-    }
-
-}
-
-/* Media Query for Small Screens */
-@media screen and (max-width: 768px) {
-
-    #commit {
-        visibility: hidden;
-    }
-
-    #commit1 {
-        visibility: visible;
-        margin-bottom: 30px;
-    }
-
-    #collapseButton {
-        visibility: hidden;
-    }
-
-    .Response-Collection-Form {
-        width: 100%;
-    }
-
-    #dashboard-info {
-        position: static;
-        width: 100%;
-        padding: 30px;
-        border-right: none;
-        overflow-y: visible;
-        height: auto;
-    }
-
-    /* #dashboard-info {
-        position: fixed;
-        display: flex;
-        top: 88px;
-        left: 0px;
-        width: 400px;
-        max-width: 500px;
-        padding: 45px 20px;
-        background-color: #ffffffb6;
-        border-right: 1px solid #ccc;
-        overflow-X: hidden;
-        z-index: 1;
-        transition: width 0.3s ease;
-    } */
-
-    #dashboard-result {
-        margin-left: 0;
-        margin-top: 0;
-    }
-}
-
-
-.tooltip {
-    position: relative;
-    display: inline-block;
-}
-
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 140px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px;
+.sidenav .closebtn {
     position: absolute;
-    z-index: 1;
-    bottom: 150%;
-    left: 50%;
-    margin-left: -75px;
-    opacity: 0;
-    transition: opacity 0.3s;
+    top: 0;
+    right: 25px;
+    margin-left: 50px;
 }
 
-.tooltip .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
 }
 
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fafafa;
+    padding: 10px 0;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.sticky a:hover {
+    color: #f1f1f1;
+}
+
+#openNav {
+    border: none;
+    right: 0;
+}
+
+#mySidenav {
+    z-index: 100;
+}
+
+
+.table-bordered {
+    border: 1px solid #19191a;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #030303;
 }

@@ -1,55 +1,55 @@
 {% extends 'layout.html' %}
 {% block script %}
-  <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/usersurveys.css') }}" />
-  <script src="https://kit.fontawesome.com/6d617ef3fb.js" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename = 'styles/usersurveys.css') }}" />
+<script src="{{ url_for('static', filename = 'scripts/usersurveys.js') }}"></script>
 {% endblock %}
 
 {% block content %}
-  <main id="dashboard">
-    <section id="dashboard-info">
-      <div class="table-row">
-        <div class="table-column">Surveys</div>
-        {% if surveys %}
-          {% for survey in surveys %}
-            <div class="table-data" id="survey[0].id">
-              <span class="survey-title">{{ survey.title }}</span>
-              <!--                
-                <div class="tooltip">
-                <button onclick="myFunction()" onmouseout="outFunc()">Copy text</button>
-              </div>
-             -->
-              <button id="copy-button" class="copy-button btn btn-outline-success">
-                <i class="fa-solid fa-link"></i>
-              </button>
-            </div>
-          {% endfor %}
-        {% else %}
-          <div class="table-data">
-            <p></p>
-          </div>
-        {% endif %}
-      </div>
-    </section>
-    <section id="dashboard-result" class="full-width">
-      <div class="Response-Collection-Form"></div>
-    </section>
-    <script>
-        $('button').click(() => {
-            alert("Copied the text")
-            console.log("clicked")
-            // Retrieve the survey ID from the closest table-data element
-            var copyText = $(this).closest('.table-data');
-    
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); // For mobile devices
-    
-            Copy the text inside the text field
-            navigator.clipboard.writeText(copyText.value);
-    
-            Alert the copied text
-            alert("Copied the text: " + copyText.value);
-        });
-    </script>
-  </main>
+<div id="mySidenav" class="sidenav">
+  <a class="closebtn" id="closeNav"><i class="fa-solid fa-chevron-left"></i></a>
+  <div class="tab px-1">
+    <div class="table-row">
+      <div class="table-column">Details</div>
+      {% if surveys %}
+      {% for survey in surveys %}
+      <a class="table-data tablinks d-flex align-items-center" id="{{ survey.id }}">
+        <span class="survey-title m-0 flex-grow-1">{{ survey.title}}</span>
+        <button class="copy-button btn btn-outline-success ml-2"><i class="copy-t fa-solid fa-link"></i></button>
+      </a>
+      {% endfor %}
+      {% else %}
+      <p>No surveys available</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div id="main">
+  <span style="font-size:30px; cursor:pointer" id="openNav" class="sticky"><i
+      class="fa-solid fa-chevron-right fa-sm"></i></span>
+  <section id="dashboard-result" class="mx-5 px-5">
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th text-center>Title</th>
+            <th text-center>Creation</th>
+            <th text-center>Response</th>
+            <th text-center>Expiration</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Lorem ipsum, dolor sit amet consectetur adipisicing.</td>
+            <td>11-5-1998</td>
+            <td>23456 Responce</td>
+            <td>23-12-2004</tdtd>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="#populate" class="Response-Collection-Form">
+    </div>
+  </section>
+</div>
 {% endblock %}

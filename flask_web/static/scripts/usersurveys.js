@@ -1,4 +1,5 @@
 $(document).ready(() => {
+    // alert("hello")
     const navLinks = document.querySelectorAll('.nav-link')
 
     navLinks.forEach((link) => {
@@ -11,16 +12,72 @@ $(document).ready(() => {
         })
     })
 
-    function updateUI(data) {
-        // Update the UI with the JSON data
-        // For example, manipulate the DOM to display the data
+    // function intToAlphabet(num) {
+    //     if (num < 1 || num > 26) {
+    //         return "Invalid input. Please provide a number between 1 and 26.";
+    //     } else {
+    //         // Convert the number to the ASCII code for uppercase letters ('A' starts from 65)
+    //         // Subtract 1 from the input number to match with ASCII code (1 for 'A', 2 for 'B', ...)
+    //         const charCode = num + 64;
+    //         return String.fromCharCode(charCode);
+    //     }
+    // }
+
+    function openCity(evt, cityName) {
+        var tabcontent = $('.tabcontent');
+        tabcontent.css('display', 'none');
+
+        var tablinks = $('.tablinks');
+        tablinks.removeClass('active');
+
+        $('#' + cityName).css('display', 'block');
+        $(evt.currentTarget).addClass('active');
     }
 
-    function showError(errorMessage) {
-        // Display the error message to the user
-        // For example, show an alert with the error message
-        alert(errorMessage);
+    function openNav() {
+        let width = "400px"
+        $("#mySidenav").css("width", width);
+        $("#main").css("marginLeft", width);
+        $(".sticky").hide();
     }
+
+    function closeNav() {
+        $("#mySidenav").css("width", "0");
+        $("#main").css("marginLeft", "0");
+        $(".sticky").show();
+    }
+
+    function openNavSmall() {
+        $("#mySidenav").css("width", "350px");
+        $(".sticky").hide();
+    }
+
+    function closeNavSmall() {
+        $("#mySidenav").css("width", "0");
+        $(".sticky").show();
+    }
+
+
+    if ($(window).width() <= 768) {
+        $("#openNav").click(openNavSmall);
+        $("#closeNav").click(closeNavSmall);
+
+    } else {
+        $("#openNav").click(openNav);
+        $("#closeNav").click(closeNav);
+        $("#openNav").click();
+    }
+
+    // Check screen width on window resize
+    $(window).resize(() => {
+        if ($(window).width() <= 768) {
+            $("#openNav").click(openNavSmall);
+            $("#closeNav").click(closeNavSmall);
+        } else {
+            $("#openNav").click(openNav);
+            $("#closeNav").click(closeNav);
+        }
+    });
 
     function apiCall(id) {
         if (!id) {
@@ -32,8 +89,8 @@ $(document).ready(() => {
                 type: "GET",
                 url: "http://localhost:5000/api/v1/survey/" + id,
                 success: (response) => {
-                    const responseData = JSON.stringify(response);
-                    resolve(response); // Resolving with the extracted data
+                    // const responseData = JSON.stringify(response);
+                    resolve(response);
                 },
                 error: (error) => {
                     reject(new Error('API call failed'));
@@ -43,49 +100,23 @@ $(document).ready(() => {
     }
 
 
-    function openNav() {
-        document.getElementById('mySidenav').style.width = '500px'
-    }
-
-    function closeNav() {
-        document.getElementById('mySidenav').style.width = '0'
-    }
-
-    $("#open").click(() => {
-        document.getElementById('mySidenav').style.width = '500px'
-    });
-
-    $(".closebtn").click(() => {
-        document.getElementById('mySidenav').style.width = '0'
-    });
-
-
-    // $(".table-row a:first").click();
-    let id = $(".table-row a:first").attr("id");
     $(".bottom-section").hide();
 
-    // Show options container on hover of options button
-    $("button [class='options-button']").hover(
-        function () {
-            // Show options container using slide down animation
-            $(this).closest(".question-block").find(".bottom-section").slideDown();
-        },
-        function () {
-            // Hide options container using slide up animation
-            $(this).closest(".question-block").find(".bottom-section").slideUp();
-        }
-    );
-    apiCall(id)
-        .then((data) => {
-            const questions = data.questions;
-            questions.forEach((question) => {
-                let optionsHTML = ''; // Variable to store options HTML
-                // Loop through each option and concatenate input elements
-                for (let i = 0; i < question.options.length; i++) {
-                    optionsHTML += `<p class="form-control option m-2"><strong>${String.fromCharCode(i + 65)}</strong>&Tab;${question.options[i]}</p>`;
-                }
-                // Append question and options to the 'populate' element
-                $("#populate").append(`
+    $("a span").click(function () {
+        console.log("clicked");
+        var id = $(this).attr("id");
+        console.log(id);
+        apiCall(id)
+            .then((data) => {
+                const questions = data.questions;
+                questions.forEach((question) => {
+                    let optionsHTML = ''; // Variable to store options HTML
+                    // Loop through each option and concatenate input elements
+                    for (let i = 0; i < question.options.length; i++) {
+                        optionsHTML += `<p class="form-control option m-2"><strong>${String.fromCharCode(i + 65)}</strong>&Tab;${question.options[i]}</p>`;
+                    }
+                    // Append question and options to the 'populate' element
+                    $("#populate").append(`
                     <div class="col-lg-3 col-md-4 col-sm-12 question-block">
                         <div class="top-section">
                             <div class="form-group">
@@ -104,18 +135,35 @@ $(document).ready(() => {
                         </div>
                     </div>
                 `);
+                });
+            })
+            .catch((error) => {
+                console.error('Error:', error.message);
             });
-        })
-        .catch((error) => {
-            console.error('Error:', error.message);
-        });
+    });
 
-
+    // $("a span:first").click();
 
     // Add your existing JavaScript logic here, such as handling the copy button click event
-    $('.copy-button').click(function () {
-        // Your copy functionality code here
-        var copyText = $(this).siblings('.survey-title').text()
-        navigator.clipboard.writeText(copyText)
+    // $('.copy-button').click(() => {
+    //     // Your copy functionality code here
+    //     var copyText = $(this).siblings('.survey-title').text()
+    //     navigator.clipboard.writeText(copyText)
+    // });
+
+    $('button.copy-t').click(() => {
+        alert("Copied the text")
+        console.log("clicked")
+        // Retrieve the survey ID from the closest table-data element
+        var copyText = $(this).closest('.table-data');
+
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+
+        //Copy the text inside the text field
+        navigator.clipboard.writeText(copyText.value);
+
+        //Alert the copied text
+        alert("Copied the text: " + copyText.value);
     });
 });
