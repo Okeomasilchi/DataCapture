@@ -440,9 +440,13 @@ header h2 {
 }
 
 
-@media (min-width: 576px) {
+@media (min-width: 786px) {
     .fixed {
         position: fixed;
+    }
+
+    body {
+        overflow-x: hidden;
     }
 }
 

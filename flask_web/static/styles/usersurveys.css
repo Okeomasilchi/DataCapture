@@ -182,7 +182,36 @@ body {
     border: 1px solid #19191a;
 }
 
+
 .table-bordered th,
 .table-bordered td {
     border: 1px solid #030303;
+}
+
+.question-block {
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+    background-color: #fdfdfd;
+    max-width: 381px;
+    min-width: 300px;
+}
+
+.bottom-section {
+    position: absolute;
+    top: 35%;
+    /* Position below the question */
+    left: 0;
+    right: 0;
+    background-color: rgb(241, 241, 241);
+    z-index: 1000;
+    display: none;
+    overflow-y: none;
+    border: 1px solid #000e05;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #097934a6;
+}
+
+.box {
+    margin-left: 0 auto;
 }

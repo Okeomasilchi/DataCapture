@@ -23,19 +23,19 @@ $(document).ready(() => {
     //     }
     // }
 
-    function openCity(evt, cityName) {
-        var tabcontent = $('.tabcontent');
-        tabcontent.css('display', 'none');
+    // function openCity(evt, cityName) {
+    //     var tabcontent = $('.tabcontent');
+    //     tabcontent.css('display', 'none');
 
-        var tablinks = $('.tablinks');
-        tablinks.removeClass('active');
+    //     var tablinks = $('.tablinks');
+    //     tablinks.removeClass('active');
 
-        $('#' + cityName).css('display', 'block');
-        $(evt.currentTarget).addClass('active');
-    }
+    //     $('#' + cityName).css('display', 'block');
+    //     $(evt.currentTarget).addClass('active');
+    // }
 
     function openNav() {
-        let width = "400px"
+        let width = "350px"
         $("#mySidenav").css("width", width);
         $("#main").css("marginLeft", width);
         $(".sticky").hide();
@@ -102,34 +102,33 @@ $(document).ready(() => {
 
     $(".bottom-section").hide();
 
-    $("a span").click(function () {
-        console.log("clicked");
+    $("a.link").click(function () {
         var id = $(this).attr("id");
-        console.log(id);
         apiCall(id)
             .then((data) => {
+                // console.log(data)
+                $("#populate").children(".row").empty();
                 const questions = data.questions;
                 questions.forEach((question) => {
                     let optionsHTML = ''; // Variable to store options HTML
                     // Loop through each option and concatenate input elements
                     for (let i = 0; i < question.options.length; i++) {
-                        optionsHTML += `<p class="form-control option m-2"><strong>${String.fromCharCode(i + 65)}</strong>&Tab;${question.options[i]}</p>`;
+                        optionsHTML += `<p class="form-control option m-2"><strong><em>${String.fromCharCode(i + 65)}</em>.</strong>&Tab;${question.options[i]}</p>`;
                     }
                     // Append question and options to the 'populate' element
-                    $("#populate").append(`
-                    <div class="col-lg-3 col-md-4 col-sm-12 question-block">
+                    $("#populate").children(".row").append(`
+                    <div class="col-lg-3 col-md-6 col-sm-12 question-block p-3 m-2">
                         <div class="top-section">
-                            <div class="form-group">
+                            <div class="form-group d-flex justify-content-between align-items-center">
                                 <h4 class="m-0 mb-3">Question</h4>
-                                <button class="options-button m-0">Options</button>
+                                <button class="option-tag btn btn-outline-success btn-3d m-0 py-0"><i class="fa-solid fa-arrow-down-short-wide"></i></button>
                             </div>
                             <div class="input-group mb-4">
                                 <p class="questionTextarea" rows="5" placeholder="Type Question">${question.question}</p>
                             </div>
                         </div>
-                        <div class="bottom-section">
-                            <h4 mb-3>Options</h4>
-                            <div class="options-container py-2">
+                        <div class="px-3 bottom-section">
+                            <div class="py-2">
                                 ${optionsHTML}
                             </div>
                         </div>
@@ -137,12 +136,21 @@ $(document).ready(() => {
                 `);
                 });
             })
+            .then(() => {
+                $(".bottom-section").hide();
+            })
             .catch((error) => {
                 console.error('Error:', error.message);
             });
     });
 
-    // $("a span:first").click();
+    $("a.link:first").click();
+
+    $(document).on("click", ".option-tag", function () {
+        var bottomSection = $(this).closest(".question-block").find(".bottom-section");
+        $(".bottom-section").not(bottomSection).slideUp(1);
+        bottomSection.slideToggle();
+    });
 
     // Add your existing JavaScript logic here, such as handling the copy button click event
     // $('.copy-button').click(() => {
