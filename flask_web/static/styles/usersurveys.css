@@ -212,6 +212,54 @@ body {
     box-shadow: 0 0 10px #097934a6;
 }
 
-.box {
-    margin-left: 0 auto;
+
+/* .box {
+    padding-left: 0px;
+    /* Base padding */
+    max-width: 90%;
+    /* Limit the box's width */
+    margin: 0 auto;
+    /* Center the box */
+} */
+
+/* Large Desktops (1200px and above) */
+@media only screen and (min-width: 1200px) {
+    .box {
+        padding-left: 160px;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .box {
+        padding-left: 5%;
+        /* Increase padding on larger screens */
+    }
+}
+
+/* Tablets and smaller desktops (Between 992px and 1199px) */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .box {
+        padding-left: 70px;
+    }
+}
+
+/* Slightly smaller tablets and some phones (Between 600px and 991px) */
+@media only screen and (min-width: 600px) and (max-width: 991px) {
+    .box {
+        padding-left: 200px;
+    }
+}
+
+/* Smartphones and smaller tablets (Between 768px and 599px) */
+@media only screen and (min-width: 768px) and (max-width: 599px) {
+    .box {
+        padding-left: 90px;
+    }
+}
+
+/* Very small screens  (Below 767px) */
+@media only screen and (max-width: 767px) {
+    .box {
+        padding-left: 0;
+    }
 }
