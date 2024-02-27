@@ -40,11 +40,13 @@ $(document).ready(() => {
         // Define your logic to calculate padding based on screen width
         var paddingValue;
         if (screenWidth >= 1200) {
-            paddingValue = 50; // Example value for screens larger than 1200px
+            paddingValue = 70; // Example value for screens larger than 1200px
         } else if (screenWidth >= 992) {
-            paddingValue = 40; // Example value for screens between 992px and 1199px
+            paddingValue = 50; // Example value for screens between 992px and 1199px
+        } else if (screenWidth >= 834) {
+            paddingValue = 40; // Example value for screens between 768px and 991px
         } else {
-            paddingValue = 30; // Example value for screens smaller than 992px
+            paddingValue = 40; // Example value for screens smaller than 992px
         }
 
         // Apply the calculated padding-left value to elements with class 'box'
