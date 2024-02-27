@@ -34,17 +34,41 @@ $(document).ready(() => {
     //     $(evt.currentTarget).addClass('active');
     // }
 
+    function setPaddingLeft() {
+        var screenWidth = $(window).width();
+
+        // Define your logic to calculate padding based on screen width
+        var paddingValue;
+        if (screenWidth >= 1200) {
+            paddingValue = 50; // Example value for screens larger than 1200px
+        } else if (screenWidth >= 992) {
+            paddingValue = 40; // Example value for screens between 992px and 1199px
+        } else {
+            paddingValue = 30; // Example value for screens smaller than 992px
+        }
+
+        // Apply the calculated padding-left value to elements with class 'box'
+        $(".box").css("paddingLeft", paddingValue + "px");
+    }
+
+    // Call the function initially to set the padding-left on page load
+    
+
+    // Call the function whenever the window is resized to update the padding-left
+    
     function openNav() {
         let width = "350px"
         $("#mySidenav").css("width", width);
         $("#main").css("marginLeft", width);
         $(".sticky").hide();
+        setPaddingLeft();
     }
 
     function closeNav() {
         $("#mySidenav").css("width", "0");
         $("#main").css("marginLeft", "0");
         $(".sticky").show();
+        $(".box").css("paddingLeft", "0")
     }
 
     function openNavSmall() {
@@ -61,7 +85,6 @@ $(document).ready(() => {
     if ($(window).width() <= 768) {
         $("#openNav").click(openNavSmall);
         $("#closeNav").click(closeNavSmall);
-
     } else {
         $("#openNav").click(openNav);
         $("#closeNav").click(closeNav);
@@ -76,6 +99,7 @@ $(document).ready(() => {
         } else {
             $("#openNav").click(openNav);
             $("#closeNav").click(closeNav);
+            $(window).resize(setPaddingLeft);
         }
     });
 
@@ -117,7 +141,7 @@ $(document).ready(() => {
                     }
                     // Append question and options to the 'populate' element
                     $("#populate").children(".row").append(`
-                    <div class="col-lg-3 col-md-6 col-sm-12 question-block p-3 m-2">
+                    <div class="col-lg-4 col-md-6 col-sm-12 question-block p-3 m-2">
                         <div class="top-section">
                             <div class="form-group d-flex justify-content-between align-items-center">
                                 <h4 class="m-0 mb-3">Question</h4>
