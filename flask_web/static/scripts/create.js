@@ -37,7 +37,7 @@ $(document).ready(function () {
     if ($(window).width() <= 768) { // 768px is the Bootstrap medium breakpoint
         $("#openNav").click(openNavSmall);
         $("#closeNav").click(closeNavSmall);
-
+        $("#openNav").click();
     } else {
         $("#openNav").click(openNav);
         $("#closeNav").click(closeNav);
@@ -99,39 +99,10 @@ $(document).ready(function () {
           </div>
           <div class="row">
             <div class="col-md-12"> <!-- Adjusted to take 100% of the width -->
-              <div class="input-group mb-4">
-                <button class="btn-3d btn btn-outline-success fa-solid fa-plus add-btn m-1"></button>
-                <button class="btn-3d btn btn-outline-danger fa-solid fa-minus remove-btn m-1"></button>
-                <select class="form-control optiontype m-1" name="optiontype" id="optiontype">
-                  <option value="" disabled selected>Option Type</option>
-                  <option value="A">A, B, C, ...</option>
-                  <option value="a">a, b, c, ...</option>
-                  <option value="1">1, 2, 3, ...</option>
-                  <option value="i">i, ii, iii, ...</option>
-                </select>
-              </div>
-              <div class="checkbox-wrapper-35 mb-4">
-                <input class="switch" type="checkbox" id="randomize-options-${questionCounter}" name="switch" value="private">
-                <label for="randomize-options-${questionCounter}">
-                    <span class="switch-x-text">
-                        Randomize options
-                    </span>
-                    <span class="switch-x-toggletext">
-                        <span class="switch-x-unchecked">
-                            <span class="switch-x-hiddenlabel">
-                                Unchecked: 
-                            </span>
-                            Off
-                        </span>
-                        <span class="switch-x-checked">
-                            <span class="switch-x-hiddenlabel">
-                                Checked: 
-                            </span>
-                            On
-                        </span>
-                    </span>
-                </label>
-            </div>
+                <div class="input-group text-center mx-auto mx-auto d-flex justify-content-center">
+                    <button class="btn-3d btn btn-outline-success fa-solid fa-plus add-btn m-2 px-3"></button>
+                    <button class="btn-3d btn btn-outline-danger fa-solid fa-minus remove-btn m-2 px-3"></button>
+                </div>
             </div>
           </div>
         </div>
@@ -172,7 +143,7 @@ $(document).ready(function () {
     $('#append').on('click', '.remove-btn', function () {
         // Find the closest options within the same question block
         const optionsDiv = $(this).closest('.border').find('#options');
-        if (optionsDiv.find('input[type="text"]').length > 1) {
+        if (optionsDiv.find('input[type="text"]').length > 2) {
             // If there is more than one input field, remove the last input field
             optionsDiv.find('input[type="text"]').last().remove();
             optionCounter--;

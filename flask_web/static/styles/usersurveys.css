@@ -196,7 +196,7 @@ body {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius: 10px;
     background-color: #fdfdfd;
-    max-width: 381px;
+    max-width: 360px;
     min-width: 300px;
 }
 
@@ -216,11 +216,11 @@ body {
 }
 
 /* Large Desktops (1200px and above) */
-@media only screen and (min-width: 1200px) {
+/* @media only screen and (min-width: 1200px) {
     .box {
         padding-left: 160px;
     }
-}
+} */
 
 @media only screen and (min-width: 992px) {
     .box {
@@ -232,21 +232,21 @@ body {
 /* Tablets and smaller desktops (Between 992px and 1199px) */
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
     .box {
-        padding-left: 70px;
+        padding-left: 170px;
     }
 }
 
 /* Slightly smaller tablets and some phones (Between 600px and 991px) */
 @media only screen and (min-width: 600px) and (max-width: 991px) {
     .box {
-        padding-left: 200px;
+        padding-left: 0px;
     }
 }
 
 /* Smartphones and smaller tablets (Between 768px and 599px) */
 @media only screen and (min-width: 768px) and (max-width: 599px) {
     .box {
-        padding-left: 90px;
+        padding-left: 70px;
     }
 }
 
@@ -395,4 +395,4 @@ body {
     color: #fff;
 }
 
-/* ***************************************************** */
+/* ************************ loading ***************************** */

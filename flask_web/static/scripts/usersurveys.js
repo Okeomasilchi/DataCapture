@@ -1,16 +1,6 @@
 $(document).ready(() => {
     // alert("hello")
-    // const navLinks = document.querySelectorAll('.nav-link')
-
-    // navLinks.forEach((link) => {
-    //     link.addEventListener('click', (event) => {
-    //         // Remove 'active' class from other links
-    //         navLinks.forEach((link) => link.classList.remove('active'))
-
-    //         // Add 'active' class to the clicked link
-    //         event.currentTarget.classList.add('active')
-    //     })
-    // })
+    $("#load-wrapp").hide();
 
     $('.link').on('click', function () {
         // Remove 'active' class from all links
@@ -18,6 +8,7 @@ $(document).ready(() => {
 
         // Add 'active' class to the clicked link
         $(this).addClass('active');
+        $("#closeNav").click()
     });
 
     function openNav() {
@@ -44,7 +35,7 @@ $(document).ready(() => {
     }
 
 
-    if ($(window).width() <= 768) {
+    if ($(window).width() <= 992) {
         $("#openNav").click(openNavSmall);
         $("#closeNav").click(closeNavSmall);
     } else {
@@ -67,6 +58,7 @@ $(document).ready(() => {
         if (!id) {
             return Promise.reject(new Error('Invalid ID'));
         }
+        $("#dashboard-result").addClass("blurred-background")
 
         return new Promise((resolve, reject) => {
             $.ajax({
@@ -74,10 +66,12 @@ $(document).ready(() => {
                 url: "http://localhost:5000/api/v1/survey/" + id,
                 success: (response) => {
                     // const responseData = JSON.stringify(response);
+                    $("#dashboard-result").removeClass("blurred-background")
                     resolve(response);
                 },
                 error: (error) => {
-                    reject(new Error('API call failed'));
+                    $("#dashboard-result").removeClass("blurred-background")
+                    reject(new Error('API call failed with error: ' + error.message));
                 }
             });
         });
@@ -86,53 +80,21 @@ $(document).ready(() => {
 
     $(".bottom-section").hide();
 
-    data = { "description": "Description for Survey 3", "expiry_date": "2024-03-01", "randomize": true, "id": "70900d07-1d40-4bf0-a587-abe4e4487ce8", "updated_at": "2024-01-31 14:06:05", "title": "Survey 3 for User 1", "user_id": "08c2c669-15b5-4e0a-951b-92d17c27a370", "visibility": true, "question_type": "Multiple Choice", "created_at": "2024-01-31 14:06:05", "__class__": "Survey", "questions": [{ "random": false, "survey_id": "70900d07-1d40-4bf0-a587-abe4e4487ce8", "created_at": "2024-01-31 14:50:07", "question": "Question for 70900d07-1d40-4bf0-a587-abe4e4487ce8?", "options": ["Option 1", "Option 2", "Option 3"], "id": "47006707-11f3-4fad-8d61-a61b5594dea1", "updated_at": "2024-01-31 14:50:07", "__class__": "Question" }, { "random": true, "survey_id": "70900d07-1d40-4bf0-a587-abe4e4487ce8", "created_at": "2024-01-31 14:50:07", "question": "Question for 70900d07-1d40-4bf0-a587-abe4e4487ce8?", "options": ["Option 1", "Option 2", "Option 3"], "id": "8128d9be-8552-4bc8-88db-8e642f7531f1", "updated_at": "2024-01-31 14:50:07", "__class__": "Question" }, { "random": false, "survey_id": "70900d07-1d40-4bf0-a587-abe4e4487ce8", "created_at": "2024-01-31 14:50:08", "question": "Question for 70900d07-1d40-4bf0-a587-abe4e4487ce8?", "options": ["Option 1", "Option 2", "Option 3", "Option 4"], "id": "d9dc836b-6204-490a-bd21-9a9c189b8771", "updated_at": "2024-01-31 14:50:08", "__class__": "Question" }, { "random": true, "survey_id": "70900d07-1d40-4bf0-a587-abe4e4487ce8", "created_at": "2024-01-31 14:50:08", "question": "Question for 70900d07-1d40-4bf0-a587-abe4e4487ce8?", "options": ["Option 1", "Option 2", "Option 3"], "id": "dd1edcad-a136-4f69-ac65-bb20c1dd7ab9", "updated_at": "2024-01-31 14:50:08", "__class__": "Question" }, { "random": false, "survey_id": "70900d07-1d40-4bf0-a587-abe4e4487ce8", "created_at": "2024-01-31 14:50:07", "question": "Question for 70900d07-1d40-4bf0-a587-abe4e4487ce8?", "options": ["Option 1", "Option 2", "Option 3", "Option 4"], "id": "e896c4bb-3e2c-4524-a0c7-629d0198ab78", "updated_at": "2024-01-31 14:50:07", "__class__": "Question" }] }
+    // data = { "description": "Description for Survey 3", "expiry_date": "2024-03-01", "randomize": true, "id": "70900d07-1d40-4bf0-a587-abe4e4487ce8", "updated_at": "2024-01-31 14:06:05", "title": "Survey 3 for User 1", "user_id": "08c2c669-15b5-4e0a-951b-92d17c27a370", "visibility": true, "question_type": "Multiple Choice", "created_at": "2024-01-31 14:06:05", "__class__": "Survey", "questions": [{ "random": false, "survey_id": "70900d07-1d40-4bf0-a587-abe4e4487ce8", "created_at": "2024-01-31 14:50:07", "question": "Question for 70900d07-1d40-4bf0-a587-abe4e4487ce8?", "options": ["Option 1", "Option 2", "Option 3"], "id": "47006707-11f3-4fad-8d61-a61b5594dea1", "updated_at": "2024-01-31 14:50:07", "__class__": "Question" }, { "random": true, "survey_id": "70900d07-1d40-4bf0-a587-abe4e4487ce8", "created_at": "2024-01-31 14:50:07", "question": "Question for 70900d07-1d40-4bf0-a587-abe4e4487ce8?", "options": ["Option 1", "Option 2", "Option 3"], "id": "8128d9be-8552-4bc8-88db-8e642f7531f1", "updated_at": "2024-01-31 14:50:07", "__class__": "Question" }, { "random": false, "survey_id": "70900d07-1d40-4bf0-a587-abe4e4487ce8", "created_at": "2024-01-31 14:50:08", "question": "Question for 70900d07-1d40-4bf0-a587-abe4e4487ce8?", "options": ["Option 1", "Option 2", "Option 3", "Option 4"], "id": "d9dc836b-6204-490a-bd21-9a9c189b8771", "updated_at": "2024-01-31 14:50:08", "__class__": "Question" }, { "random": true, "survey_id": "70900d07-1d40-4bf0-a587-abe4e4487ce8", "created_at": "2024-01-31 14:50:08", "question": "Question for 70900d07-1d40-4bf0-a587-abe4e4487ce8?", "options": ["Option 1", "Option 2", "Option 3"], "id": "dd1edcad-a136-4f69-ac65-bb20c1dd7ab9", "updated_at": "2024-01-31 14:50:08", "__class__": "Question" }, { "random": false, "survey_id": "70900d07-1d40-4bf0-a587-abe4e4487ce8", "created_at": "2024-01-31 14:50:07", "question": "Question for 70900d07-1d40-4bf0-a587-abe4e4487ce8?", "options": ["Option 1", "Option 2", "Option 3", "Option 4"], "id": "e896c4bb-3e2c-4524-a0c7-629d0198ab78", "updated_at": "2024-01-31 14:50:07", "__class__": "Question" }] }
 
     $("a.link").click(function () {
         var id = $(this).attr("id");
 
-        $("#populate").children(".row").empty();
-        const questions = data.questions;
-        questions.forEach((question) => {
-            let optionsHTML = ''; // Variable to store options HTML
-            // Loop through each option and concatenate input elements
-            for (let i = 0; i < question.options.length; i++) {
-                optionsHTML += `<p class="form-control option m-2"><strong><em>${String.fromCharCode(i + 65)}</em>.</strong>&Tab;${question.options[i]}</p>`;
-            }
-            // Append question and options to the 'populate' element
-            $("#populate").children(".row").append(`
-                    <div class="col-lg-4 col-md-6 col-sm-12 question-block p-3 m-2">
-                        <div class="top-section">
-                            <div class="form-group d-flex justify-content-between align-items-center">
-                                <h4 class="m-0 mb-3">Question</h4>
-                                <button class="option-tag btn btn-outline-success btn-3d m-0 py-0"><i class="fa-solid fa-arrow-down-short-wide"></i></button>
-                            </div>
-                            <div class="input-group mb-4">
-                                <p class="questionTextarea" rows="5" placeholder="Type Question">${question.question}</p>
-                            </div>
-                        </div>
-                        <div class="px-3 bottom-section">
-                            <div class="py-2">
-                                ${optionsHTML}
-                            </div>
-                        </div>
-                    </div>
-                `);
-        });
-        $(".bottom-section").hide();
-        // apiCall(id)
-        //     .then((data) => {
-        //         // console.log(data)
-        //         $("#populate").children(".row").empty();
-        //         const questions = data.questions;
-        //         questions.forEach((question) => {
-        //             let optionsHTML = ''; // Variable to store options HTML
-        //             // Loop through each option and concatenate input elements
-        //             for (let i = 0; i < question.options.length; i++) {
-        //                 optionsHTML += `<p class="form-control option m-2"><strong><em>${String.fromCharCode(i + 65)}</em>.</strong>&Tab;${question.options[i]}</p>`;
-        //             }
-        //             // Append question and options to the 'populate' element
-        //             $("#populate").children(".row").append(`
+        // $("#populate").children(".row").empty();
+        // const questions = data.questions;
+        // questions.forEach((question) => {
+        //     let optionsHTML = ''; // Variable to store options HTML
+        //     // Loop through each option and concatenate input elements
+        //     for (let i = 0; i < question.options.length; i++) {
+        //         optionsHTML += `<p class="form-control option m-2"><strong><em>${String.fromCharCode(i + 65)}</em>.</strong>&Tab;${question.options[i]}</p>`;
+        //     }
+        //     // Append question and options to the 'populate' element
+        //     $("#populate").children(".row").append(`
         //             <div class="col-lg-4 col-md-6 col-sm-12 question-block p-3 m-2">
         //                 <div class="top-section">
         //                     <div class="form-group d-flex justify-content-between align-items-center">
@@ -150,14 +112,48 @@ $(document).ready(() => {
         //                 </div>
         //             </div>
         //         `);
-        //         });
-        //     })
-        //     .then(() => {
-        //         $(".bottom-section").hide();
-        //     })
-        //     .catch((error) => {
-        //         console.error('Error:', error.message);
-        //     });
+        // });
+        // $(".bottom-section").hide();
+        
+        
+        apiCall(id)
+            .then((data) => {
+                // console.log(data)
+                $("#populate").children(".row").empty();
+                const questions = data.questions;
+                questions.forEach((question) => {
+                    let optionsHTML = ''; // Variable to store options HTML
+                    // Loop through each option and concatenate input elements
+                    for (let i = 0; i < question.options.length; i++) {
+                        optionsHTML += `<p class="form-control option m-2"><strong><em>${String.fromCharCode(i + 65)}</em>.</strong>&Tab;${question.options[i]}</p>`;
+                    }
+                    // Append question and options to the 'populate' element
+                    $("#populate").children(".row").append(`
+                    <div class="col-lg-4 col-md-6 col-sm-12 question-block p-3 m-2">
+                        <div class="top-section">
+                            <div class="form-group d-flex justify-content-between align-items-center">
+                                <h4 class="m-0 mb-3">Question</h4>
+                                <button class="option-tag btn btn-outline-success btn-3d m-0 py-0"><i class="fa-solid fa-arrow-down-short-wide"></i></button>
+                            </div>
+                            <div class="input-group mb-4">
+                                <p class="questionTextarea" rows="5" placeholder="Type Question">${question.question}</p>
+                            </div>
+                        </div>
+                        <div class="px-3 bottom-section">
+                            <div class="py-2">
+                                ${optionsHTML}
+                            </div>
+                        </div>
+                    </div>
+                `);
+                });
+            })
+            .then(() => {
+                $(".bottom-section").hide();
+            })
+            .catch((error) => {
+                console.error('Error:', error.message);
+            });
     });
 
     $("a.link:first").click();
