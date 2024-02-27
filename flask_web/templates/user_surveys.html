@@ -12,7 +12,7 @@
         <div class="table-column">Details</div>
         {% if surveys %}
           {% for survey in surveys %}
-            <a class="link table-data tablinks d-flex align-items-center" id="{{ survey.id }}">
+            <a class="link n-link table-data tablinks d-flex align-items-center" id="{{ survey.id }}">
               <span class="survey-title m-0 flex-grow-1">{{ survey.title }}</span>
               <button class="copy-button btn btn-outline-success ml-2"><i class="copy-t fa-solid fa-link"></i></button>
             </a>
@@ -28,6 +28,10 @@
     <span style="font-size:30px; cursor:pointer" id="openNav" class="sticky"><i class="fa-solid fa-chevron-right fa-sm"></i></span>
     <section id="dashboard-result" class="mx-4 px-2">
       <div class="table-responsive">
+        <div class="checkbox-wrapper-34">
+            <input class='tgl tgl-ios'id='toggle-34'type='checkbox'>
+            <label class='tgl-btn'for='toggle-34'></label>
+          </div>
         <table class="table table-striped table-bordered">
           <thead>
             <tr>

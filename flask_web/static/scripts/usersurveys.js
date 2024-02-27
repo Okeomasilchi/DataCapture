@@ -1,60 +1,24 @@
 $(document).ready(() => {
     // alert("hello")
-    const navLinks = document.querySelectorAll('.nav-link')
+    // const navLinks = document.querySelectorAll('.nav-link')
 
-    navLinks.forEach((link) => {
-        link.addEventListener('click', (event) => {
-            // Remove 'active' class from other links
-            navLinks.forEach((link) => link.classList.remove('active'))
+    // navLinks.forEach((link) => {
+    //     link.addEventListener('click', (event) => {
+    //         // Remove 'active' class from other links
+    //         navLinks.forEach((link) => link.classList.remove('active'))
 
-            // Add 'active' class to the clicked link
-            event.currentTarget.classList.add('active')
-        })
-    })
+    //         // Add 'active' class to the clicked link
+    //         event.currentTarget.classList.add('active')
+    //     })
+    // })
 
-    // function intToAlphabet(num) {
-    //     if (num < 1 || num > 26) {
-    //         return "Invalid input. Please provide a number between 1 and 26.";
-    //     } else {
-    //         // Convert the number to the ASCII code for uppercase letters ('A' starts from 65)
-    //         // Subtract 1 from the input number to match with ASCII code (1 for 'A', 2 for 'B', ...)
-    //         const charCode = num + 64;
-    //         return String.fromCharCode(charCode);
-    //     }
-    // }
+    $('.link').on('click', function () {
+        // Remove 'active' class from all links
+        $('.link').removeClass('active');
 
-    // function openCity(evt, cityName) {
-    //     var tabcontent = $('.tabcontent');
-    //     tabcontent.css('display', 'none');
-
-    //     var tablinks = $('.tablinks');
-    //     tablinks.removeClass('active');
-
-    //     $('#' + cityName).css('display', 'block');
-    //     $(evt.currentTarget).addClass('active');
-    // }
-
-    function setPaddingLeft() {
-        var screenWidth = window.innerWidth;
-
-        // Define your logic to calculate padding based on screen width
-        var paddingValue;
-        if (screenWidth >= 1200) {
-            paddingValue = 160;
-        } else if (screenWidth <= 1200) {
-            paddingValue = 60;
-        } else if (screenWidth >= 992) {
-            paddingValue = 70;
-        } else if (screenWidth >= 600) {
-            paddingValue = 200;
-        } else if (screenWidth <= 786) {
-            paddingValue = 90;
-        } else {
-            paddingValue = 0;
-        }
-
-        $(".box").css("paddingLeft", paddingValue + "px");
-    }
+        // Add 'active' class to the clicked link
+        $(this).addClass('active');
+    });
 
     function openNav() {
         let width = "350px"
@@ -83,16 +47,12 @@ $(document).ready(() => {
     if ($(window).width() <= 768) {
         $("#openNav").click(openNavSmall);
         $("#closeNav").click(closeNavSmall);
-        // setPaddingLeft();
     } else {
         $("#openNav").click(openNav);
         $("#closeNav").click(closeNav);
         $("#openNav").click();
-        // setPaddingLeft();
     }
 
-    setPaddingLeft();
-    // Check screen width on window resize
     $(window).resize(() => {
         if ($(window).width() <= 768) {
             $("#openNav").click(openNavSmall);
@@ -100,7 +60,6 @@ $(document).ready(() => {
         } else {
             $("#openNav").click(openNav);
             $("#closeNav").click(closeNav);
-            $(window).resize(setPaddingLeft);
         }
     });
 

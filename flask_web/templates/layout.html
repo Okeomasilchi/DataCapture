@@ -45,7 +45,7 @@
     </head>
 
     <body>
-      <nav class="navbar navbar-expand-md bg-success bg-steel fixed-top bg-f py-3">
+      <nav class="navbar navbar-expand-md bg-success bg-steel fixed-top bg-f">
         <div class="container">
           <a class="navbar-brand d-flex align-items-center text-white" href="/">
             <i class="fa-solid fa-magnifying-glass-chart fa-flip-horizontal fa-xl" style="color: white;"></i>
@@ -65,7 +65,7 @@
                   <a class="nav-link m-2 btn-3d grayish-text" href="{{ url_for('create_survey') }}"><i class="fa-solid fa-square-plus fa-xl"></i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link m-2 btn-3d grayish-text" href="{{ url_for('user_survey') }}"><i class="fa-solid fa-square-poll-vertical fa-xl"></i></a>
+                  <a class="nav-link m-2 btn-3d grayish-text" href="{{ url_for('user_survey') }}"><i class="fa-solid fa-square-poll-vertical fa-xl"></i></a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link m-2 btn-3d grayish-text" href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket fa-xl"></i></a>
@@ -178,9 +178,7 @@
               <h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-              You have not finished answering all the questions in the survey. Are you sure you want to continue commit?
-            </div>
+            <div class="modal-body">You have not finished answering all the questions in the survey. Are you sure you want to continue commit?</div>
             <div class="modal-footer">
               <button type="button" class="btn btn-success btn-3d" data-bs-dismiss="modal">Back to Survey</button>
               <button type="button" class="btn btn-outline-success btn-3d glow-border" id="continueBtn">Continue commit</button>
@@ -191,6 +189,27 @@
       {%- block content -%}
 
       {%- endblock -%}
+      <script>
+        $(document).ready(function() {
+            function addTextToLinks() {
+                if ($(window).width() <= 768) { // Medium and smaller screens
+                    $("#popupButton").html('<i class="fa-solid fa-user fa-xl"></i>&nbsp;&nbsp;&nbsp;Profile');
+                    $("a[href='{{ url_for('create_survey') }}']").html('<i class="fa-solid fa-square-plus fa-xl"></i>&nbsp;&nbsp;&nbsp;Create Survey');
+                    $("a[href='{{ url_for('user_survey') }}']").html('<i class="fa-solid fa-square-poll-vertical fa-xl"></i>&nbsp;&nbsp;&nbsp;User Survey');
+                    $("a[href='{{ url_for('logout') }}']").html('<i class="fa-solid fa-right-from-bracket fa-xl"></i>&nbsp;&nbsp;&nbsp;Logout');
+                } else {
+                    // Reset text to icons if screen is larger than medium
+                    $("#popupButton").html('<i class="fa-solid fa-user fa-xl"></i>');
+                    $("a[href='{{ url_for('create_survey') }}']").html('<i class="fa-solid fa-square-plus fa-xl"></i>');
+                    $("a[href='{{ url_for('user_survey') }}']").html('<i class="fa-solid fa-square-poll-vertical fa-xl"></i>');
+                    $("a[href='{{ url_for('logout') }}']").html('<i class="fa-solid fa-right-from-bracket fa-xl"></i>');
+                }
+            }
+        
+            // Call the function on document ready and on window resize
+            $(window).on('load resize', addTextToLinks);
+        });
+        </script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     </body>
   </html>

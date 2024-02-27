@@ -17,21 +17,51 @@
           <input type="date" id="exp_date" name="exp_date" placeholder="Expiration date"
             class="form-control expiration mb-3">
           <div class="d-flex justify-content-start align-items-center mb-1">
-            <div class="form-check mb-2 d-flex align-items-center">
-              <label class="switch">
-                <input type="checkbox" id="randomize-questions" class="form-check-input checkbox">
-                <span class="slider round" for="randomize-questions"></span>
-              </label>
-              &nbsp;&nbsp;&nbsp;&nbsp;Randomize Questions
+            <div class="checkbox-wrapper-35 my-2">
+                <input class="switch" type="checkbox" id="randomize-questions" name="switch" value="private">
+                <label for="randomize-questions">
+                    <span class="switch-x-text">
+                        Randomize Questions
+                    </span>
+                    <span class="switch-x-toggletext">
+                        <span class="switch-x-unchecked">
+                            <span class="switch-x-hiddenlabel">
+                                Unchecked: 
+                            </span>
+                            Off
+                        </span>
+                        <span class="switch-x-checked">
+                            <span class="switch-x-hiddenlabel">
+                                Checked: 
+                            </span>
+                            On
+                        </span>
+                    </span>
+                </label>
             </div>
           </div>
-          <div class="form-check mb-8 d-flex align-items-center">
-            <label class="switch">
-              <input type="checkbox" class="form-check-input checkbox" id="visibility" checked>
-              <span class="slider round" for="visibility"></span>
+        </div>
+        <div class="checkbox-wrapper-35 my-2">
+            <input class="switch" type="checkbox" id="visibility" name="switch" value="private">
+            <label for="visibility">
+                <span class="switch-x-text">
+                    visibility
+                </span>
+                <span class="switch-x-toggletext">
+                    <span class="switch-x-unchecked">
+                        <span class="switch-x-hiddenlabel">
+                            Unchecked: 
+                        </span>
+                        Off
+                    </span>
+                    <span class="switch-x-checked">
+                        <span class="switch-x-hiddenlabel">
+                            Checked: 
+                        </span>
+                        On
+                    </span>
+                </span>
             </label>
-            &nbsp;&nbsp;&nbsp;&nbsp;Visibility
-          </div>
         </div>
         <br />
         <br />
@@ -47,7 +77,7 @@
   <span style="font-size:30px; cursor:pointer" id="openNav" class="sticky"><i
       class="fa-solid fa-chevron-right fa-sm"></i></span>
   <section id="dashboard-result" class="full-width">
-    <div id="append" class="container w-100">
+    <div id="append" class="container w-100 py-4">
       <div class="border row container">
         <div class="col-md-7">
           <div class="top-section">
@@ -93,14 +123,28 @@
                   <option value="i">i, ii, iii, ...</option>
                 </select>
               </div>
-              <div class="checkbox-wrapper-34">
-                <input class='tgl tgl-ios'id='toggle-34'type='checkbox'>
-                <label class='tgl-btn'for='toggle-34'></label>
-              </div>
-              <div class="form-check mb-4">
-                <input type="checkbox" class="form-check-input checkbox" ">
-                <label class=" form-check-label" for="randomize-options">Randomize Options</label>
-              </div>
+              <div class="checkbox-wrapper-35 mb-4">
+                <input class="switch" type="checkbox" id="randomize-options" name="switch" value="private">
+                <label for="randomize-options">
+                    <span class="switch-x-text">
+                        Randomize options
+                    </span>
+                    <span class="switch-x-toggletext">
+                        <span class="switch-x-unchecked">
+                            <span class="switch-x-hiddenlabel">
+                                Unchecked: 
+                            </span>
+                            Off
+                        </span>
+                        <span class="switch-x-checked">
+                            <span class="switch-x-hiddenlabel">
+                                Checked: 
+                            </span>
+                            On
+                        </span>
+                    </span>
+                </label>
+            </div>
             </div>
           </div>
         </div>

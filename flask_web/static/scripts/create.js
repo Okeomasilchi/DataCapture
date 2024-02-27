@@ -9,7 +9,7 @@ $(document).ready(function () {
 
     // Set the min attribute of the date input to today's date
     $("#exp_date").attr("min", today);
-  
+
     function openNav() {
         let width = "400px"
         $("#mySidenav").css("width", width);
@@ -37,7 +37,7 @@ $(document).ready(function () {
     if ($(window).width() <= 768) { // 768px is the Bootstrap medium breakpoint
         $("#openNav").click(openNavSmall);
         $("#closeNav").click(closeNavSmall);
-        
+
     } else {
         $("#openNav").click(openNav);
         $("#closeNav").click(closeNav);
@@ -47,19 +47,21 @@ $(document).ready(function () {
     // Check screen width on window resize
     $(window).resize(() => {
         if ($(window).width() <= 768) {
-          $("#openNav").click(openNavSmall);
-          $("#closeNav").click(closeNavSmall);
+            $("#openNav").click(openNavSmall);
+            $("#closeNav").click(closeNavSmall);
         } else {
             $("#openNav").click(openNav);
             $("#closeNav").click(closeNav);
         }
     });
 
-    $('#append').on('click', '#remove', function() {
-      // Remove the parent .border .row block
-      $(this).closest('.border').remove();
+    $('#append').on('click', '#remove', function () {
+        if ($('.border').length > 1) {
+            // If there is more than one question block, remove the parent .border .row block
+            $(this).closest('.border').remove();
+        }
     });
-
+    var questionCounter = 1;
     $("#add").click(() => {
         // Append the HTML code snippet to the #append element
         $('#append').append(`
@@ -108,16 +110,34 @@ $(document).ready(function () {
                   <option value="i">i, ii, iii, ...</option>
                 </select>
               </div>
-              <div class="form-check mb-4">
-                <input type="checkbox" class="form-check-input checkbox" id="randomize-options">
-                <label class="form-check-label" for="randomize-options">Randomize Options</label>
-              </div>
+              <div class="checkbox-wrapper-35 mb-4">
+                <input class="switch" type="checkbox" id="randomize-options-${questionCounter}" name="switch" value="private">
+                <label for="randomize-options-${questionCounter}">
+                    <span class="switch-x-text">
+                        Randomize options
+                    </span>
+                    <span class="switch-x-toggletext">
+                        <span class="switch-x-unchecked">
+                            <span class="switch-x-hiddenlabel">
+                                Unchecked: 
+                            </span>
+                            Off
+                        </span>
+                        <span class="switch-x-checked">
+                            <span class="switch-x-hiddenlabel">
+                                Checked: 
+                            </span>
+                            On
+                        </span>
+                    </span>
+                </label>
+            </div>
             </div>
           </div>
         </div>
         </div>
         `);
-
+        questionCounter++;
         // Scroll to the bottom of the page
         $('html, body').animate({
             scrollTop: $(document).height()
@@ -152,13 +172,14 @@ $(document).ready(function () {
     $('#append').on('click', '.remove-btn', function () {
         // Find the closest options within the same question block
         const optionsDiv = $(this).closest('.border').find('#options');
+        if (optionsDiv.find('input[type="text"]').length > 1) {
+            // If there is more than one input field, remove the last input field
+            optionsDiv.find('input[type="text"]').last().remove();
+            optionCounter--;
 
-        // Remove the last input field
-        optionsDiv.find('input[type="text"]').last().remove();
-        optionCounter--;
-
-        // Update placeholders for all options within the same block
-        updatePlaceholders(optionsDiv);
+            // Update placeholders for all options within the same block
+            updatePlaceholders(optionsDiv);
+        }
     });
 
 
@@ -215,6 +236,7 @@ $(document).ready(function () {
         return questionDetails;
     }
 
+    $("#visibility").click();
     // Event listener for saving the survey
     $('#save').click(() => {
         var surveyData = gatherQuestionDetails();

@@ -9,7 +9,7 @@
 .table-column {
     border: 1px solid #0000003a;
     padding: 10px;
-    background-color: rgba(128, 128, 128, 0.068);
+    background-color: rgba(255, 255, 255, 0.068);
     width: 100%;
     text-align: center;
     font-size: 25px;
@@ -18,7 +18,6 @@
 .table-data {
     display: flex;
     justify-content: space-between;
-    /* Align items to the left and right */
     align-items: center;
     border: 1px solid #0000002c;
     padding: 10px;
@@ -55,6 +54,7 @@
 
 .survey-title {
     font-style: italic;
+    color: #5e5e5e;
     flex: 1;
     /* Allow title to grow and shrink */
     overflow: hidden;
@@ -63,6 +63,10 @@
     /* Display ellipsis for overflow text */
     cursor: pointer;
     /* Show pointer cursor on hover */
+}
+
+.survey-title:hover {
+    color: #000e05;
 }
 
 .copy-button {
@@ -109,7 +113,6 @@ body {
     width: 0;
     position: fixed;
     z-index: 1;
-    top: 88px;
     left: 0;
     background-color: #fafafa;
     overflow-x: hidden;
@@ -212,16 +215,6 @@ body {
     box-shadow: 0 0 10px #097934a6;
 }
 
-
-/* .box {
-    padding-left: 0px;
-    /* Base padding */
-    max-width: 90%;
-    /* Limit the box's width */
-    margin: 0 auto;
-    /* Center the box */
-} */
-
 /* Large Desktops (1200px and above) */
 @media only screen and (min-width: 1200px) {
     .box {
@@ -263,3 +256,143 @@ body {
         padding-left: 0;
     }
 }
+
+.link {
+    background-color: #fdfdfd;
+}
+
+.link:hover {
+    background-color: #eeeded;
+    color: #000e05;
+}
+
+.link:active {
+    background-color: #009c5b;
+    /* Change to your desired click color */
+    color: #fff;
+    /* Change to your desired text color */
+}
+
+
+.active {
+    background-color: #009c5b88;
+    color: #000e05;
+}
+
+/* ******************** switch ********************** */
+
+.checkbox-wrapper-34 {
+    --blue: #009c5b;
+    --g08: #E1E5EB;
+    --g04: #848ea1;
+}
+
+.checkbox-wrapper-34 .tgl {
+    display: none;
+}
+
+.checkbox-wrapper-34 .tgl,
+.checkbox-wrapper-34 .tgl:after,
+.checkbox-wrapper-34 .tgl:before,
+.checkbox-wrapper-34 .tgl *,
+.checkbox-wrapper-34 .tgl *:after,
+.checkbox-wrapper-34 .tgl *:before,
+.checkbox-wrapper-34 .tgl+.tgl-btn {
+    box-sizing: border-box;
+}
+
+.checkbox-wrapper-34 .tgl::selection,
+.checkbox-wrapper-34 .tgl:after::selection,
+.checkbox-wrapper-34 .tgl:before::selection,
+.checkbox-wrapper-34 .tgl *::selection,
+.checkbox-wrapper-34 .tgl *:after::selection,
+.checkbox-wrapper-34 .tgl *:before::selection,
+.checkbox-wrapper-34 .tgl+.tgl-btn::selection {
+    background: none;
+}
+
+.checkbox-wrapper-34 .tgl+.tgl-btn {
+    outline: 0;
+    display: block;
+    width: 57px;
+    height: 27px;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    font-size: 12px;
+    font-weight: 400;
+    color: #fff;
+}
+
+.checkbox-wrapper-34 .tgl+.tgl-btn:after,
+.checkbox-wrapper-34 .tgl+.tgl-btn:before {
+    position: relative;
+    display: block;
+    content: "";
+    width: 44%;
+    height: 100%;
+}
+
+.checkbox-wrapper-34 .tgl+.tgl-btn:after {
+    left: 0;
+}
+
+.checkbox-wrapper-34 .tgl+.tgl-btn:before {
+    display: inline;
+    position: absolute;
+    top: 7px;
+}
+
+.checkbox-wrapper-34 .tgl:checked+.tgl-btn:after {
+    left: 56.5%;
+}
+
+.checkbox-wrapper-34 .tgl-ios+.tgl-btn {
+    background: var(--g08);
+    border-radius: 20rem;
+    padding: 2px;
+    transition: all 0.4s ease;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.checkbox-wrapper-34 .tgl-ios+.tgl-btn:after {
+    border-radius: 2em;
+    background: #fff;
+    transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.checkbox-wrapper-34 .tgl-ios+.tgl-btn:before {
+    content: "No";
+    left: 28px;
+    color: var(--g04);
+    transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.checkbox-wrapper-34 .tgl-ios+.tgl-btn:active {
+    box-shadow: inset 0 0 0 30px rgba(0, 0, 0, 0.1);
+}
+
+.checkbox-wrapper-34 .tgl-ios+.tgl-btn:active:after {
+    padding-right: 0.4em;
+}
+
+.checkbox-wrapper-34 .tgl-ios:checked+.tgl-btn {
+    background: var(--blue);
+}
+
+.checkbox-wrapper-34 .tgl-ios:checked+.tgl-btn:active {
+    box-shadow: inset 0 0 0 30px rgba(0, 0, 0, 0.1);
+}
+
+.checkbox-wrapper-34 .tgl-ios:checked+.tgl-btn:active:after {
+    margin-left: -0.4em;
+}
+
+.checkbox-wrapper-34 .tgl-ios:checked+.tgl-btn:before {
+    content: "Yes";
+    left: 4px;
+    color: #fff;
+}
+
+/* ***************************************************** */
