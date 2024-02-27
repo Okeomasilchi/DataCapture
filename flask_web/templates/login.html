@@ -1,7 +1,16 @@
 {% extends 'layout.html' %}
+
+{% block script %}
+<!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'styles/create.css') }}" />
+-->
+<script src="{{ url_for('static', filename = 'scripts/login.js') }}"></script>
+{% endblock %}
+    
 {% block content %}
+
+
   <div class="content-section glow-border in">
-    <form method="POST" action="">
+    <form method="POST" class="px-4 py-3 mx-5" action="">
       {{ form.hidden_tag() }}
       <fieldset class="form-group">
         <legend class="border-bottom mb-4 text-center">Login</legend>
