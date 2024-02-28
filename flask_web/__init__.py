@@ -25,7 +25,7 @@ app.config["MAIL_USERNAME"] = os.environ.get("EMAIL_USER")
 app.config["MAIL_PASSWORD"] = os.environ.get("EMAIL_PASS")
 mail = Mail(app)
 
-root = "http://localhost:5000/api/v1/"
+root = "http://web-01.okeoma.tech/api/v1/"
 
 
 class User(UserMixin):
