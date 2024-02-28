@@ -78,7 +78,7 @@ $(document).ready(() => {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "GET",
-                url: "https://www.okeoma.tech/api/v1/survey/" + id,
+                url: "http://localhost:5000/api/v1/survey/" + id,
                 success: (response) => {
                     // const responseData = JSON.stringify(response);
                     $("#loader").hide();

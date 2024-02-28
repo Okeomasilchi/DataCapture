@@ -101,6 +101,16 @@ def delete_survey_by_id(survey_id):
         log_error("/survey/<survey_id>['DELETE']", e.args, type(e).__name__, e)
         abort(500)
 
+def convert_to_mysql_date(date_string):
+    try:
+        # Parse the input date string
+        date_obj = datetime.strptime(date_string, '%Y-%m-%d')
+        # Format the date as a string that fits the MySQL DATE column format
+        mysql_date = date_obj.strftime('%Y-%m-%d')
+        return mysql_date
+    except ValueError:
+        # Handle invalid date strings
+        return None
 
 @survey_views.route("/survey", methods=["POST"], strict_slashes=False)
 def create_survey_by_id():
@@ -119,6 +129,7 @@ def create_survey_by_id():
         return js({"error": "Not a JSON"}), 400
 
     data = request.get_json()
+    data['expiry_date'] = convert_to_mysql_date(data['expiry_date'])
     parse_dict(
         data,
         ["user_id", "description", "question_type", "title", "questions"],
@@ -134,21 +145,22 @@ def create_survey_by_id():
     questions = data["questions"]
     data = pop_dict(data, ["id", "created_at", "updated_at", "questions"])
 
+    
+    survey = Survey(**data)
+    survey.save()
+    survey_id = survey.to_dict()['id']
+    # print(survey_id)
+    for item in questions:
+        item["survey_id"] = survey_id
+        parse_dict(
+            item,
+            ["question", "options", "survey_id", "random"],
+            status_code=400,
+        )
+        pop_dict(item, ["id", "created_at", "updated_at"])
+        item["options"] = js(item["options"])
+        item = Question(**item)
     try:
-        survey = Survey(**data)
-        survey.save()
-        survey_id = survey.to_dict()['id']
-        # print(survey_id)
-        for item in questions:
-            item["survey_id"] = survey_id
-            parse_dict(
-                item,
-                ["question", "options", "survey_id", "random"],
-                status_code=400,
-            )
-            pop_dict(item, ["id", "created_at", "updated_at"])
-            item["options"] = js(item["options"])
-            item = Question(**item)
             item.save()
     except Exception as e:
         log_error('/survey["POST"]', e.args, type(e).__name__, e)

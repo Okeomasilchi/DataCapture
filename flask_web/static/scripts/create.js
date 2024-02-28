@@ -166,7 +166,7 @@ $(document).ready(function () {
 
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: "https://www.okeoma.tech/api/v1/survey/",  // Dynamic URL
+                url: "http://localhost:5000/api/v1/survey/",  // Dynamic URL
                 method: 'POST',
                 data: JSON.stringify(surveyData),
                 contentType: 'application/json',
@@ -197,7 +197,7 @@ $(document).ready(function () {
         var randomizeOptions = $('#randomize-options').is(':checked');
         var visibility = $('#visibility').is(':checked');
 
-
+        console.log(expDate);
         user_id = $(".table-row").attr("id");
         // console.log(user_id);
         var surveyDetails = {
@@ -245,6 +245,7 @@ $(document).ready(function () {
     // Event listener for saving the survey
     $('#save').click(() => {
         var surveyData = gatherQuestionDetails();
+        console.log(surveyData);
         saveSurvey(surveyData)
             .then((response) => {
                 console.log(response);

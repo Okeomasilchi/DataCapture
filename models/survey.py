@@ -28,7 +28,7 @@ class Survey(BaseModel, Base):
     user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
     title = Column(String(255), nullable=False)
     description = Column(Text, nullable=False)
-    expiry_date = Column(Date, default=lambda: datetime.utcnow().date() + timedelta(days=365))
+    expiry_date = Column(Date)
     visibility = Column(Boolean, default=True)
     randomize = Column(Boolean, default=False)
     question_type = Column(String(120), nullable=False)
