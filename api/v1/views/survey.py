@@ -137,9 +137,8 @@ def create_survey_by_id():
     try:
         survey = Survey(**data)
         survey.save()
-        survey_id = survey.to_dict()
-        survey_id = survey_id["id"]
-        print(survey_id)
+        survey_id = survey.to_dict()['id']
+        # print(survey_id)
         for item in questions:
             item["survey_id"] = survey_id
             parse_dict(

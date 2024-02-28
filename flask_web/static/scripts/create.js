@@ -153,6 +153,38 @@ $(document).ready(function () {
         }
     });
 
+    function saveSurvey(surveyData) { // Accepts ID and surveyData
+
+        $("#loader").show();
+        $("#dashboard-result").addClass("blurred-background");
+        // try {
+        //     JSON.parse(surveyData);    
+        // } catch (error) {
+        //     return Promise.reject(new Error('Invalid JSON'));
+        //     // console.log('Invalid JSON');
+        // }
+
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: "https://www.okeoma.tech/api/v1/survey/",  // Dynamic URL
+                method: 'POST',
+                data: JSON.stringify(surveyData),
+                contentType: 'application/json',
+                success: function (response) {
+                    $("#loader").hide();
+                    $("#dashboard-result").removeClass("blurred-background");
+                    resolve(response);
+                },
+                error: function (xhr) {
+                    $("#loader").hide();
+                    $("#dashboard-result").removeClass("blurred-background");
+                    error = xhr.responseText
+                    error.status = xhr.status
+                    reject(new Error(error));
+                }
+            });
+        });
+    }
 
     function gatherQuestionDetails() {
         var questionDetails = [];
@@ -162,17 +194,24 @@ $(document).ready(function () {
         var description = $('.description').val();
         var expDate = $('#exp_date').val();
         var randomizeQuestions = $('#randomize-questions').is(':checked');
+        var randomizeOptions = $('#randomize-options').is(':checked');
         var visibility = $('#visibility').is(':checked');
 
+
+        user_id = $(".table-row").attr("id");
+        // console.log(user_id);
         var surveyDetails = {
+            'user_id': user_id,
             'title': title,
             'description': description,
-            'expirationDate': expDate,
-            'randomizeQuestions': randomizeQuestions,
-            'visibility': visibility
+            'expiry_date': expDate,
+            'randomize': randomizeQuestions,
+            "randomizeOptions": randomizeOptions,
+            'visibility': visibility,
+            'question_type': "Multiple Type"
         };
 
-        questionDetails.push(surveyDetails);
+        // questionDetails.push(surveyDetails);
 
         // Loop through each question block
         $('.border.container').each(function () {
@@ -182,8 +221,7 @@ $(document).ready(function () {
             var questionText = $(this).find('.questionTextarea').val();
             var questionType = $(this).find('.questiontype-dropdown').val();
 
-            questionBlock['questionText'] = questionText;
-            questionBlock['questionType'] = questionType;
+            questionBlock['question'] = questionText;
 
             // Options details
             var options = [];
@@ -193,25 +231,28 @@ $(document).ready(function () {
             });
             questionBlock['options'] = options;
 
-            // Option type
-            var optionType = $(this).find('.optiontype').val();
-            questionBlock['optionType'] = optionType;
-
             // Randomize options
-            var randomizeOptions = $(this).find('#randomize-options').is(':checked');
-            questionBlock['randomizeOptions'] = randomizeOptions;
+            var random = randomizeOptions;
+            questionBlock['random'] = random;
 
             questionDetails.push(questionBlock);
         });
-
-        return questionDetails;
+        surveyDetails.questions = questionDetails;
+        return surveyDetails;
     }
 
     $("#visibility").click();
     // Event listener for saving the survey
     $('#save').click(() => {
         var surveyData = gatherQuestionDetails();
-        console.log(surveyData); // You can use this data for further processing, such as sending it to the server
+        saveSurvey(surveyData)
+            .then((response) => {
+                console.log(response);
+                alert("Survey saved successfully");
+            })
+            .catch((error) => {
+                console.error('Error:', error.message);
+            });
     });
 
 });

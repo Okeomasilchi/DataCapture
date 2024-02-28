@@ -78,17 +78,17 @@ $(document).ready(() => {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "GET",
-                url: "http://web-01.okeoma.tech/api/v1/survey/" + id,
+                url: "https://www.okeoma.tech/api/v1/survey/" + id,
                 success: (response) => {
                     // const responseData = JSON.stringify(response);
                     $("#loader").hide();
                     $("#dashboard-result").removeClass("blurred-background")
                     resolve(response);
                 },
-                error: (error) => {
+                error: (xhr, status, error) => {
                     $("#loader").hide();
                     $("#dashboard-result").removeClass("blurred-background")
-                    reject(new Error('API call failed with error: ' + error.message));
+                    reject(new Error(xhr.responseText + " " + xhr.status + " " + xhr.statusText));
                 }
             });
         });

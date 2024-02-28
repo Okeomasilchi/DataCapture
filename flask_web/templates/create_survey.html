@@ -8,7 +8,7 @@
 <div id="mySidenav" class="sidenav">
   <a class="closebtn" id="closeNav"><i class="fa-solid fa-chevron-left"></i></a>
   <section id="dashboard-info mb-4">
-    <div class="table-row">
+    <div class="table-row" id="{{ current_user.id }}">
       <div class="survey col-md-12 mx-auto px-3 mb-5 pt-3 pb-5">
         <h2 class="text-center mb-6">Survey Details</h2>
         <div class="form-group mb-6">
@@ -18,84 +18,84 @@
             class="form-control expiration mb-3">
           <div class="d-flex justify-content-start align-items-center mb-1">
             <div class="checkbox-wrapper-35 my-2">
-                <input class="switch" type="checkbox" id="randomize-questions" name="switch" value="private">
-                <label for="randomize-questions">
-                    <span class="switch-x-text">
-                        Randomize Questions
+              <input class="switch" type="checkbox" id="randomize-questions" name="switch" value="private">
+              <label for="randomize-questions">
+                <span class="switch-x-text">
+                  Randomize Questions
+                </span>
+                <span class="switch-x-toggletext">
+                  <span class="switch-x-unchecked">
+                    <span class="switch-x-hiddenlabel">
+                      Unchecked:
                     </span>
-                    <span class="switch-x-toggletext">
-                        <span class="switch-x-unchecked">
-                            <span class="switch-x-hiddenlabel">
-                                Unchecked: 
-                            </span>
-                            Off
-                        </span>
-                        <span class="switch-x-checked">
-                            <span class="switch-x-hiddenlabel">
-                                Checked: 
-                            </span>
-                            On
-                        </span>
+                    Off
+                  </span>
+                  <span class="switch-x-checked">
+                    <span class="switch-x-hiddenlabel">
+                      Checked:
                     </span>
-                </label>
+                    On
+                  </span>
+                </span>
+              </label>
             </div>
-        </div>
-        <div class="checkbox-wrapper-35 my-3">
+          </div>
+          <div class="checkbox-wrapper-35 my-3">
             <input class="switch" type="checkbox" id="randomize-options" name="switch" value="private">
             <label for="randomize-options">
-                <span class="switch-x-text">
-                    Randomize options
+              <span class="switch-x-text">
+                Randomize options
+              </span>
+              <span class="switch-x-toggletext">
+                <span class="switch-x-unchecked">
+                  <span class="switch-x-hiddenlabel">
+                    Unchecked:
+                  </span>
+                  Off
                 </span>
-                <span class="switch-x-toggletext">
-                    <span class="switch-x-unchecked">
-                        <span class="switch-x-hiddenlabel">
-                            Unchecked: 
-                        </span>
-                        Off
-                    </span>
-                    <span class="switch-x-checked">
-                        <span class="switch-x-hiddenlabel">
-                            Checked: 
-                        </span>
-                        On
-                    </span>
+                <span class="switch-x-checked">
+                  <span class="switch-x-hiddenlabel">
+                    Checked:
+                  </span>
+                  On
                 </span>
+              </span>
             </label>
-        </div>
-        <div class="checkbox-wrapper-35 my-4">
+          </div>
+          <div class="checkbox-wrapper-35 my-4">
             <input class="switch" type="checkbox" id="visibility" name="switch" value="private">
             <label for="visibility">
-                <span class="switch-x-text">
-                    visibility
+              <span class="switch-x-text">
+                Visibility
+              </span>
+              <span class="switch-x-toggletext">
+                <span class="switch-x-unchecked">
+                  <span class="switch-x-hiddenlabel">
+                    Unchecked:
+                  </span>
+                  Off
                 </span>
-                <span class="switch-x-toggletext">
-                    <span class="switch-x-unchecked">
-                        <span class="switch-x-hiddenlabel">
-                            Unchecked: 
-                        </span>
-                        Off
-                    </span>
-                    <span class="switch-x-checked">
-                        <span class="switch-x-hiddenlabel">
-                            Checked: 
-                        </span>
-                        On
-                    </span>
+                <span class="switch-x-checked">
+                  <span class="switch-x-hiddenlabel">
+                    Checked:
+                  </span>
+                  On
                 </span>
+              </span>
             </label>
-        </div>
-        <select class="form-control optiontype m-1" name="optiontype" id="optiontype">
+          </div>
+          <select class="form-control optiontype m-1" name="optiontype" id="optiontype">
             <option value="" disabled selected>Option Type</option>
             <option value="A">A, B, C, ...</option>
             <option value="a">a, b, c, ...</option>
             <option value="1">1, 2, 3, ...</option>
             <option value="i">i, ii, iii, ...</option>
           </select>
-        <br />
-        <button
-          class="btn btn-3d btn-success d-block mx-auto fa-regular fa-floppy-disk">&nbsp;&nbsp;|&nbsp;Save</button>
+          <br />
+          <button id="save" type="button"
+            class="btn btn-3d btn-success d-block mx-auto fa-regular fa-floppy-disk">&nbsp;&nbsp;|&nbsp;Save</button>
+        </div>
       </div>
-    </div>
   </section>
 
 </div>
