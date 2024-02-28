@@ -146,22 +146,22 @@ def create_survey_by_id():
     data = pop_dict(data, ["id", "created_at", "updated_at", "questions"])
 
     
-    survey = Survey(**data)
-    survey.save()
-    instance = survey.to_dict()
-    survey_id = instance[0]['id']
-    # print(survey_id)
-    for item in questions:
-        item["survey_id"] = survey_id
-        parse_dict(
-            item,
-            ["question", "options", "survey_id", "random"],
-            status_code=400,
-        )
-        pop_dict(item, ["id", "created_at", "updated_at"])
-        item["options"] = js(item["options"])
-        item = Question(**item)
     try:
+        survey = Survey(**data)
+        survey.save()
+        instance = survey.to_dict()
+        survey_id = instance[0]['id']
+        # print(survey_id)
+        for item in questions:
+            item["survey_id"] = survey_id
+            parse_dict(
+                item,
+                ["question", "options", "survey_id", "random"],
+                status_code=400,
+            )
+            pop_dict(item, ["id", "created_at", "updated_at"])
+            item["options"] = js(item["options"])
+            item = Question(**item)
             item.save()
     except Exception as e:
         log_error('/survey["POST"]', e.args, type(e).__name__, e)

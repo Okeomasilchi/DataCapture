@@ -159,7 +159,7 @@ $(document).ready(function () {
 
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: "http://api.okeoma.tech/api/v1/survey/",
+                url: "https://www.okeoma.tech/api/v1/survey/",
                 method: 'POST',
                 data: JSON.stringify(surveyData),
                 contentType: 'application/json',
@@ -243,7 +243,7 @@ $(document).ready(function () {
             .then((response) => {
                 alert("Survey saved successfully");
                 var link = $("a#user_survey").attr("href");
-                window.location.href = link;
+                // window.location.href = link;
             })
             .catch((error) => {
                 alert("An error occurred while saving the survey");

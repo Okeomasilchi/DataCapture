@@ -78,7 +78,7 @@ $(document).ready(() => {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "GET",
-                url: "http://api.okeoma.tech/api/v1/survey/" + id,
+                url: "https://www.okeoma.tech/api/v1/survey/" + id,
                 success: (response) => {
                     // const responseData = JSON.stringify(response);
                     $("#loader").hide();
@@ -114,6 +114,7 @@ $(document).ready(() => {
                 if (data.randomize) {
                     $("#randomize").click();
                 }
+                console.log(data.questions)
                 const questions = data.questions;
                 questions.forEach((question) => {
                     let optionsHTML = ''; // Variable to store options HTML
@@ -184,7 +185,7 @@ $(document).ready(() => {
 
     $("#delete-survey").click(function () {
         var id = $(this).attr("name");
-        var url = "http://api.okeoma.tech/api/v1/survey/" + id;
+        var url = "https://www.okeoma.tech/api/v1/survey/" + id;
         // Show confirmation modal
         $('#confirmationModal').modal('show');
 
@@ -210,6 +211,10 @@ $(document).ready(() => {
             // Hide the modal after deletion
             $('#confirmationModal').modal('hide');
         });
+    });
+
+    $("#no-create_survey").click(function () {
+        window.location.href = "/app/survey/new";
     });
 
 });
