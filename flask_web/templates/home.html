@@ -2,19 +2,20 @@
 
 {% block content %}
   <header class="container-fluid hero text-white py-5 d-flex align-items-center justify-content-center" id="heading">
-    <div class="container">  <div class="row">
-            <div class="col-md-6 h-75" style="z-index: 1;">
-                <h1 class="display-4 fw-bolder entry-animation">DataCapture</h1>
-                <h2 class="lead text-danger entry-animation">Unleash actionable insights with customizable surveys and powerful data analysis.</h2>
-                <a href="#feature" class="btn btn-lg btn-outline-light entry-animation">Learn More</a> 
-            </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 h-75" style="z-index: 1;">
+          <h1 class="display-4 fw-bolder entry-animation">DataCapture</h1>
+          <h2 class="lead text-gray entry-animation">Unleash actionable insights with customizable surveys and powerful data analysis.</h2>
+          <a href="#feature" class="btn btn-lg btn-outline-success entry-animation">Learn More</a>
         </div>
+      </div>
     </div>
   </header>
 
-<br id="feature" />
-<br />
-<br />
+  <br id="feature" />
+  <br />
+  <br />
 
   <section id="features" class="py-5 d-flex flex-column vh-100 align-items-center justify-content-center">
     <h2 class="text-center mb-4">Key Features</h2>
@@ -54,8 +55,8 @@
 
   <section id="team" class="bg-success d-flex flex-column align-items-center vh-100 justify-content-center">
     <h2 class="text-center text-white-50 mb-1">Meet the Team</h2>
-  
-    <div class="row container d-flex align-items-stretch">
+
+    <div class="row container d-flex align-items-stretch justify-content-center">
       <!-- Team member cards -->
       <div class="col-sm-4 col-md-4">
         <div class="card team-card cd glow-border d-flex flex-column">
@@ -67,7 +68,7 @@
           </div>
         </div>
       </div>
-  
+
       <div class="col-sm-4 col-md-4">
         <div class="card team-card cd glow-border d-flex flex-column">
           <img src="{{ url_for('static', filename = 'dpics/document.jpeg') }}" alt="Okeomasilachi Onyedibia" class="card-img-top .rounded" />
@@ -115,7 +116,7 @@
   <section id="benefits" class="bg-success d-flex flex-column align-items-center vh-100 justify-content-center">
     <h2 class="text-center mb-4">Benefits of DataCapture</h2>
 
-    <div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center">
       <!-- Benefit cards -->
       <div class="col cd glow-border">
         <i class="big fa-regular fa-magnifying-glass-chart fa-2xl"></i>

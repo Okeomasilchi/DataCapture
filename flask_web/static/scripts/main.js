@@ -27,37 +27,37 @@ $(document).ready(() => {
     $('#copyright-year').text(currentYear);
 
 
-    $(".entry-animation").each(function () {
-        let element = $(this);
-        if (!element.hasClass("animated")) {
-            element.addClass("animated");
-        }
-    });
+    // $(".entry-animation").each(function () {
+    //     let element = $(this);
+    //     if (!element.hasClass("animated")) {
+    //         element.addClass("animated");
+    //     }
+    // });
 
-    $(".lead").each(function () {
-        let element = $(this);
-        if (!element.hasClass("animatedX")) {
-            element.addClass("animatedX");
-        }
-    });
+    // $(".lead").each(function () {
+    //     let element = $(this);
+    //     if (!element.hasClass("animatedX")) {
+    //         element.addClass("animatedX");
+    //     }
+    // });
     var currentYear = new Date().getFullYear();
 
     $('#copyright-year').text(currentYear);
 
 
-    $(".entry-animation").each(function () {
-        let element = $(this);
-        if (!element.hasClass("animated")) {
-            element.addClass("animated");
-        }
-    });
+    // $(".entry-animation").each(function () {
+    //     let element = $(this);
+    //     if (!element.hasClass("animated")) {
+    //         element.addClass("animated");
+    //     }
+    // });
 
-    $(".lead").each(function () {
-        let element = $(this);
-        if (!element.hasClass("animatedX")) {
-            element.addClass("animatedX");
-        }
-    });
+    // $(".lead").each(function () {
+    //     let element = $(this);
+    //     if (!element.hasClass("animatedX")) {
+    //         element.addClass("animatedX");
+    //     }
+    // });
 
     setTimeout(() => {
 

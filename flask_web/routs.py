@@ -262,7 +262,7 @@ def user_survey():
         if r.status_code != 200:
             flash("User not found", "danger")
             return redirect(url_for("home"))
-        print(r.json())
+        # print(r.json())
         return render_template(
             "user_surveys.html",
             user_data=to_dict(current_user),

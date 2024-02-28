@@ -331,74 +331,7 @@ footer p {
     border-radius: 5px;
     /*margin: 20px 5px; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.entry-animation {
-    opacity: 0;
-    /* Initially hidden */
-    transition: all 0.5s ease-in-out;
-    /* Smooth transition */
-}
-
-.entry-animation.animated {
-    opacity: 1;
-    /* Visible after animation */
-    animation: bounceY ease-in-out 1s 1 normal forwards;
-    /* Bouncing animation */
-}
-
-
-.entry-animation.animatedX {
-    opacity: 1;
-    /* Visible after animation */
-    animation: slideInLeft ease-in-out 1s 1 normal forwards;
-    /* Sliding animation */
-}
-
-@keyframes slideInLeft {
-    from {
-        transform: translateX(50%);
-        /* Start off-screen to the left */
-    }
-
-    to {
-        transform: translateX(0);
-        /* Slide to the right, fully visible */
-    }
-
-    0% {
-        transform: translateX(-20px);
-        /* Start with a downward movement */
-    }
-
-    50% {
-        transform: translateX(0px);
-        /* Bounce back to original position */
-    }
-
-    100% {
-        transform: translateX(-5px);
-        /* Slight final downward shift */
-    }
-}
-
-@keyframes bounceY {
-    0% {
-        transform: translateY(-20px);
-        /* Start with a downward movement */
-    }
-
-    50% {
-        transform: translateY(0px);
-        /* Bounce back to original position */
-    }
-
-    100% {
-        transform: translateY(-5px);
-        /* Slight final downward shift */
-    }
-}
-
+/* }
 
 h1 {
     font-family: sans-serif;

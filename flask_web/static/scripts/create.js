@@ -243,7 +243,7 @@ $(document).ready(function () {
             .then((response) => {
                 alert("Survey saved successfully");
                 var link = $("a#user_survey").attr("href");
-                // window.location.href = link;
+                window.location.href = link;
             })
             .catch((error) => {
                 alert("An error occurred while saving the survey");
