@@ -153,20 +153,13 @@ $(document).ready(function () {
         }
     });
 
-    function saveSurvey(surveyData) { // Accepts ID and surveyData
-
+    function saveSurvey(surveyData) {
         $("#loader").show();
         $("#dashboard-result").addClass("blurred-background");
-        // try {
-        //     JSON.parse(surveyData);    
-        // } catch (error) {
-        //     return Promise.reject(new Error('Invalid JSON'));
-        //     // console.log('Invalid JSON');
-        // }
 
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: "http://localhost:5000/api/v1/survey/",  // Dynamic URL
+                url: "http://api.okeoma.tech/api/v1/survey/",
                 method: 'POST',
                 data: JSON.stringify(surveyData),
                 contentType: 'application/json',

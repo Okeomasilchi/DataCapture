@@ -15,7 +15,7 @@ from models.user import User
 from models.question import Question
 from utils.validators import parse_dict, pop_dict, check_keys, sort_list_of_dicts
 from utils.error import log_error
-
+from datetime import datetime
 
 @survey_views.route("survey/<survey_id>", methods=["GET"], strict_slashes=False)
 def get_survey_by_id(survey_id):
@@ -148,7 +148,8 @@ def create_survey_by_id():
     
     survey = Survey(**data)
     survey.save()
-    survey_id = survey.to_dict()['id']
+    instance = survey.to_dict()
+    survey_id = instance[0]['id']
     # print(survey_id)
     for item in questions:
         item["survey_id"] = survey_id
