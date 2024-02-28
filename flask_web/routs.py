@@ -258,7 +258,7 @@ def user_survey():
     if current_user.is_authenticated:
         if request.method == "POST":
             pass
-        r = rq.get(f"{root}users/survey/08c2c669-15b5-4e0a-951b-92d17c27a370")
+        r = rq.get(f"{root}users/survey/{current_user.id}")
         if r.status_code != 200:
             flash("User not found", "danger")
             return redirect(url_for("home"))

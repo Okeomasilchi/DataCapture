@@ -78,7 +78,7 @@ $(document).ready(() => {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:5000/api/v1/survey/" + id,
+                url: "http://api.okeoma.tech/api/v1/survey/" + id,
                 success: (response) => {
                     // const responseData = JSON.stringify(response);
                     $("#loader").hide();
@@ -97,8 +97,6 @@ $(document).ready(() => {
 
     $(".bottom-section").hide();
 
-    // data = { "description": "Description for Survey 3", "expiry_date": "2024-03-01", "randomize": true, "id": "70900d07-1d40-4bf0-a587-abe4e4487ce8", "updated_at": "2024-01-31 14:06:05", "title": "Survey 3 for User 1", "user_id": "08c2c669-15b5-4e0a-951b-92d17c27a370", "visibility": true, "question_type": "Multiple Choice", "created_at": "2024-01-31 14:06:05", "__class__": "Survey", "questions": [{ "random": false, "survey_id": "70900d07-1d40-4bf0-a587-abe4e4487ce8", "created_at": "2024-01-31 14:50:07", "question": "Question for 70900d07-1d40-4bf0-a587-abe4e4487ce8?", "options": ["Option 1", "Option 2", "Option 3"], "id": "47006707-11f3-4fad-8d61-a61b5594dea1", "updated_at": "2024-01-31 14:50:07", "__class__": "Question" }, { "random": true, "survey_id": "70900d07-1d40-4bf0-a587-abe4e4487ce8", "created_at": "2024-01-31 14:50:07", "question": "Question for 70900d07-1d40-4bf0-a587-abe4e4487ce8?", "options": ["Option 1", "Option 2", "Option 3"], "id": "8128d9be-8552-4bc8-88db-8e642f7531f1", "updated_at": "2024-01-31 14:50:07", "__class__": "Question" }, { "random": false, "survey_id": "70900d07-1d40-4bf0-a587-abe4e4487ce8", "created_at": "2024-01-31 14:50:08", "question": "Question for 70900d07-1d40-4bf0-a587-abe4e4487ce8?", "options": ["Option 1", "Option 2", "Option 3", "Option 4"], "id": "d9dc836b-6204-490a-bd21-9a9c189b8771", "updated_at": "2024-01-31 14:50:08", "__class__": "Question" }, { "random": true, "survey_id": "70900d07-1d40-4bf0-a587-abe4e4487ce8", "created_at": "2024-01-31 14:50:08", "question": "Question for 70900d07-1d40-4bf0-a587-abe4e4487ce8?", "options": ["Option 1", "Option 2", "Option 3"], "id": "dd1edcad-a136-4f69-ac65-bb20c1dd7ab9", "updated_at": "2024-01-31 14:50:08", "__class__": "Question" }, { "random": false, "survey_id": "70900d07-1d40-4bf0-a587-abe4e4487ce8", "created_at": "2024-01-31 14:50:07", "question": "Question for 70900d07-1d40-4bf0-a587-abe4e4487ce8?", "options": ["Option 1", "Option 2", "Option 3", "Option 4"], "id": "e896c4bb-3e2c-4524-a0c7-629d0198ab78", "updated_at": "2024-01-31 14:50:07", "__class__": "Question" }] }
-
     $("a.link").click(function () {
         var id = $(this).attr("id");
 
@@ -109,6 +107,7 @@ $(document).ready(() => {
                 $("#title").text(data.title);
                 $("#created_at").text(formatDate(data.created_at));
                 $("#expiration").text(formatDate(data.expiry_date));
+                $("#delete-survey").attr("name", data.id);
                 if (data.visibility) {
                     $("#visibility").click();
                 }
@@ -182,4 +181,35 @@ $(document).ready(() => {
         //Alert the copied text
         alert("Copied the text: " + copyText.value);
     });
+
+    $("#delete-survey").click(function () {
+        var id = $(this).attr("name");
+        var url = "http://api.okeoma.tech/api/v1/survey/" + id;
+        // Show confirmation modal
+        $('#confirmationModal').modal('show');
+
+        // Change modal content and button text according to requirements
+        $('#confirmationModal .modal-body').html("Are you sure you want to delete the survey?");
+        $('#continueBtn').text('Delete Survey').removeClass('btn-outline-success').addClass('btn-danger');
+
+        // Continue commit button action
+        $('#continueBtn').off('click').on('click', function () {
+            $.ajax({
+                type: "DELETE",
+                url: url,
+                success: function (response) {
+                    console.log(response);
+                    alert("Survey Deleted");
+                    window.location.reload();
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText + " " + xhr.status + " " + xhr.statusText);
+                    alert("An error occurred");
+                }
+            });
+            // Hide the modal after deletion
+            $('#confirmationModal').modal('hide');
+        });
+    });
+
 });

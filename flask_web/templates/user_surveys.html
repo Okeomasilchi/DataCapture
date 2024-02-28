@@ -18,7 +18,9 @@
             </a>
           {% endfor %}
         {% else %}
-          <p>No surveys available</p>
+          <div class="d-flex align-items-center justify-content-center pt-5">
+            <p class="py-5">No surveys available</p>
+          </div>
         {% endif %}
       </div>
     </div>
@@ -32,64 +34,72 @@
       </div>
     </div>
     <section id="dashboard-result" class="mx-2 pb-5 pt-2">
-      <div class="table-responsive mx-5">
-        <div class="d-flex justify-content-between align-items-center mb-1">
-          <div class="checkbox-wrapper-35 my-2">
-            <input class="switch" type="checkbox" id="randomize-questions" name="switch" value="private" />
-            <label for="randomize-questions">
-              <span class="switch-x-text">Randomize Questions</span>
-              <span class="switch-x-toggletext">
-                <span class="switch-x-unchecked">
-                  <span class="switch-x-hiddenlabel">Unchecked:</span>
-                  Off
+      {% if surveys %}
+        <div class="table-responsive mx-5">
+          <div class="d-flex justify-content-between align-items-center mb-1 pt-3">
+            <div class="checkbox-wrapper-35 my-2">
+              <input class="switch" type="checkbox" id="randomize-questions" name="switch" value="private" />
+              <label for="randomize-questions">
+                <span class="switch-x-text">Randomize Questions</span>
+                <span class="switch-x-toggletext">
+                  <span class="switch-x-unchecked">
+                    <span class="switch-x-hiddenlabel">Unchecked:</span>
+                    Off
+                  </span>
+                  <span class="switch-x-checked">
+                    <span class="switch-x-hiddenlabel">Checked:</span>
+                    On
+                  </span>
                 </span>
-                <span class="switch-x-checked">
-                  <span class="switch-x-hiddenlabel">Checked:</span>
-                  On
+              </label>
+            </div>
+            <button type="button" id="delete-survey" class="btn btn-3d btn-outline-danger p-20 text-center m-0"><i class="fa-solid fa-trash-can"></i>&nbsp;&nbsp;&Tab; Delete Survey</button>
+            <div class="checkbox-wrapper-35 my-4">
+              <input class="switch" type="checkbox" id="visibility" name="switch" value="private" />
+              <label for="visibility">
+                <span class="switch-x-text">visibility</span>
+                <span class="switch-x-toggletext">
+                  <span class="switch-x-unchecked">
+                    <span class="switch-x-hiddenlabel">Unchecked:</span>
+                    Off
+                  </span>
+                  <span class="switch-x-checked">
+                    <span class="switch-x-hiddenlabel">Checked:</span>
+                    On
+                  </span>
                 </span>
-              </span>
-            </label>
+              </label>
+            </div>
           </div>
-          <div class="checkbox-wrapper-35 my-4">
-            <input class="switch" type="checkbox" id="visibility" name="switch" value="private" />
-            <label for="visibility">
-              <span class="switch-x-text">visibility</span>
-              <span class="switch-x-toggletext">
-                <span class="switch-x-unchecked">
-                  <span class="switch-x-hiddenlabel">Unchecked:</span>
-                  Off
-                </span>
-                <span class="switch-x-checked">
-                  <span class="switch-x-hiddenlabel">Checked:</span>
-                  On
-                </span>
-              </span>
-            </label>
-          </div>
-        </div>
 
-        <table class="table table-striped table-bordered">
-          <thead class="text-center">
-            <tr class="text-center">
-              <th class="text-center">Title</th>
-              <th class="text-center">Creation</th>
-              <th class="text-center">Response</th>
-              <th class="text-center">Expiration</th>
-            </tr>
-          </thead>
-          <tbody class="text-center">
-            <tr>
-              <td id="title"></td>
-              <td id="created_at"></td>
-              <td>23456</td>
-              <td id="expiration">23-12-2004</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div id="populate" class="">
-        <div class="row box"></div>
-      </div>
+          <table class="table table-striped table-bordered">
+            <thead class="text-center">
+              <tr class="text-center">
+                <th class="text-center">Title</th>
+                <th class="text-center">Creation</th>
+                <th class="text-center">Response</th>
+                <th class="text-center">Expiration</th>
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <tr>
+                <td id="title"></td>
+                <td id="created_at"></td>
+                <td>23456</td>
+                <td id="expiration">23-12-2004</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="populate" class="">
+          <div class="row box"></div>
+        </div>
+      {% else %}
+        <div class="d-flex align-items-center justify-content-center pt-5">
+          <p class="py-5 mt-5" style="font-size: 24px;">No surveys available</p>
+          <button type="button" class="btn btn-"></button>
+        </div>
+      {% endif %}
     </section>
   </div>
 {% endblock %}
