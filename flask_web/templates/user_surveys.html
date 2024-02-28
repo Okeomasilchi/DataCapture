@@ -26,12 +26,48 @@
 
   <div id="main">
     <span style="font-size:30px; cursor:pointer" id="openNav" class="sticky"><i class="fa-solid fa-chevron-right fa-sm"></i></span>
+    <div id="loader" class="spinner-box">
+      <div class="circle-border">
+        <div class="circle-core"></div>
+      </div>
+    </div>
     <section id="dashboard-result" class="mx-2 py-5">
-      <div class="table-responsive">
-        <!-- <div class="checkbox-wrapper-34">
-            <input class='tgl tgl-ios'id='toggle-34'type='checkbox'>
-            <label class='tgl-btn'for='toggle-34'></label>
-          </div> -->
+      <div class="table-responsive mx-5">
+        <div class="d-flex justify-content-between align-items-center mb-1 mx-5">
+          <div class="checkbox-wrapper-35 my-2">
+            <input class="switch" type="checkbox" id="randomize-questions" name="switch" value="private" />
+            <label for="randomize-questions">
+              <span class="switch-x-text">Randomize Questions</span>
+              <span class="switch-x-toggletext">
+                <span class="switch-x-unchecked">
+                  <span class="switch-x-hiddenlabel">Unchecked:</span>
+                  Off
+                </span>
+                <span class="switch-x-checked">
+                  <span class="switch-x-hiddenlabel">Checked:</span>
+                  On
+                </span>
+              </span>
+            </label>
+          </div>
+          <div class="checkbox-wrapper-35 my-4">
+            <input class="switch" type="checkbox" id="visibility" name="switch" value="private" />
+            <label for="visibility">
+              <span class="switch-x-text">visibility</span>
+              <span class="switch-x-toggletext">
+                <span class="switch-x-unchecked">
+                  <span class="switch-x-hiddenlabel">Unchecked:</span>
+                  Off
+                </span>
+                <span class="switch-x-checked">
+                  <span class="switch-x-hiddenlabel">Checked:</span>
+                  On
+                </span>
+              </span>
+            </label>
+          </div>
+        </div>
+
         <table class="table table-striped table-bordered">
           <thead class="text-center">
             <tr class="text-center">
@@ -43,17 +79,16 @@
           </thead>
           <tbody class="text-center">
             <tr>
-              <td>Lorem ipsum, dolor sit amet consectetur adipisicing.</td>
-              <td>11-5-1998</td>
+              <td id="title"></td>
+              <td id="created_at"></td>
               <td>23456</td>
-              <td>23-12-2004</td>
+              <td id="expiration">23-12-2004</td>
             </tr>
           </tbody>
         </table>
       </div>
       <div id="populate" class="">
-        <div class="row box">
-        </div>
+        <div class="row box"></div>
       </div>
     </section>
   </div>

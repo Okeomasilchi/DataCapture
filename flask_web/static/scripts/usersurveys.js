@@ -1,6 +1,6 @@
 $(document).ready(() => {
     // alert("hello")
-    $("#load-wrapp").hide();
+    $("#loader").hide();
 
     $('.link').on('click', function () {
         // Remove 'active' class from all links
@@ -10,6 +10,21 @@ $(document).ready(() => {
         $(this).addClass('active');
         $("#closeNav").click()
     });
+
+    function formatDate(dateString) {
+        // Split the date and time parts
+        var parts = dateString.split(' ');
+
+        // Keep only the date part (i.e., the first part)
+        var datePart = parts[0];
+
+        // Format the date
+        var date = new Date(datePart);
+        var options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+        var formattedDate = date.toLocaleDateString('en-US', options);
+
+        return formattedDate;
+    }
 
     function openNav() {
         let width = "350px"
@@ -55,21 +70,23 @@ $(document).ready(() => {
     });
 
     function apiCall(id) {
+        $("#loader").show();
+        $("#dashboard-result").addClass("blurred-background")
         if (!id) {
             return Promise.reject(new Error('Invalid ID'));
         }
-        $("#dashboard-result").addClass("blurred-background")
-
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "GET",
                 url: "http://web-01.okeoma.tech/api/v1/survey/" + id,
                 success: (response) => {
                     // const responseData = JSON.stringify(response);
+                    $("#loader").hide();
                     $("#dashboard-result").removeClass("blurred-background")
                     resolve(response);
                 },
                 error: (error) => {
+                    $("#loader").hide();
                     $("#dashboard-result").removeClass("blurred-background")
                     reject(new Error('API call failed with error: ' + error.message));
                 }
@@ -85,41 +102,19 @@ $(document).ready(() => {
     $("a.link").click(function () {
         var id = $(this).attr("id");
 
-        // $("#populate").children(".row").empty();
-        // const questions = data.questions;
-        // questions.forEach((question) => {
-        //     let optionsHTML = ''; // Variable to store options HTML
-        //     // Loop through each option and concatenate input elements
-        //     for (let i = 0; i < question.options.length; i++) {
-        //         optionsHTML += `<p class="form-control option m-2"><strong><em>${String.fromCharCode(i + 65)}</em>.</strong>&Tab;${question.options[i]}</p>`;
-        //     }
-        //     // Append question and options to the 'populate' element
-        //     $("#populate").children(".row").append(`
-        //             <div class="col-lg-4 col-md-6 col-sm-12 question-block p-3 m-2">
-        //                 <div class="top-section">
-        //                     <div class="form-group d-flex justify-content-between align-items-center">
-        //                         <h4 class="m-0 mb-3">Question</h4>
-        //                         <button class="option-tag btn btn-outline-success btn-3d m-0 py-0"><i class="fa-solid fa-arrow-down-short-wide"></i></button>
-        //                     </div>
-        //                     <div class="input-group mb-4">
-        //                         <p class="questionTextarea" rows="5" placeholder="Type Question">${question.question}</p>
-        //                     </div>
-        //                 </div>
-        //                 <div class="px-3 bottom-section">
-        //                     <div class="py-2">
-        //                         ${optionsHTML}
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         `);
-        // });
-        // $(".bottom-section").hide();
-        
-        
         apiCall(id)
             .then((data) => {
-                // console.log(data)
+                console.log(data)
                 $("#populate").children(".row").empty();
+                $("#title").text(data.title);
+                $("#created_at").text(formatDate(data.created_at));
+                $("#expiration").text(formatDate(data.expiry_date));
+                if (data.visibility) {
+                    $("#visibility").click();
+                }
+                if (data.randomize) {
+                    $("#randomize").click();
+                }
                 const questions = data.questions;
                 questions.forEach((question) => {
                     let optionsHTML = ''; // Variable to store options HTML
@@ -154,7 +149,7 @@ $(document).ready(() => {
             .catch((error) => {
                 console.error('Error:', error.message);
             });
-            
+
     });
 
     $("a.link:first").click();
