@@ -171,15 +171,13 @@ $(document).ready(() => {
 
         var tooltip = document.getElementById("myTooltip");
         tooltip.innerHTML = "Copied: " + copyText.value;
+
+        var popup = $(this).siblings('.popup'); // Find the sibling popup of the clicked button
+        popup.show(); // Show the popup
+        setTimeout(function() {
+            popup.hide(); // Hide the popup after 2 seconds
+        }, 2000);
     });
-
-    $('#copy-t').onmouseout = function () {
-        var tooltip = document.getElementById("myTooltip");
-        tooltip.innerHTML = "Copy to clipboard";
-    }
-
-
-
 
     $("#delete-survey").click(function () {
         var id = $(this).attr("name");
