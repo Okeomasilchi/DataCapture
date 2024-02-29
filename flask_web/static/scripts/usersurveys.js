@@ -2,11 +2,13 @@ $(document).ready(() => {
     // alert("hello")
     $("#loader").hide();
 
-    $('.link').on('click', function () {
+    $('#link-click').on('click', function () {
         // Remove 'active' class from all links
-        $('.link').removeClass('active');
+        $(this).parent('.n-link').removeClass('active');
+        $(this).removeClass('active');
 
         // Add 'active' class to the clicked link
+        $(this).parent('.n-link').addClass('active');
         $(this).addClass('active');
         $("#closeNav").click()
     });
@@ -97,8 +99,8 @@ $(document).ready(() => {
 
     $(".bottom-section").hide();
 
-    $("a.link").click(function () {
-        var id = $(this).attr("id");
+    $("#link-click").click(function () {
+        var id = $(this).parent('.n-link').attr('id');;
 
         apiCall(id)
             .then((data) => {
@@ -152,7 +154,7 @@ $(document).ready(() => {
 
     });
 
-    $("a.link:first").click();
+    $("#link-click:first").click();
 
     $(document).on("click", ".option-tag", function () {
         var bottomSection = $(this).closest(".question-block").find(".bottom-section");
