@@ -227,11 +227,10 @@ input::placeholder {
 }
 /* 
 .in {
-    width: fit-content;
     justify-self: center;
     align-self: center;
-    margin: 20px auto 10px;
     border-radius: 10px;
+    max-width: 200px;
     padding: 20px;
     display: flex;
     flex-direction: column;

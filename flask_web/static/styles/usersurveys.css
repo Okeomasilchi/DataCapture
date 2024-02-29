@@ -490,21 +490,3 @@ input:checked+.slider:before {
     -webkit-transform: none;
     transform: none;
 }
-
-.popup {
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 3px;
-    border-radius: 10px;
-    z-index: 1;
-    display: none;
-}
-
-.copy-button {
-    position: relative;
-}
-
-.copy-button:hover+.popup {
-    display: block;
-}
