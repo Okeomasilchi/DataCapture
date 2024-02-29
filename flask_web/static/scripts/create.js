@@ -179,8 +179,20 @@ $(document).ready(function () {
         });
     }
 
+    function showWarningModal() {
+        $('#confirmationModal').modal('show');
+        setTimeout(function () {
+            $('#confirmationModal').modal('hide');
+        }, 4000);
+    }
+
     function gatherQuestionDetails() {
+        $('.modal-footer').hide();
+        $("#modal-title").text("Warning");
+        $('#modal-cont').removeClass("bg-success-subtle").addClass("bg-warning-subtle");
         var questionDetails = [];
+
+        var pause = false;
 
         // Survey details
         var title = $('.title').val();
@@ -190,46 +202,76 @@ $(document).ready(function () {
         var randomizeOptions = $('#randomize-options').is(':checked');
         var visibility = $('#visibility').is(':checked');
 
-        console.log(expDate);
-        user_id = $(".table-row").attr("id");
-        // console.log(user_id);
-        var surveyDetails = {
-            'user_id': user_id,
-            'title': title,
-            'description': description,
-            'expiry_date': expDate,
-            'randomize': randomizeQuestions,
-            "randomizeOptions": randomizeOptions,
-            'visibility': visibility,
-            'question_type': "Multiple Type"
-        };
+        var surveyDetails;
+        // Check if any required fields are empty
+        if (!title || !description) {
+            // alert("");
+            showWarningModal();
+            $('#confirmationModal .modal-body').html("Please fill in all required Survey detail fields");
+            return pause = True;
+        } else {
+            title = title.trim();
+            description = description.trim();
+            var surveyDetails = {
+                'user_id': $(".table-row").attr("id"),
+                'title': title,
+                'description': description,
+                'expiry_date': expDate,
+                'randomize': randomizeQuestions,
+                "randomizeOptions": randomizeOptions,
+                'visibility': visibility,
+                'question_type': "Multiple Type"
+            };
 
-        // questionDetails.push(surveyDetails);
+            $('.border.container').each(function () {
+                var questionBlock = {};
 
-        // Loop through each question block
-        $('.border.container').each(function () {
-            var questionBlock = {};
+                // Question details
+                var questionText = $(this).find('.questionTextarea').val();
+                var questionType = $(this).find('.questiontype-dropdown').val();
 
-            // Question details
-            var questionText = $(this).find('.questionTextarea').val();
-            var questionType = $(this).find('.questiontype-dropdown').val();
+                // Check if question is empty
+                if (!questionText) {
+                    // alert("");
+                    showWarningModal();
+                    $('#confirmationModal .modal-body').html("Please fill in  or delete empty question fields");
+                    return pause = True;
+                } else {
+                    questionBlock['question'] = questionText;
 
-            questionBlock['question'] = questionText;
+                    // Options details
+                    var options = [];
+                    $(this).find('#options .option').each(function () {
+                        var optionText = $(this).val();
+                        if (!optionText) {
+                            return; // Exit the current iteration and continue to the next iteration
+                        } else {
+                            options.push(optionText);
+                        }
+                    });
 
-            // Options details
-            var options = [];
-            $(this).find('#options .option').each(function () {
-                var optionText = $(this).val();
-                options.push(optionText);
+                    // Check if number of options is less than 2
+                    // console.log(options);
+                    if (options.length < 2) {
+                        // alert("");
+                        showWarningModal();
+                        $('#confirmationModal .modal-body').html("Please add at least 2 options for each question");
+
+                        return pause = True;
+                    } else {
+                        questionBlock['options'] = options;
+                        questionBlock['random'] = randomizeOptions;
+
+                        questionDetails.push(questionBlock);
+                    }
+                }
             });
-            questionBlock['options'] = options;
 
-            // Randomize options
-            var random = randomizeOptions;
-            questionBlock['random'] = random;
+        }
 
-            questionDetails.push(questionBlock);
-        });
+        if (pause) {
+            return "continue";
+        }
         surveyDetails.questions = questionDetails;
         return surveyDetails;
     }
@@ -238,17 +280,25 @@ $(document).ready(function () {
     // Event listener for saving the survey
     $('#save').click(() => {
         var surveyData = gatherQuestionDetails();
-        console.log(surveyData);
-        saveSurvey(surveyData)
-            .then((response) => {
-                alert("Survey saved successfully");
-                var link = $("a#user_survey").attr("href");
-                window.location.href = link;
-            })
-            .catch((error) => {
-                alert("An error occurred while saving the survey");
-                console.error('Error:', error.message);
-            });
+        if (surveyData === "continue") {
+            return;
+        } else {
+            saveSurvey(surveyData)
+                .then((response) => {
+                    // alert("Survey saved successfully");
+                    $('.modal-footer').hide();
+                    $("#modal-title").text("Success");
+                    $('#modal-cont').removeClass("bg-success-subtle bg-warning-subtle").addClass("bg-success-subtle");
+                    showWarningModal();
+                    $('#confirmationModal .modal-body').html("Survey saved successfully");
+                    var link = $("a#user_survey").attr("href");
+                    window.location.href = link;
+                })
+                .catch((error) => {
+                    alert("An error occurred while saving the survey");
+                    console.error('Error:', error.message);
+                });
+        }
     });
 
 });
