@@ -1,97 +1,110 @@
 {% extends 'layout.html' %}
 {% block script %}
-  <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/response.css') }}" />
-  <script src="./script/script.js"></script>
-  <script src="./script/Dashboard.js"></script>
-  <script>
-    $(document).ready(function () {
-      $(document).on('contextmenu', function (event) {
-        event.preventDefault()
-      })
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'styles/create.css') }}" />
+<script src="{{ url_for('static', filename = 'scripts/create.js') }}"></script>
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/response.css') }}" /> -->
+<script src="./script/script.js"></script>
+<script src="./script/Dashboard.js"></script>
+<script>
+  $(document).ready(function () {
+    $(document).on('contextmenu', function (event) {
+      event.preventDefault()
     })
-  </script>
+  })
+</script>
 {% endblock %}
 
 {% block content %}
-  <main id="dashboard">
-    <progress id="progressBar" class="progress-bar-container" value="0" max="{{ data['questions']|length }}"></progress>
-    <div id="popup" class="modal glow-border">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content bg-success-subtle">
-          <div class="modal-header">
-            <h5 class="modal-title">Enter Your Information</h5>
+<progress id="progressBar" class="progress-bar-container" value="0" max="{{ data['questions']|length }}"></progress>
+<div id="popup" class="modal glow-border">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content bg-success-subtle">
+      <div class="modal-header">
+        <h5 class="modal-title">Enter Your Information</h5>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="full-name">Full Name</label>
+            <input type="text" class="form-control" autofocus id="full-name" placeholder="Enter your full name" />
           </div>
-          <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label for="full-name">Full Name</label>
-                <input type="text" class="form-control" autofocus id="full-name" placeholder="Enter your full name" />
-              </div>
-              <div class="form-group">
-                <label for="sex">Sex</label>
-                <select class="form-control" id="sex">
-                  <option value="None" selected>None selected</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="Prefer not to say">Prefer not to say</option>
-                </select>
-              </div>
-              <br />
-              <div id="error-message" style="color: red"></div>
-            </form>
+          <div class="form-group">
+            <label for="sex">Sex</label>
+            <select class="form-control" id="sex">
+              <option value="None" selected>None selected</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="Prefer not to say">Prefer not to say</option>
+            </select>
           </div>
-          <div class="modal-footer">
-            <button id="bioSubmit" type="button" class="btn btn-outline-success btn-3d glow-border">Submit</button>
+          <br />
+          <div id="error-message" style="color: red"></div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="bioSubmit" type="button" class="btn btn-outline-success btn-3d glow-border">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="mySidenav" class="sidenav">
+  <a class="closebtn" id="closeNav"><i class="fa-solid fa-chevron-left"></i></a>
+  <section id="dashboard-info mb-4">
+    <div class="table-row" id="{{ current_user.id }}">
+      <div class="survey col-md-12 mx-auto px-3 mb-5 pt-3 pb-5">
+        <h2 class="text-center mb-6">Survey Details</h2>
+        <div class="form-group mb-6">
+          <div class="table-row">
+            <div class="table-column">Title</div>
+            <div class="table-data">{{ data['title'] }}</div>
           </div>
+          <div class="table-row">
+            <div class="table-column">Description</div>
+            <div class="table-data">
+              <p>{{ data['description'] }}</p>
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="table-column">Author</div>
+            <div class="table-data">{{ user_data['first_name'] }} {{ user_data['last_name'] }}</div>
+          </div>
+          <div class="table-row">
+            <div class="table-column">Respondent Name</div>
+            <div class="table-data" id="responder"></div>
+          </div>
+          <button id="commit" class="btn btn-success glow-border btn-3d mb-5">Commit Response</button>
+          <br class="mb-5">
+          <br class="mb-5">
         </div>
       </div>
     </div>
+  </section>
+</div>
 
-    <section id="dashboard-info">
-      <div class="table-row">
-        <div class="table-column">Title</div>
-        <div class="table-data">{{ data['title'] }}</div>
-      </div>
-      <div class="table-row">
-        <div class="table-column">Description</div>
-        <div class="table-data">
-          <p>{{ data['description'] }}</p>
-        </div>
-      </div>
-      <div class="table-row">
-        <div class="table-column">Author</div>
-        <div class="table-data">{{ user_data['first_name'] }} {{ user_data['last_name'] }}</div>
-      </div>
-      <div class="table-row">
-        <div class="table-column">Respondent Name</div>
-        <div class="table-data" id="responder"></div>
-      </div>
-      <button id="commit" class="btn btn-success glow-border btn-3d mb-5">Commit Response</button>
-      <br class="mb-5">
-      <br class="mb-5">
-    </section>
-    <!-- <button class="btn btn-3d btn-outline-success" id="collapseButton"><i class="fa-solid fa-chevron-left"></i></button> -->
-    <section id="dashboard-result" class="full-width">
+<div id="main">
+  <span style="font-size:30px; cursor:pointer" id="openNav" class="sticky"><i
+      class="fa-solid fa-chevron-right fa-sm"></i></span>
+  <section id="dashboard-result" class="full-width">
       <div class="Response-Collection-Form">
         <form id="response-form">
           <div class="questions">
             {% for q in data['questions'] %}
-              <div class="question" id="{{ q['id'] }}">
-                <p>{{ q['question'] }}</p>
-                {% for opt in q['options'] %}
-                  <div class="options" name="{{ opt }}">
-                    <div>
-                      <input type="checkbox" id="{{ q['id'] + opt}}" name="{{ opt }}" />
-                      <label for="option1-1">{{ opt }}</label>
-                    </div>
-                  </div>
-                {% endfor %}
+            <div class="question" id="{{ q['id'] }}">
+              <p>{{ q['question'] }}</p>
+              {% for opt in q['options'] %}
+              <div class="options" name="{{ opt }}">
+                <div class="form-group">
+                  <input type="checkbox" id="{{ q['id'] + opt}}" name="{{ opt }}" />
+                  <label for="option1-1">{{ opt }}</label>
+                </div>
               </div>
+              {% endfor %}
+            </div>
             {% endfor %}
           </div>
         </form>
       </div>
       <button id="commit1" class="btn btn-success glow-border btn-3d">Commit Response</button>
-    </section>
-  </main>
+  </section>
+</div>
 {% endblock %}
