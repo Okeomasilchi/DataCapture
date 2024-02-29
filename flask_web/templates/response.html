@@ -1,10 +1,8 @@
 {% extends 'layout.html' %}
 {% block script %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'styles/create.css') }}" />
-<script src="{{ url_for('static', filename = 'scripts/create.js') }}"></script>
-<!-- <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/response.css') }}" /> -->
+<script src="{{ url_for('static', filename = 'scripts/response.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename = 'styles/response.css') }}" />
 <script src="./script/script.js"></script>
-<script src="./script/Dashboard.js"></script>
 <script>
   $(document).ready(function () {
     $(document).on('contextmenu', function (event) {
@@ -47,6 +45,9 @@
     </div>
   </div>
 </div>
+
+
+<!-- main -->
 <div id="mySidenav" class="sidenav">
   <a class="closebtn" id="closeNav"><i class="fa-solid fa-chevron-left"></i></a>
   <section id="dashboard-info mb-4">
@@ -81,30 +82,76 @@
   </section>
 </div>
 
+<style>
+  .checkbox-wrapper-62 input[type="checkbox"] {
+    visibility: hidden;
+    display: none;
+  }
+
+  .checkbox-wrapper-62 *,
+  .checkbox-wrapper-62 ::after,
+  .checkbox-wrapper-62 ::before {
+    box-sizing: border-box;
+  }
+
+  .checkbox-wrapper-62 {
+    position: relative;
+    display: block;
+    overflow: hidden;
+  }
+
+  .checkbox-wrapper-62 .check {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    opacity: 0;
+  }
+
+  .checkbox-wrapper-62 .label svg {
+    vertical-align: middle;
+  }
+
+  .checkbox-wrapper-62 .path1 {
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    transition: .5s all;
+  }
+
+  .checkbox-wrapper-62 .check:checked+label svg g path {
+    stroke-dashoffset: 0;
+  }
+</style>
+
 <div id="main">
   <span style="font-size:30px; cursor:pointer" id="openNav" class="sticky"><i
       class="fa-solid fa-chevron-right fa-sm"></i></span>
-  <section id="dashboard-result" class="full-width">
-      <div class="Response-Collection-Form">
-        <form id="response-form">
-          <div class="questions">
-            {% for q in data['questions'] %}
-            <div class="question" id="{{ q['id'] }}">
-              <p>{{ q['question'] }}</p>
-              {% for opt in q['options'] %}
-              <div class="options" name="{{ opt }}">
-                <div class="form-group">
-                  <input type="checkbox" id="{{ q['id'] + opt}}" name="{{ opt }}" />
-                  <label for="option1-1">{{ opt }}</label>
+  <section id="dashboard-result">
+    <div class="Response-Collection-Form">
+      <form id="response-form text-center">
+        <div class="questions mx-auto">
+          {% for q in data['questions'] %}
+          <div class="question" id="{{ q['id'] }}">
+            <p>{{ q['question'] }}</p>
+            {% for opt in q['options'] %}
+            <div class="options" name="{{ opt }}">
+              <div class="form-group row">
+                <div class="col-auto">
+                  <input type="checkbox" id="{{ q['id'] + opt}}" name="{{ opt }}" value="okeoma" class="custom-checkbox" />
+                </div>
+                <div class="col">
+                  <label for="{{ q['id'] + opt }}">{{ opt }}</label>
                 </div>
               </div>
-              {% endfor %}
             </div>
             {% endfor %}
           </div>
-        </form>
-      </div>
-      <button id="commit1" class="btn btn-success glow-border btn-3d">Commit Response</button>
+          {% endfor %}
+        </div>
+      </form>
+    </div>
+    <button id="commit1" class="btn btn-success glow-border btn-3d">Commit Response</button>
   </section>
+
+
 </div>
 {% endblock %}

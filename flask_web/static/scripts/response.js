@@ -1,9 +1,76 @@
-function updateProgress() {
-    var questions = document.querySelectorAll('.questions .question');
-    var answeredQuestions = Array.from(questions).filter(question => {
-        return question.querySelector('input[type="checkbox"]:checked') !== null;
+$(document).ready(function () {
+    // alert("hello");
+
+    function openNav() {
+        let width = "400px"
+        $("#mySidenav").css("width", width);
+        $("#main").css("marginLeft", width);
+        $(".sticky").hide();
+    }
+
+    function closeNav() {
+        $("#mySidenav").css("width", "0");
+        $("#main").css("marginLeft", "0");
+        $(".sticky").show();
+    }
+
+    function openNavSmall() {
+        $("#mySidenav").css("width", "350px");
+        $(".sticky").hide();
+    }
+
+    function closeNavSmall() {
+        $("#mySidenav").css("width", "0");
+        $(".sticky").show();
+    }
+
+
+    if ($(window).width() <= 768) { // 768px is the Bootstrap medium breakpoint
+        $("#openNav").click(openNavSmall);
+        $("#closeNav").click(closeNavSmall);
+        $("#openNav").click();
+    } else {
+        $("#openNav").click(openNav);
+        $("#closeNav").click(closeNav);
+        $("#openNav").click();
+    }
+
+    // Check screen width on window resize
+    $(window).resize(() => {
+        if ($(window).width() <= 768) {
+            $("#openNav").click(openNavSmall);
+            $("#closeNav").click(closeNavSmall);
+        } else {
+            $("#openNav").click(openNav);
+            $("#closeNav").click(closeNav);
+        }
     });
-    var progress = document.getElementById('progress');
-    var percentage = (answeredQuestions.length / questions.length) * 100;
-    progress.style.width = percentage + '%';
-}
+
+
+    function saveSurvey(surveyData) {
+        $("#loader").show();
+        $("#dashboard-result").addClass("blurred-background");
+
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: "https://www.okeoma.tech/api/v1/survey/",
+                method: 'POST',
+                data: JSON.stringify(surveyData),
+                contentType: 'application/json',
+                success: function (response) {
+                    $("#loader").hide();
+                    $("#dashboard-result").removeClass("blurred-background");
+                    resolve(response);
+                },
+                error: function (xhr) {
+                    $("#loader").hide();
+                    $("#dashboard-result").removeClass("blurred-background");
+                    error = xhr.responseText
+                    error.status = xhr.status
+                    reject(new Error(error));
+                }
+            });
+        });
+    }
+
+});

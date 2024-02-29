@@ -266,3 +266,381 @@ label {
         margin-top: 0;
     }
 }
+
+
+
+
+
+
+
+body {
+    font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    background-color: #fafafa;
+    overflow-x: hidden;
+    overflow-y: auto;
+    transition: 0.5s;
+    padding: 30px 0 30px;
+    border-right: 1px solid #e7e7e7;
+}
+
+.option {
+    right: 0;
+    left: 0;
+    width: 100%;
+}
+
+#options {
+    padding: 0 13px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+.survey {
+    padding-top: 0;
+}
+
+#options {
+    height: 157px;
+    max-height: 157px;
+    /* Set a fixed maximum height */
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* Enable vertical scrolling when necessary */
+}
+
+
+.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fafafa;
+    padding: 10px 0;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.sticky a:hover {
+    color: #f1f1f1;
+}
+
+#openNav {
+    border: none;
+    right: 0;
+}
+
+.border {
+    margin-top: 20px;
+    background-color: #f7f6f6;
+    border-radius: 10px;
+    border: 1px solid #000000;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+}
+
+#mySidenav {
+    z-index: 100;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #009c5b;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #009c5b;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* ******************** switch ********************** */
+.checkbox-wrapper-35 .switch {
+    display: none;
+}
+
+.checkbox-wrapper-35 .switch+label {
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #78768d;
+    cursor: pointer;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    line-height: 15px;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.checkbox-wrapper-35 .switch+label::before,
+.checkbox-wrapper-35 .switch+label::after {
+    content: '';
+    display: block;
+}
+
+.checkbox-wrapper-35 .switch+label::before {
+    background-color: #05012c;
+    border-radius: 500px;
+    height: 23px;
+    margin-right: 8px;
+    -webkit-transition: background-color 0.125s ease-out;
+    transition: background-color 0.125s ease-out;
+    width: 40px;
+}
+
+.checkbox-wrapper-35 .switch+label::after {
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 3px 1px 0 rgba(37, 34, 71, 0.05), 0 2px 2px 0 rgba(37, 34, 71, 0.1), 0 3px 3px 0 rgba(37, 34, 71, 0.05);
+    height: 20px;
+    left: 1px;
+    position: absolute;
+    top: 1px;
+    -webkit-transition: -webkit-transform 0.125s ease-out;
+    transition: -webkit-transform 0.125s ease-out;
+    transition: transform 0.125s ease-out;
+    transition: transform 0.125s ease-out, -webkit-transform 0.125s ease-out;
+    width: 20px;
+}
+
+.checkbox-wrapper-35 .switch+label .switch-x-text {
+    display: block;
+    margin-right: 1em;
+    color: #05012c;
+    font-size: 15px;
+}
+
+.checkbox-wrapper-35 .switch+label .switch-x-toggletext {
+    display: block;
+    font-weight: bold;
+    height: 15px;
+    overflow: hidden;
+    position: relative;
+    width: 40px;
+}
+
+.checkbox-wrapper-35 .switch+label .switch-x-unchecked,
+.checkbox-wrapper-35 .switch+label .switch-x-checked {
+    left: 0;
+    position: absolute;
+    top: 3;
+    -webkit-transition: opacity 0.125s ease-out, -webkit-transform 0.125s ease-out;
+    transition: opacity 0.125s ease-out, -webkit-transform 0.125s ease-out;
+    transition: transform 0.125s ease-out, opacity 0.125s ease-out;
+    transition: transform 0.125s ease-out, opacity 0.125s ease-out, -webkit-transform 0.125s ease-out;
+}
+
+.checkbox-wrapper-35 .switch+label .switch-x-unchecked {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+}
+
+.checkbox-wrapper-35 .switch+label .switch-x-checked {
+    opacity: 0;
+    color: #009c5b;
+    font-size: 15px;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+}
+
+.checkbox-wrapper-35 .switch+label .switch-x-hiddenlabel {
+    position: absolute;
+    visibility: hidden;
+}
+
+.checkbox-wrapper-35 .switch:checked+label::before {
+    background-color: #009c5b;
+}
+
+.checkbox-wrapper-35 .switch:checked+label::after {
+    -webkit-transform: translate3d(16px, 0, 0);
+    transform: translate3d(16px, 0, 0);
+}
+
+.checkbox-wrapper-35 .switch:checked+label .switch-x-unchecked {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+}
+
+.checkbox-wrapper-35 .switch:checked+label .switch-x-checked {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+}
+
+/* ***************************************************** */
+
+
+.options {
+    display: inline-block;
+}
+
+.form-group {
+    margin-right: 20px;
+    /* Adjust spacing between radio button and label as needed */
+}
+
+label {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+/* *************************** checkbox ************************************ */
+
+/* Style for the custom checkbox */
+.custom-checkbox {
+    position: relative; /* Required for positioning the checkmark */
+    width: 30px; /* Adjust the width of the checkbox */
+    height: 30px; /* Adjust the height of the checkbox */
+    -webkit-appearance: none; /* Remove default appearance */
+    -moz-appearance: none; /* Remove default appearance */
+    appearance: none; /* Remove default appearance */
+    border: 2px solid #555; /* Border color */
+    border-radius: 6px; /* Border radius */
+    outline: none; /* Remove outline */
+    cursor: pointer; /* Add cursor pointer */
+    margin-right: 10px; /* Adjust spacing between checkbox and label */
+  }
+  
+  /* Style for the custom checkbox when checked */
+  .custom-checkbox:checked {
+    background-color: #2196F3; /* Background color when checked */
+  }
+  
+  /* Style for the custom checkbox label */
+  .custom-checkbox-label {
+    font-size: 16px; /* Adjust font size */
+    color: #333; /* Label color */
+  }
+  
+  /* Style for the custom checkbox label when checkbox is checked */
+  .custom-checkbox:checked + .custom-checkbox-label {
+    color: #fff; /* Label color when checked */
+  }
+  
+  /* Style for the checkmark */
+  .checkmark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0; /* Initially hidden */
+    width: 12px;
+    height: 25px;
+    border-style: solid;
+    border-color: #fff;
+    border-width: 0 3px 3px 0;
+    transform-origin: bottom left;
+    animation: checkmarkAnimation 0.3s ease forwards; /* Animation effect */
+  }
+  
+  /* Keyframes for the checkmark animation */
+  @keyframes checkmarkAnimation {
+    0% { transform: translate(-50%, -50%) rotate(45deg) scale(0); opacity: 0; }
+    50% { transform: translate(-50%, -50%) rotate(45deg) scale(1.2); opacity: 1; }
+    100% { transform: translate(-50%, -50%) rotate(45deg) scale(1); opacity: 1; }
+  }
+  
+  /* Style for the checkmark when checkbox is checked */
+  .custom-checkbox:checked + .custom-checkbox-label .checkmark {
+    opacity: 1; /* Show checkmark when checked */
+  }
+  
