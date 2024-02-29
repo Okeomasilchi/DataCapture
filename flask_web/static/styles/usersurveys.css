@@ -54,6 +54,7 @@
 
 .survey-title {
     font-style: italic;
+    font-size: 20px;
     color: #5e5e5e;
     flex: 1;
     /* Allow title to grow and shrink */
@@ -233,7 +234,7 @@ body {
 }
 
 .link:active {
-    background-color: #009c5b;
+    background-color: #009c5bba;
     /* Change to your desired click color */
     color: #fff;
     /* Change to your desired text color */
@@ -243,122 +244,6 @@ body {
 .active {
     background-color: #009c5b88;
     color: #000e05;
-}
-
-/* ******************** switch ********************** */
-
-.checkbox-wrapper-34 {
-    --blue: #009c5b;
-    --g08: #E1E5EB;
-    --g04: #848ea1;
-}
-
-.checkbox-wrapper-34 .tgl {
-    display: none;
-}
-
-.checkbox-wrapper-34 .tgl,
-.checkbox-wrapper-34 .tgl:after,
-.checkbox-wrapper-34 .tgl:before,
-.checkbox-wrapper-34 .tgl *,
-.checkbox-wrapper-34 .tgl *:after,
-.checkbox-wrapper-34 .tgl *:before,
-.checkbox-wrapper-34 .tgl+.tgl-btn {
-    box-sizing: border-box;
-}
-
-.checkbox-wrapper-34 .tgl::selection,
-.checkbox-wrapper-34 .tgl:after::selection,
-.checkbox-wrapper-34 .tgl:before::selection,
-.checkbox-wrapper-34 .tgl *::selection,
-.checkbox-wrapper-34 .tgl *:after::selection,
-.checkbox-wrapper-34 .tgl *:before::selection,
-.checkbox-wrapper-34 .tgl+.tgl-btn::selection {
-    background: none;
-}
-
-.checkbox-wrapper-34 .tgl+.tgl-btn {
-    outline: 0;
-    display: block;
-    width: 57px;
-    height: 27px;
-    position: relative;
-    cursor: pointer;
-    user-select: none;
-    font-size: 12px;
-    font-weight: 400;
-    color: #fff;
-}
-
-.checkbox-wrapper-34 .tgl+.tgl-btn:after,
-.checkbox-wrapper-34 .tgl+.tgl-btn:before {
-    position: relative;
-    display: block;
-    content: "";
-    width: 44%;
-    height: 100%;
-}
-
-.checkbox-wrapper-34 .tgl+.tgl-btn:after {
-    left: 0;
-}
-
-.checkbox-wrapper-34 .tgl+.tgl-btn:before {
-    display: inline;
-    position: absolute;
-    top: 7px;
-}
-
-.checkbox-wrapper-34 .tgl:checked+.tgl-btn:after {
-    left: 56.5%;
-}
-
-.checkbox-wrapper-34 .tgl-ios+.tgl-btn {
-    background: var(--g08);
-    border-radius: 20rem;
-    padding: 2px;
-    transition: all 0.4s ease;
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-}
-
-.checkbox-wrapper-34 .tgl-ios+.tgl-btn:after {
-    border-radius: 2em;
-    background: #fff;
-    transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-}
-
-.checkbox-wrapper-34 .tgl-ios+.tgl-btn:before {
-    content: "No";
-    left: 28px;
-    color: var(--g04);
-    transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.checkbox-wrapper-34 .tgl-ios+.tgl-btn:active {
-    box-shadow: inset 0 0 0 30px rgba(0, 0, 0, 0.1);
-}
-
-.checkbox-wrapper-34 .tgl-ios+.tgl-btn:active:after {
-    padding-right: 0.4em;
-}
-
-.checkbox-wrapper-34 .tgl-ios:checked+.tgl-btn {
-    background: var(--blue);
-}
-
-.checkbox-wrapper-34 .tgl-ios:checked+.tgl-btn:active {
-    box-shadow: inset 0 0 0 30px rgba(0, 0, 0, 0.1);
-}
-
-.checkbox-wrapper-34 .tgl-ios:checked+.tgl-btn:active:after {
-    margin-left: -0.4em;
-}
-
-.checkbox-wrapper-34 .tgl-ios:checked+.tgl-btn:before {
-    content: "Yes";
-    left: 4px;
-    color: #fff;
 }
 
 /* ************************ loading ***************************** */
@@ -421,6 +306,8 @@ body {
 
 /* ******************************************************* */
 
+/* ******************** switch ********************** */
+
 .switch {
     position: relative;
     display: inline-block;
@@ -481,7 +368,6 @@ input:checked+.slider:before {
     border-radius: 50%;
 }
 
-/* ******************** switch ********************** */
 .checkbox-wrapper-35 .switch {
     display: none;
 }
@@ -603,4 +489,47 @@ input:checked+.slider:before {
     opacity: 1;
     -webkit-transform: none;
     transform: none;
+}
+
+
+
+
+
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 140px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -75px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
 }

@@ -4,11 +4,11 @@ $(document).ready(() => {
 
     $('#link-click').on('click', function () {
         // Remove 'active' class from all links
-        $(this).parent('.n-link').removeClass('active');
+        // $(this).parent('.n-link').removeClass('active');
         $(this).removeClass('active');
 
         // Add 'active' class to the clicked link
-        $(this).parent('.n-link').addClass('active');
+        // $(this).parent('.n-link').addClass('active');
         $(this).addClass('active');
         $("#closeNav").click()
     });
@@ -162,28 +162,24 @@ $(document).ready(() => {
         bottomSection.slideToggle();
     });
 
-    // Add your existing JavaScript logic here, such as handling the copy button click event
-    // $('.copy-button').click(() => {
-    //     // Your copy functionality code here
-    //     var copyText = $(this).siblings('.survey-title').text()
-    //     navigator.clipboard.writeText(copyText)
-    // });
+    $('#copy-t').click(function () {
+        var id = $(this).closest('a').attr('id');
+        // var currentURL = window.location.href;
+        var homeLink = window.location.origin;
+        response_link = homeLink + "/app/survey/respond/" + id;
+        navigator.clipboard.writeText(response_link);
 
-    $('button.copy-t').click(() => {
-        alert("Copied the text")
-        console.log("clicked")
-        // Retrieve the survey ID from the closest table-data element
-        var copyText = $(this).closest('.table-data');
-
-        copyText.select();
-        copyText.setSelectionRange(0, 99999); // For mobile devices
-
-        //Copy the text inside the text field
-        navigator.clipboard.writeText(copyText.value);
-
-        //Alert the copied text
-        alert("Copied the text: " + copyText.value);
+        var tooltip = document.getElementById("myTooltip");
+        tooltip.innerHTML = "Copied: " + copyText.value;
     });
+
+    $('#copy-t').onmouseout = function () {
+        var tooltip = document.getElementById("myTooltip");
+        tooltip.innerHTML = "Copy to clipboard";
+    }
+
+
+
 
     $("#delete-survey").click(function () {
         var id = $(this).attr("name");
