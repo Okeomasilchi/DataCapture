@@ -14,7 +14,7 @@
           {%- for survey in surveys -%}
             <a class="link-click link n-link table-data tablinks d-flex align-items-center" id="{{ survey.id }}">
               <span id="link-click" class="survey-title m-0 flex-grow-1 w-100">{{ survey.title }}</span>
-              <button id="copy-t" class="copy-button btn btn-outline-success ml-2"><i class="fa-solid fa-link"></i></button>
+              <button class="copy-button btn btn-outline-success ml-2"><i class="fa-solid fa-link"></i></button>
             </a>
           {%- endfor -%}
         {%- else -%}

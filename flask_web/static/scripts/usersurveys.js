@@ -104,7 +104,7 @@ $(document).ready(() => {
 
         apiCall(id)
             .then((data) => {
-                console.log(data)
+                // console.log(data)
                 $("#populate").children(".row").empty();
                 $("#title").text(data.title);
                 $("#created_at").text(formatDate(data.created_at));
@@ -163,9 +163,9 @@ $(document).ready(() => {
         bottomSection.slideToggle();
     });
 
-    $('#copy-t').click(function () {
+    $('.copy-button').click(function () {
         var id = $(this).closest('a').attr('id');
-        // var currentURL = window.location.href;
+        console.log(id)
         var homeLink = window.location.origin;
         response_link = homeLink + "/app/survey/respond/" + id;
         navigator.clipboard.writeText(response_link);

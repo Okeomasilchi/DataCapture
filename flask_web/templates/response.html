@@ -1,157 +1,128 @@
 {% extends 'layout.html' %}
 {% block script %}
-<script src="{{ url_for('static', filename = 'scripts/response.js') }}"></script>
-<link rel="stylesheet" href="{{ url_for('static', filename = 'styles/response.css') }}" />
-<script src="./script/script.js"></script>
-<script>
-  $(document).ready(function () {
-    $(document).on('contextmenu', function (event) {
-      event.preventDefault()
+  <script src="{{ url_for('static', filename = 'scripts/response.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/response.css') }}" />
+  <script src="./script/script.js"></script>
+  <script>
+    $(document).ready(function () {
+      $(document).on('contextmenu', function (event) {
+        event.preventDefault()
+      })
     })
-  })
-</script>
+  </script>
 {% endblock %}
 
 {% block content %}
-<progress id="progressBar" class="progress-bar-container" value="0" max="{{ data['questions']|length }}"></progress>
-<div id="popup" class="modal glow-border">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content bg-success-subtle">
-      <div class="modal-header">
-        <h5 class="modal-title">Enter Your Information</h5>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="full-name">Full Name</label>
-            <input type="text" class="form-control" autofocus id="full-name" placeholder="Enter your full name" />
-          </div>
-          <div class="form-group">
-            <label for="sex">Sex</label>
-            <select class="form-control" id="sex">
-              <option value="None" selected>None selected</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="Prefer not to say">Prefer not to say</option>
-            </select>
-          </div>
-          <br />
-          <div id="error-message" style="color: red"></div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button id="bioSubmit" type="button" class="btn btn-outline-success btn-3d glow-border">Submit</button>
+  <progress id="progressBar" class="progress-bar-container" value="0" max="{{ data['questions']|length }}"></progress>
+  <div id="popup" class="modal glow-border">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-success-subtle">
+        <div class="modal-header">
+          <h5 class="modal-title">Enter Your Information</h5>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="full-name">Full Name</label>
+              <input type="text" class="form-control" autofocus id="full-name" placeholder="Enter your full name" />
+            </div>
+            <div class="form-group">
+              <label for="sex">Sex</label>
+              <select class="form-control" id="sex">
+                <option value="None" selected>None selected</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+              </select>
+            </div>
+            <br />
+            <div id="error-message" style="color: red"></div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button id="bioSubmit" type="button" class="btn btn-outline-success btn-3d glow-border">Submit</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-
-<!-- main -->
-<div id="mySidenav" class="sidenav">
-  <a class="closebtn" id="closeNav"><i class="fa-solid fa-chevron-left"></i></a>
-  <section id="dashboard-info mb-4">
-    <div class="table-row" id="{{ current_user.id }}">
-      <div class="survey col-md-12 mx-auto px-3 mb-5 pt-3 pb-5">
-        <h2 class="text-center mb-6">Survey Details</h2>
-        <div class="form-group mb-6">
-          <div class="table-row">
-            <div class="table-column">Title</div>
-            <div class="table-data">{{ data['title'] }}</div>
-          </div>
-          <div class="table-row">
-            <div class="table-column">Description</div>
-            <div class="table-data">
-              <p>{{ data['description'] }}</p>
+  <!-- main -->
+  <div id="mySidenav" class="sidenav">
+    <a class="closebtn" id="closeNav"><i class="fa-solid fa-chevron-left"></i></a>
+    <section id="dashboard-info mb-4">
+      <div class="table-row" id="{{ current_user.id }}">
+        <div class="survey col-md-12 mx-auto px-3 mb-5 pt-3 pb-5">
+          <h2 class="text-center mb-6">Survey Details</h2>
+          <div class="form-group mb-6">
+            <div class="table-row">
+              <div class="table-column">Title</div>
+              <div class="table-data">{{ data['title'] }}</div>
             </div>
-          </div>
-          <div class="table-row">
-            <div class="table-column">Author</div>
-            <div class="table-data">{{ user_data['first_name'] }} {{ user_data['last_name'] }}</div>
-          </div>
-          <div class="table-row">
-            <div class="table-column">Respondent Name</div>
-            <div class="table-data" id="responder"></div>
-          </div>
-          <button id="commit" class="btn btn-success glow-border btn-3d mb-5">Commit Response</button>
-          <br class="mb-5">
-          <br class="mb-5">
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<style>
-  .checkbox-wrapper-62 input[type="checkbox"] {
-    visibility: hidden;
-    display: none;
-  }
-
-  .checkbox-wrapper-62 *,
-  .checkbox-wrapper-62 ::after,
-  .checkbox-wrapper-62 ::before {
-    box-sizing: border-box;
-  }
-
-  .checkbox-wrapper-62 {
-    position: relative;
-    display: block;
-    overflow: hidden;
-  }
-
-  .checkbox-wrapper-62 .check {
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    opacity: 0;
-  }
-
-  .checkbox-wrapper-62 .label svg {
-    vertical-align: middle;
-  }
-
-  .checkbox-wrapper-62 .path1 {
-    stroke-dasharray: 400;
-    stroke-dashoffset: 400;
-    transition: .5s all;
-  }
-
-  .checkbox-wrapper-62 .check:checked+label svg g path {
-    stroke-dashoffset: 0;
-  }
-</style>
-
-<div id="main">
-  <span style="font-size:30px; cursor:pointer" id="openNav" class="sticky"><i
-      class="fa-solid fa-chevron-right fa-sm"></i></span>
-  <section id="dashboard-result">
-    <div class="Response-Collection-Form">
-      <form id="response-form text-center">
-        <div class="questions mx-auto">
-          {% for q in data['questions'] %}
-          <div class="question" id="{{ q['id'] }}">
-            <p>{{ q['question'] }}</p>
-            {% for opt in q['options'] %}
-            <div class="options" name="{{ opt }}">
-              <div class="form-group row">
-                <div class="col-auto">
-                  <input type="checkbox" id="{{ q['id'] + opt}}" name="{{ opt }}" value="okeoma" class="custom-checkbox" />
-                </div>
-                <div class="col">
-                  <label for="{{ q['id'] + opt }}">{{ opt }}</label>
-                </div>
+            <div class="table-row">
+              <div class="table-column">Description</div>
+              <div class="table-data">
+                <p>{{ data['description'] }}</p>
               </div>
             </div>
+            <div class="table-row">
+              <div class="table-column">Author</div>
+              <div class="table-data">{{ user_data['first_name'] }} {{ user_data['last_name'] }}</div>
+            </div>
+            <div class="table-row">
+              <div class="table-column">Respondent Name</div>
+              <div class="table-data" id="responder"></div>
+            </div>
+            <button id="commit" class="btn btn-success glow-border btn-3d mb-5">Commit Response</button>
+            <br class="mb-5" />
+            <br class="mb-5" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="main">
+    <span style="font-size:30px; cursor:pointer" id="openNav" class="sticky"><i class="fa-solid fa-chevron-right fa-sm"></i></span>
+    <div class="response-container">
+        <form class="response-form">
+          <div class="questions mx-auto">
+            {% for q in data['questions'] %}
+              <div class="question" id="{{ q['id'] }}">
+                <p>{{ q['question'] }}</p>
+                <div class="options-container">
+                  {% set maxOptionWidth = 0 %}
+                  {% for opt in q['options'] %}
+                    <div class="options" name="{{ opt }}">
+                      <div class="form-group row">
+                        <div class="col-auto">
+                          <input type="checkbox" id="{{ q['id'] + opt }}" name="{{ opt }}" value="okeoma" class="custom-checkbox" />
+                        </div>
+                        <div class="col">
+                          <label for="{{ q['id'] + opt }}">{{ opt }}</label>
+                        </div>
+                      </div>
+                    </div>
+                    <script>
+                      $(document).ready(function () {
+                        // Get the width of the widest label in this question block
+                        var maxWidth = 0
+                        $(".question#{{ q['id'] }} .options").each(function () {
+                          var labelWidth = $(this).find('.form-group .col label').width()
+                          if (labelWidth > maxWidth) {
+                            maxWidth = labelWidth
+                          }
+                        })
+                        // Set the width of all labels in this question block to the widest width
+                        $(".question#{{ q['id'] }} .options .form-group .col label").css('width', maxWidth)
+                      })
+                    </script>
+                  {% endfor %}
+                </div>
+              </div>
             {% endfor %}
           </div>
-          {% endfor %}
-        </div>
-      </form>
+        </form>
+      <button id="commit1" class="btn btn-success glow-border btn-3d">Commit Response</button>
     </div>
-    <button id="commit1" class="btn btn-success glow-border btn-3d">Commit Response</button>
-  </section>
-
-
-</div>
+  </div>
 {% endblock %}
