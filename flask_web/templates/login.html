@@ -1,64 +1,64 @@
 {% extends 'layout.html' %}
 
 {% block script %}
-<!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'styles/create.css') }}" />
--->
-<script src="{{ url_for('static', filename = 'scripts/login.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'scripts/login.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'scripts/auth.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/auth.css') }}" />
 {% endblock %}
-    
+
 {% block content %}
-
-
-  <div style="max-width: 400px;" class="p-2 mx-auto">
-    <form  method="POST" action="">
-      {{ form.hidden_tag() }}
-      <fieldset class="form-group">
-        <legend class="border-bottom mb-4 text-center">Login</legend>
-        <div class="form-group">
-          {{ form.email.label(class = 'form-control-label') }}
-          <br />
-          {% if form.email.errors %}
-            {{ form.email(class = 'form-control-lg is-invalid') }}
-            <div class="invalid-feedback">
-              {% for error in form.email.errors %}
-                <span>{{ error }}</span>
-              {% endfor %}
-            </div>
-          {% else %}
-            {{ form.email(class = 'form-control form-control-lg', autofocus = True, placeholder = 'abc@example.com') }}
-          {% endif %}
-        </div>
-        <div class="form-group">
-          {{ form.password.label(class = 'form-control-label') }}
-          <br />
-          {% if form.password.errors %}
-            {{ form.password(class = 'form-control-lg is-invalid') }}
-            <br /><div class="invalid-feedback">
-              {% for error in form.password.errors %}
-                <span>{{ error }}</span>
-              {% endfor %}
-            </div>
-          {% else %}
-            <div class="input-group">
-              {{ form.password(class = 'form-control form-control-lg', placeholder = 'Password') }}
-              <div class="input-group-append parent btn-3d">
-                <span id="toggle-login-password" class="input-group-text glow-border"><i class="fas fa-eye" id="now"></i></span>
+  <div class="login-container">
+    <div class="login-form">
+      <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+          <legend class="border-bottom mb-4 text-center">Login</legend>
+          <div class="form-group">
+            {{ form.email.label(class = 'form-control-label') }}
+            <br />
+            {% if form.email.errors %}
+              {{ form.email(class = 'form-control form-control-lg is-invalid') }}
+              <div class="invalid-feedback">
+                {% for error in form.email.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
               </div>
-            </div>
-          {% endif %}
+            {% else %}
+              {{ form.email(class = 'form-control form-control-lg', autofocus = True, placeholder = 'abc@example.com') }}
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{ form.password.label(class = 'form-control-label') }}
+            <br />
+            {% if form.password.errors %}
+              {{ form.password(class = 'form-control form-control-lg is-invalid') }}
+              <br /><div class="invalid-feedback">
+                {% for error in form.password.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="input-group">
+                {{ form.password(class = 'form-control form-control-lg', placeholder = 'Password') }}
+                <div class="input-group-append parent btn-3d">
+                  <span id="toggle-login-password" class="input-group-text"><i class="fas fa-eye" id="now"></i></span>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </fieldset>
+        <div class="pt-1 pb-1">
+          <div class="form-group space btn-3d" style="display: inline-block;">{{ form.submit(class = 'btn btn-success') }}</div>
+          <div class="form-check space" style="display: inline-block; float: right;">{{ form.remember(class = 'form-check-input') }}
+            {{ form.remember.label(class = 'form-check-label btn-3d') }}</div>
         </div>
-      </fieldset>
-      <div class="pt-1 pb-1">
-        <div class="form-group space btn-3d" style="display: inline-block;">{{ form.submit(class = 'btn btn-success') }}</div>
-        <div class="form-check space btn-3d" style="display: inline-block; float: right;">{{ form.remember(class = 'form-check-input') }}
-          {{ form.remember.label(class = 'form-check-label') }}</div>
-      </div>
-      <div class="pt-1">
-        <small class="text-muted ml-2"><a href="{{ url_for('reset_request') }}">Forgot Password?</a></small>
-      </div>
-      <div class="form-group space pt-3 pb-3 btn-3d" style="display: inline-block; float: right;">
-        <small class="text-muted">Need An Account? <a class="ml-2 btn btn-outline-success" href="{{ url_for('register') }}">Sign Up now</a></small>
-      </div>
-    </form>
+        <div class="pt-1">
+          <small class="text-muted ml-2"><a href="{{ url_for('reset_request') }}">Forgot Password?</a></small>
+        </div>
+        <div class="form-group space pt-3 pb-3" style="display: inline-block; float: right;">
+          <small class="text-muted">Need An Account? <a class="ml-2 btn btn-outline-success btn-3d" href="{{ url_for('register') }}">Sign Up now</a></small>
+        </div>
+      </form>
+    </div>
   </div>
 {% endblock %}

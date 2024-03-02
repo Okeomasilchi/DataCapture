@@ -52,7 +52,7 @@
             <ul class="navbar-nav ms-auto">
               {%- if current_user.is_authenticated and title != 'Survey Response' -%}
                 <li class="nav-item">
-                  <a class="nav-link m-2 btn-3d grayish-text" href="#" id="popupButton"><i class="fa-solid fa-user fa-xl"></i></a>
+                  <a class="nav-link m-2 btn-3d grayish-text" id="popupButton"><i class="fa-solid fa-user fa-xl"></i></a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link m-2 btn-3d grayish-text" href="{{ url_for('create_survey') }}"><i class="fa-solid fa-square-plus fa-xl"></i></a>
@@ -80,15 +80,17 @@
         </div>
       </nav>
       <br />
-      <div class="row" id="top">
-        <div class="col-md-12">
-          {%- with messages = get_flashed_messages(with_categories = true) -%}
-            {%- if messages -%}
-              {%- for category, message in messages -%}
-                <div class="alert alert-{{ category }}">{{ message }}</div>
-              {%- endfor -%}
-            {%- endif -%}
-          {%- endwith -%}
+      <div id="messages">
+        <div class="row" id="top">
+          <div class="col-md-12">
+            {%- with messages = get_flashed_messages(with_categories = true) -%}
+              {%- if messages -%}
+                {%- for category, message in messages -%}
+                  <div class="alert alert-{{ category }}">{{ message }}</div>
+                {%- endfor -%}
+              {%- endif -%}
+            {%- endwith -%}
+          </div>
         </div>
       </div>
       {%- if current_user.is_authenticated and update_account -%}

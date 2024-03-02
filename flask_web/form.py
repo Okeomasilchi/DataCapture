@@ -93,12 +93,17 @@ class ResetEmail(FlaskForm):
     def validate_email(self, field):
         user = None
         r = rq.get(f"{root}users/validate", json={"email": field.data, "data": True})
+        # print(r.status_code)
         if r.status_code == 200:
             user = r.json()
-            if "id" not in user:
+            if type(user) is bool:
+                if user is False:
+                    raise ValidationError()
+            # print(r.json())
+            if "id" not in user[0]:
                 user = None
-                raise ValidationError(f"{field.data} not found")
-            return user
+                raise ValidationError()
+            return user[0]
 
 
 class ResetPassword(FlaskForm):

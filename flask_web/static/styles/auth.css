@@ -1,0 +1,32 @@
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    /* background-color: #f0f0f0; */
+    /* Example background */
+}
+
+.login-form {
+    background-color: #fdfdfd;
+    padding: 30px;
+    border-radius: 8px;
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+body {
+    overflow-y: auto;
+}
+
+@media screen and (max-width: 600px) {
+    .login-container {
+        height: 70vh;
+    }
+
+    .login-form {
+        padding: 20px;
+        margin: 10px;
+    }
+}
+

@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_login import LoginManager, current_user, UserMixin
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
@@ -167,4 +167,9 @@ def save_pic(form_pic):
 def load_user(user_id):
     return User.get(user_id)
 
-from flask_web import routs
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template('error_404.html'), 404
+
+from flask_web import auth_routs
+# from flask_web import app_route

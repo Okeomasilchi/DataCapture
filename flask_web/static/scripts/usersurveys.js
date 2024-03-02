@@ -2,10 +2,10 @@ $(document).ready(() => {
     // alert("hello")
     $("#loader").hide();
 
-    $('#link-click').on('click', function () {
+    $('.link-click').on('click', function () {
         // Remove 'active' class from all links
         // $(this).parent('.n-link').removeClass('active');
-        $(this).removeClass('active');
+        $(".link").removeClass('active');
 
         // Add 'active' class to the clicked link
         // $(this).parent('.n-link').addClass('active');
@@ -99,8 +99,8 @@ $(document).ready(() => {
 
     $(".bottom-section").hide();
 
-    $("#link-click").click(function () {
-        var id = $(this).parent('.n-link').attr('id');;
+    $(".link-click").click(function () {
+        var id = $(this).attr('id');;
 
         apiCall(id)
             .then((data) => {
@@ -116,8 +116,9 @@ $(document).ready(() => {
                 if (data.randomize) {
                     $("#randomize").click();
                 }
-                console.log(data.questions)
+                // console.log(data.questions)
                 const questions = data.questions;
+                var questionNumber = 0;
                 questions.forEach((question) => {
                     let optionsHTML = ''; // Variable to store options HTML
                     // Loop through each option and concatenate input elements
@@ -129,7 +130,7 @@ $(document).ready(() => {
                     <div class="col-lg-4 col-md-6 col-sm-12 question-block p-3 m-2">
                         <div class="top-section">
                             <div class="form-group d-flex justify-content-between align-items-center">
-                                <h4 class="m-0 mb-3">Question</h4>
+                                <h4 class="m-0 mb-3">Question ${++questionNumber}</h4>
                                 <button class="option-tag btn btn-outline-success btn-3d m-0 py-0"><i class="fa-solid fa-arrow-down-short-wide"></i></button>
                             </div>
                             <div class="input-group mb-4">
@@ -154,7 +155,7 @@ $(document).ready(() => {
 
     });
 
-    $("#link-click:first").click();
+    $(".link-click:first").click();
 
     $(document).on("click", ".option-tag", function () {
         var bottomSection = $(this).closest(".question-block").find(".bottom-section");
@@ -195,12 +196,12 @@ $(document).ready(() => {
                 type: "DELETE",
                 url: url,
                 success: function (response) {
-                    console.log(response);
+                    // console.log(response);
                     alert("Survey Deleted");
                     window.location.reload();
                 },
                 error: function (xhr, status, error) {
-                    console.log(xhr.responseText + " " + xhr.status + " " + xhr.statusText);
+                    // console.log(xhr.responseText + " " + xhr.status + " " + xhr.statusText);
                     alert("An error occurred");
                 }
             });

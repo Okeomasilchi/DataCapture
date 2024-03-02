@@ -1,6 +1,13 @@
 {% extends 'layout.html' %}
+{% block script %}
+  <script src="{{ url_for('static', filename = 'scripts/login.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'scripts/auth.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/auth.css') }}" />
+{% endblock %}
+
 {% block content %}
-  <div class="content-section glow-border in">
+  <div class="login-container">
+    <div class="login-form">
     <form method="POST" action="">
       {{ form.hidden_tag() }}
       <fieldset class="form-group">

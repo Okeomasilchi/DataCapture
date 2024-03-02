@@ -73,4 +73,18 @@ $(document).ready(function () {
         });
     }
 
+    const progressBar = document.getElementById("progressBar");
+
+    // Function to update the progress bar
+    function updateProgress() {
+        // Count the number of answered questions
+        var answeredQuestions = $('.question').filter(function () {
+            return $(this).find('input[type="checkbox"]:checked').length > 0;
+        }).length;
+        // Update the value of the progress bar
+        progressBar.value = answeredQuestions;
+    }
+    updateProgress()
+    var currentYear = new Date().getFullYear();
+
 });
