@@ -7,9 +7,7 @@
 
 .form-label {
     max-width: 300px;
-    /* Adjust the width as needed */
     display: inline-block;
-    /* Ensures the width is respected */
 }
 
 .table-column {
@@ -77,8 +75,6 @@ label {
 
 #dashboard {
     position: relative;
-    /* Make it a reference for absolute positioning */
-
 }
 
 
@@ -98,34 +94,22 @@ label {
 
 .collapsed {
     width: 0;
-    /* Collapsed width */
 }
 
 #dashboard-info.active {
     overflow-y: auto;
-    /* Activate scrollbar on hover */
 }
 
 #collapseButton {
     width: fit-content;
     height: fit-content;
     position: fixed;
-    /* Position fixed to keep it visible */
     top: 50%;
-    /* Center vertically */
     transform: translateY(-50%);
-    /* Adjust vertical centering */
     left: 400px;
-    /* Adjust horizontal positioning */
     z-index: 999;
-    /* Ensure the button is above other elements */
     transition: left 0.3s ease;
 }
-
-
-/* #dashboard-result {
-    margin-left: 0px;
-} */
 
 .full-width {
     display: flexbox;
@@ -160,16 +144,13 @@ label {
 .progress-bar-container {
     width: 100%;
     position: fixed;
-    /* To keep the progress bar at the top */
     bottom: 0;
     left: 0;
     z-index: 100;
-    /* Ensure it's above other elements */
 }
 
 #progressBar {
     background-color: #cecfcf;
-    /* Green */
 }
 
 #commit,
@@ -178,7 +159,6 @@ label {
     padding: 5px 10px;
     text-align: center;
     text-decoration: none;
-    /* display: inline-block; */
     font-size: 16px;
     margin: 20px 2px 2px;
     cursor: pointer;
@@ -281,7 +261,7 @@ body {
 }
 
 #options {
-    padding: 0 13px;
+    padding: 0 10px;
 }
 
 .sidenav a {
@@ -303,15 +283,6 @@ body {
     right: 25px;
     margin-left: 50px;
 }
-
-
-#main {
-    transition: margin-left .5s;
-    display: flex;
-    justify-content: center; /* Center the response-container horizontally */
-    align-items: center; /* Center the response-container vertically */
-}
-
 
 @media screen and (max-height: 450px) {
     .sidenav {
@@ -501,13 +472,49 @@ label {
     }
 }
 
-
-.response-container {
+#main {
+    transition: margin-left .5s;
     display: flex;
-    flex-direction: column; /* Stack child elements vertically */
-    align-items: center; /* Center child elements horizontally */
+    flex-direction: column;
+    justify-items: center;
+    /* Center the response-container horizontally */
+    align-items: center;
+    padding: 5px;
+    /* Center the response-container vertically */
 }
 
-.response-form {
-    margin: auto;
+#response-container {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    /* Center the response-container horizontally */
+    align-items: center;
+    /* Center the response-container vertically */
+}
+
+.question-header {
+    display: flex;
+    align-items: top;
+    gap: 10px;
+}
+
+.question-header h4 {
+    margin-right: 10px;
+    margin-top: 0;
+    padding-top: 0;
+    /* Add some space to the right of the h3 element */
+}
+
+
+@media screen and (max-width: 600px) {
+    #response-container {
+        width: 100%;
+        padding: 0 5px;
+    }
+
+    #main {
+        padding: 0 10px;
+    }
 }

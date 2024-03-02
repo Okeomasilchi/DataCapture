@@ -83,46 +83,49 @@
 
   <div id="main">
     <span style="font-size:30px; cursor:pointer" id="openNav" class="sticky"><i class="fa-solid fa-chevron-right fa-sm"></i></span>
-    <div class="response-container">
-        <form class="response-form">
-          <div class="questions mx-auto">
-            {% for q in data['questions'] %}
-              <div class="question" id="{{ q['id'] }}">
+    <form id="response-container" action="">
+      <div class="questions">
+        {% set i = 0 %}
+        {% for q in data['questions'] %}
+        {% set i = i + 1 %}
+          <div class="question" id="{{ q['id'] }}">
+            <div class="question-header">
+                <h5>{{ loop.index }}</h5>
                 <p>{{ q['question'] }}</p>
-                <div class="options-container">
-                  {% set maxOptionWidth = 0 %}
-                  {% for opt in q['options'] %}
-                    <div class="options" name="{{ opt }}">
-                      <div class="form-group row">
-                        <div class="col-auto">
-                          <input type="checkbox" id="{{ q['id'] + opt }}" name="{{ opt }}" value="okeoma" class="custom-checkbox" />
-                        </div>
-                        <div class="col">
-                          <label for="{{ q['id'] + opt }}">{{ opt }}</label>
-                        </div>
-                      </div>
+            </div>
+            <div class="options-container">
+              {% set maxOptionWidth = 0 %}
+              {% for opt in q['options'] %}
+                <div class="options" name="{{ opt }}">
+                  <div class="form-group row">
+                    <div class="col-auto">
+                      <input type="checkbox" id="{{ q['id'] + opt }}" name="{{ opt }}" class="custom-checkbox" />
                     </div>
-                    <script>
-                      $(document).ready(function () {
-                        // Get the width of the widest label in this question block
-                        var maxWidth = 0
-                        $(".question#{{ q['id'] }} .options").each(function () {
-                          var labelWidth = $(this).find('.form-group .col label').width()
-                          if (labelWidth > maxWidth) {
-                            maxWidth = labelWidth
-                          }
-                        })
-                        // Set the width of all labels in this question block to the widest width
-                        $(".question#{{ q['id'] }} .options .form-group .col label").css('width', maxWidth)
-                      })
-                    </script>
-                  {% endfor %}
+                    <div class="col">
+                      <label for="{{ q['id'] + opt }}">{{ opt }}</label>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            {% endfor %}
+                <script>
+                  $(document).ready(function () {
+                    // Get the width of the widest label in this question block
+                    var maxWidth = 0
+                    $(".question#{{ q['id'] }} .options").each(function () {
+                      var labelWidth = $(this).find('.form-group .col label').width()
+                      if (labelWidth > maxWidth) {
+                        maxWidth = labelWidth
+                      }
+                    })
+                    // Set the width of all labels in this question block to the widest width
+                    $(".question#{{ q['id'] }} .options .form-group .col label").css('width', maxWidth)
+                  })
+                </script>
+              {% endfor %}
+            </div>
           </div>
-        </form>
-      <button id="commit1" class="btn btn-success glow-border btn-3d">Commit Response</button>
-    </div>
+        {% endfor %}
+      </div>
+    </form>
+    <button id="commit1" class="btn btn-success glow-border btn-3d">Commit Response</button>
   </div>
 {% endblock %}
