@@ -182,7 +182,6 @@ $(document).ready(() => {
 
     $("#delete-survey").click(function () {
         var id = $(this).attr("name");
-        var url = "https://www.okeoma.tech/api/v1/survey/" + id;
         // Show confirmation modal
         $('#confirmationModal').modal('show');
 
@@ -190,22 +189,18 @@ $(document).ready(() => {
         $('#confirmationModal .modal-body').html("Are you sure you want to delete the survey?");
         $('#continueBtn').text('Delete Survey').removeClass('btn-outline-success').addClass('btn-danger');
 
-        // Continue commit button action
-        $('#continueBtn').off('click').on('click', function () {
+        $('#continueBtn').off('click').on('click', function (id) {
             $.ajax({
                 type: "DELETE",
-                url: url,
+                url: "https://www.okeoma.tech/api/v1/survey/" + id,
                 success: function (response) {
-                    // console.log(response);
                     alert("Survey Deleted");
                     window.location.reload();
                 },
                 error: function (xhr, status, error) {
-                    // console.log(xhr.responseText + " " + xhr.status + " " + xhr.statusText);
                     alert("An error occurred");
                 }
             });
-            // Hide the modal after deletion
             $('#confirmationModal').modal('hide');
         });
     });

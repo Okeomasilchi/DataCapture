@@ -13,7 +13,6 @@
 {% endblock %}
 
 {% block content %}
-  <progress id="progressBar" class="progress-bar-container" value="0" max="{{ data['questions']|length }}"></progress>
   <div id="popup" class="modal glow-border">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content bg-success-subtle">
@@ -48,12 +47,13 @@
 
   <!-- main -->
   <div id="mySidenav" class="sidenav">
+  <progress id="progressBar" class="progress-bar-container" value="0" max="{{ data['questions']|length }}"></progress>
     <a class="closebtn" id="closeNav"><i class="fa-solid fa-chevron-left"></i></a>
-    <section id="dashboard-info mb-4">
+    <section id="dashboard-info">
       <div class="table-row" id="{{ current_user.id }}">
-        <div class="survey col-md-12 mx-auto px-3 mb-5 pt-3 pb-5">
+        <div class="survey col-md-12 mx-auto px-1 mb-5 pt-3">
           <h2 class="text-center mb-6">Survey Details</h2>
-          <div class="form-group mb-6">
+          <div class="form-group">
             <div class="table-row">
               <div class="table-column">Title</div>
               <div class="table-data">{{ data['title'] }}</div>
@@ -72,9 +72,9 @@
               <div class="table-column">Respondent Name</div>
               <div class="table-data" id="responder"></div>
             </div>
-            <button id="commit" class="btn btn-success glow-border btn-3d mb-5">Commit Response</button>
-            <br class="mb-5" />
-            <br class="mb-5" />
+            <div class="text-center">
+              <button id="commit" class="btn btn-success btn-3d mb-5"><i class="fa-regular fa-floppy-disk fa-xl"></i>&nbsp;&nbsp;&nbsp;Commit Response</button>
+            </div>
           </div>
         </div>
       </div>
@@ -82,16 +82,16 @@
   </div>
 
   <div id="main">
-    <span style="font-size:30px; cursor:pointer" id="openNav" class="sticky"><i class="fa-solid fa-chevron-right fa-sm"></i></span>
+    <span style="font-size:30px; cursor:pointer" id="openNav" class="sticky"><i id="arrow" class="fa-solid fa-chevron-right fa-sm"></i><i id="long" class="fa-solid fa-ellipsis-vertical fa-sm"></i></span>
     <form id="response-container" action="">
       <div class="questions">
         {% set i = 0 %}
         {% for q in data['questions'] %}
-        {% set i = i + 1 %}
+          {% set i = i + 1 %}
           <div class="question" id="{{ q['id'] }}">
             <div class="question-header">
-                <h5>{{ loop.index }}</h5>
-                <p>{{ q['question'] }}</p>
+              <h5>{{ loop.index }}</h5>
+              <p>{{ q['question'] }}</p>
             </div>
             <div class="options-container">
               {% set maxOptionWidth = 0 %}
@@ -102,7 +102,7 @@
                       <input type="checkbox" id="{{ q['id'] + opt }}" name="{{ opt }}" class="custom-checkbox" />
                     </div>
                     <div class="col">
-                      <label for="{{ q['id'] + opt }}">{{ opt }}</label>
+                      <label for="{{ q['id'] + opt }}"><span>{{ opt }}</span></label>
                     </div>
                   </div>
                 </div>
@@ -116,8 +116,14 @@
                         maxWidth = labelWidth
                       }
                     })
+                  
                     // Set the width of all labels in this question block to the widest width
-                    $(".question#{{ q['id'] }} .options .form-group .col label").css('width', maxWidth)
+                    if (maxWidth > 500) {
+                      maxWidth = 500
+                      $(".question#{{ q['id'] }} .options .form-group .col label").css('width', maxWidth)
+                    } else {
+                      $(".question#{{ q['id'] }} .options .form-group .col label").css('width', maxWidth)
+                    }
                   })
                 </script>
               {% endfor %}
@@ -126,6 +132,6 @@
         {% endfor %}
       </div>
     </form>
-    <button id="commit1" class="btn btn-success glow-border btn-3d">Commit Response</button>
+    <button id="commit1" class="btn btn-success btn-3d"><i class="fa-regular fa-floppy-disk fa-xl"></i>&nbsp;&nbsp;&nbsp;Commit Response</button>
   </div>
 {% endblock %}

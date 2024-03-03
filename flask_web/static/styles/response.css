@@ -57,11 +57,23 @@
     margin: 0 0 50px;
 }
 
+.questions {
+    max-width: 90%;
+}
+
+.options-container {
+    width: fit-content;
+}
+
+.col-auto {
+    padding: 0;
+}
+
 .options {
     display: flex;
     align-items: center;
     margin-top: 10px;
-    padding-left: 50px;
+    margin-left: 40px;
 }
 
 
@@ -109,15 +121,6 @@ label {
     left: 400px;
     z-index: 999;
     transition: left 0.3s ease;
-}
-
-.full-width {
-    display: flexbox;
-    align-items: center;
-    justify-content: center;
-    margin-left: 400px;
-    padding: 50px 20px 20px;
-    transition: margin-left 0.2s ease;
 }
 
 /* Customize scrollbar track */
@@ -294,6 +297,11 @@ body {
     }
 }
 
+.survey>div {
+    margin: 0 auto;
+    width: 100%;
+}
+
 .survey {
     padding-top: 0;
 }
@@ -301,10 +309,8 @@ body {
 #options {
     height: 157px;
     max-height: 157px;
-    /* Set a fixed maximum height */
     overflow-y: auto;
     overflow-x: hidden;
-    /* Enable vertical scrolling when necessary */
 }
 
 
@@ -313,17 +319,18 @@ body {
     position: sticky;
     top: 50%;
     transform: translateY(-50%);
-    background-color: #fafafa;
-    padding: 10px 0;
-    border-bottom: 1px solid #e7e7e7;
+    background-color: transparent;
+    padding: 10px 5px;
+    color: #0000005d;
 }
 
-.sticky a:hover {
-    color: #f1f1f1;
+.sticky i:hover {
+    color: #000000;
 }
 
 #openNav {
     border: none;
+    background-color: transparent;
     right: 0;
 }
 
@@ -420,6 +427,7 @@ label {
 /* Style for the custom checkbox */
 .custom-checkbox {
     position: relative;
+    top: 3px;
     width: 20px;
     height: 20px;
     -webkit-appearance: none;
@@ -477,11 +485,14 @@ label {
     display: flex;
     flex-direction: column;
     justify-items: center;
-    /* Center the response-container horizontally */
     align-items: center;
     padding: 5px;
-    /* Center the response-container vertically */
 }
+
+#main span {
+    align-self: flex-start;
+}
+
 
 #response-container {
     width: 100%;
@@ -492,6 +503,7 @@ label {
     /* Center the response-container horizontally */
     align-items: center;
     /* Center the response-container vertically */
+    margin: 0 auto;
 }
 
 .question-header {
@@ -504,17 +516,25 @@ label {
     margin-right: 10px;
     margin-top: 0;
     padding-top: 0;
-    /* Add some space to the right of the h3 element */
 }
 
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 789px) {
     #response-container {
         width: 100%;
-        padding: 0 5px;
+        padding: 20px;
     }
 
     #main {
-        padding: 0 10px;
+        padding: 15px;
+    }
+
+    #openNav {
+        right: 20%;
+    }
+
+    .sticky {
+        /* left: -20px; */
+        padding: 10px 1px;
     }
 }

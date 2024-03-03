@@ -1,6 +1,5 @@
 $(document).ready(function () {
     // alert("hello");
-
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
@@ -9,6 +8,8 @@ $(document).ready(function () {
 
     // Set the min attribute of the date input to today's date
     $("#exp_date").attr("min", today);
+
+    capitalizeFirstLetters = (str) => str.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
 
     function openNav() {
         let width = "400px"
@@ -214,7 +215,7 @@ $(document).ready(function () {
             description = description.trim();
             var surveyDetails = {
                 'user_id': $(".table-row").attr("id"),
-                'title': title,
+                'title': capitalizeFirstLetters(title),
                 'description': description,
                 'expiry_date': expDate,
                 'randomize': randomizeQuestions,
@@ -228,7 +229,7 @@ $(document).ready(function () {
 
                 // Question details
                 var questionText = $(this).find('.questionTextarea').val();
-                var questionType = $(this).find('.questiontype-dropdown').val();
+                // var questionType = $(this).find('.questiontype-dropdown').val();
 
                 // Check if question is empty
                 if (!questionText) {
