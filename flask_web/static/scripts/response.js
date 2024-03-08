@@ -174,7 +174,8 @@ $(document).ready(function () {
             });
         });
 
-        var survey_id = $("")
+        var survey_id = String(window.location.href);
+        survey_id = survey_id.substring(survey_id.lastIndexOf("/") + 1);
         let data = {
             bio,
             answers,

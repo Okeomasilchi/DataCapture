@@ -28,7 +28,7 @@ def update():
 
 @app.route("/", methods=["GET"], strict_slashes=False)
 def home():
-    
+
     return render_template(
         "home.html",
         title="Empowering Insights through Interactive Surveys",
@@ -45,7 +45,7 @@ def response(survey_id):
     if r.status_code != 200:
         flash("Survey not found", "danger")
         return redirect(url_for("home"))
-    data=r.json()
+    data = r.json()
     ur = rq.get(f"{root}users/{data['user_id']}")
     if ur.status_code != 200:
         flash("User Survey not found", "danger")
