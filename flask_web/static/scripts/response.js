@@ -1,6 +1,11 @@
 $(document).ready(function () {
     // alert("hello");
 
+    // get and parse the survey id from the url on the browser
+    var survey_id = String(window.location.href);
+    survey_id = survey_id.substring(survey_id.lastIndexOf("/") + 1);
+    survey_id =survey_id.replace(/\?$/, '');
+
     function openNav() {
         let width = "400px"
         $("#mySidenav").css("width", width);
@@ -159,6 +164,25 @@ $(document).ready(function () {
         }
     });
 
+    function sendPostRequest(jsonData) {
+        return new Promise(function(resolve, reject) {
+            $.ajax({
+                url: "https://www.okeoma.tech/api/v1/response/" + survey_id,
+                type: "POST",
+                data: JSON.stringify(jsonData),
+                contentType: "application/json",
+                success: function(response) {
+                    resolve(response);
+                },
+                error: function(xhr, status, error) {
+                    var errorMessage = xhr.responseText + xhr.status; // Capture the server's error message
+                    reject(errorMessage); // Reject the promise with the error message
+                }
+            });
+        });
+    }
+
+
     function submitResponses() {
         let answers = [];
 
@@ -174,15 +198,16 @@ $(document).ready(function () {
             });
         });
 
-        var survey_id = String(window.location.href);
-        survey_id = survey_id.substring(survey_id.lastIndexOf("/") + 1);
-        let data = {
+        var data = {
             bio,
             answers,
             survey_id,
         };
+        console.log(data);
 
-        console.log(JSON.stringify(data));
+        res = sendPostRequest(data);
+
+        console.log(res);
     }
 
     // Capitalize the first letter of each word
