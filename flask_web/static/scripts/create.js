@@ -160,7 +160,7 @@ $(document).ready(function () {
 
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: "https://www.okeoma.tech/api/v1/survey/",
+                url: "http://api.okeoma.tech/api/v1/survey/",
                 method: 'POST',
                 data: JSON.stringify(surveyData),
                 contentType: 'application/json',

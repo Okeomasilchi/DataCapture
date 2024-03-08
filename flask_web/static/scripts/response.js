@@ -154,13 +154,13 @@ $(document).ready(function () {
                 submitResponses();
             });
         } else {
-            // If all questions have been answered, proceed with submitting responses
+            // If all questions have been answered, proceed with submitting answers
             submitResponses();
         }
     });
 
     function submitResponses() {
-        let responses = [];
+        let answers = [];
 
         $(".question").each(function () {
             var questionId = $(this).attr("id");
@@ -168,15 +168,17 @@ $(document).ready(function () {
             $(this).find("input[type='checkbox']:checked").each(function () {
                 selectedOptions.push($(this).attr("name"));
             });
-            responses.push({
+            answers.push({
                 "question_id": questionId,
                 "response": selectedOptions
             });
         });
 
+        var survey_id = $("")
         let data = {
-            "bio": bio,
-            "answers": responses
+            bio,
+            answers,
+            survey_id,
         };
 
         console.log(JSON.stringify(data));

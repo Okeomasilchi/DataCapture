@@ -80,7 +80,7 @@ $(document).ready(() => {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "GET",
-                url: "https://www.okeoma.tech/api/v1/survey/" + id,
+                url: "http://api.okeoma.tech/api/v1/survey/" + id,
                 success: (response) => {
                     // const responseData = JSON.stringify(response);
                     $("#loader").hide();
@@ -192,7 +192,7 @@ $(document).ready(() => {
         $('#continueBtn').off('click').on('click', function (id) {
             $.ajax({
                 type: "DELETE",
-                url: "https://www.okeoma.tech/api/v1/survey/" + id,
+                url: "http://api.okeoma.tech/api/v1/survey/" + id,
                 success: function (response) {
                     alert("Survey Deleted");
                     window.location.reload();
