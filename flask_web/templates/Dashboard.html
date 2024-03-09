@@ -1,77 +1,97 @@
 {% extends 'layout.html' %}
 {% block script %}
-  <link rel="stylesheet" href="styles.css" />
+  <script src="{{ url_for('static', filename = 'scripts/dashboard.js') }}"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/Dashboard.css') }}" />
-  <script src="https://kit.fontawesome.com/6d617ef3fb.js" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="./script/script.js"></script>
-  <script src="./script/Dashboard.js"></script>
+  <script>
+    $(document).ready(function () {
+      $(document).on('contextmenu', function (event) {
+        event.preventDefault()
+      })
+    })
+  </script>
 {% endblock %}
 
 {% block content %}
-  <main id="dashboard">
-    <section id="dashboard-info">
-      <div class="table-row">
-        <div class="table-column">Title</div>
-        <div class="table-data">Home coming</div>
-      </div>
-      <div class="table-row">
-        <div class="table-column">Description</div>
-        <div class="table-data">
-          <p>A general survey is a research method used to collect data from a sample population to gain insights into various aspects such as opinions, preferences, behaviors, or demographics. It typically involves asking a series of structured questions to respondents, either through interviews, questionnaires, or online forms.</p>
-        </div>
-      </div>
-      <div class="table-row">
-        <div class="table-column">Created</div>
-        <div class="table-data">12th, October 2026</div>
-      </div>
-      <div class="table-row">
-        <div class="table-column">Number of Respond</div>
-        <div class="table-data">2000</div>
-      </div>
-      <div class="table-row">
-        <div class="table-column">Feedback</div>
-        <div class="table-data">
-          <textarea name="feedback" rows="2"></textarea>
-        </div>
-      </div>
-      <button class="btn btn-3d btn-outline-success PDF-button">PDF</button>
-      <button class="btn btn-3d btn-success Excel-button">Excel</button>
-    </section>
-    <button class="btn btn-3d btn-outline-success" id="collapseButton"><i class="fa-solid fa-chevron-left"></i></button>
-    <section id="dashboard-result" class="full-width">
-      <div class="Response-Collection-Form">
-        <form id="response-form">
-          {% for entry in data %}
-            <div class="question">
-              <label>{{ entry.question }}</label>
-              <div id="prog">
-                <!-- Progress bars for options A, B, C, and D -->
-                <div class="progress">
-                  <div class="progress-bar bg-success" role="progressbar" style="width: {{ entry.a }}%;" aria-valuenow="{{ entry.a }}" aria-valuemin="0" aria-valuemax="100">
-                    <strong><em>Option A</em></strong>
-                  </div>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar bg-success" role="progressbar" style="width: {{ entry.b }}%;" aria-valuenow="{{ entry.b }}" aria-valuemin="0" aria-valuemax="100">
-                    <strong><em>Option B</em></strong>
-                  </div>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar bg-success" role="progressbar" style="width: {{ entry.c }}%;" aria-valuenow="{{ entry.c }}" aria-valuemin="0" aria-valuemax="100">
-                    <strong><em>Option C</em></strong>
-                  </div>
-                </div>
-                <div class="progress">
-                  <div class="progress-bar bg-success" role="progressbar" style="width: {{ entry.d }}%;" aria-valuenow="{{ entry.d }}" aria-valuemin="0" aria-valuemax="100">
-                    <strong><em>Option D</em></strong>
-                  </div>
-                </div>
+  <!-- main -->
+  <div id="mySidenav" class="sidenav">
+    <a class="closebtn" id="closeNav"><i class="fa-solid fa-chevron-left"></i></a>
+    <section id="dashboard-info" name="{{ data['survey_id'] }}">
+      <div class="table-row" id="{{ current_user.id }}">
+        <div class="survey col-md-12 mx-auto px-1 mb-5 pt-3">
+          <h2 class="text-center mb-6">Survey Details</h2>
+          <div class="form-group">
+            <div class="table-row">
+              <div class="table-column">Title</div>
+              <div class="table-data">{{ data['title'] }}</div>
+            </div>
+            <div class="table-row">
+              <div class="table-column">Description</div>
+              <div class="table-data">
+                <p>{{ data['description'] }}</p>
               </div>
             </div>
-          {% endfor %}
-        </form>
+            <div class="table-row">
+              <div class="table-column">Author</div>
+              <div class="table-data">{{ user_data['first_name'] }} {{ user_data['last_name'] }}</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
-  </main>
+  </div>
+
+  <div id="main">
+    <span style="font-size:30px; cursor:pointer" id="openNav" class="sticky"><i id="arrow" class="fa-solid fa-chevron-right fa-sm"></i><i id="long" class="fa-solid fa-ellipsis-vertical fa-sm"></i></span>
+    <form id="response-container" action="">
+      <div class="questions">
+        {% set i = 0 %}
+        {% for q in data['questions'] %}
+          {% set i = i + 1 %}
+          <div class="question" id="{{ q['id'] }}">
+            <div class="question-header">
+              <h5>{{ loop.index }}</h5>
+              <p>{{ q['question'] }}</p>
+            </div>
+            <div class="options-container">
+              {% set maxOptionWidth = 0 %}
+              {% for opt in q['options'] %}
+                <div class="options" name="{{ opt }}">
+                  <div class="form-group row">
+                    <div class="col-auto">
+                      <input type="checkbox" id="{{ q['id'] + opt }}" name="{{ opt }}" class="custom-checkbox" />
+                    </div>
+                    <div class="col">
+                      <label for="{{ q['id'] + opt }}"><span>{{ opt }}</span></label>
+                    </div>
+                  </div>
+                </div>
+                <script>
+                  $(document).ready(function () {
+                    // Get the width of the widest label in this question block
+                    var maxWidth = 0
+                    $(".question#{{ q['id'] }} .options").each(function () {
+                      var labelWidth = $(this).find('.form-group .col label').width()
+                      if (labelWidth > maxWidth) {
+                        maxWidth = labelWidth
+                      }
+                    })
+
+                    // Set the width of all labels in this question block to the widest width
+                    if (maxWidth > 500) {
+                      maxWidth = 500
+                      $(".question#{{ q['id'] }} .options .form-group .col label").css('width', maxWidth)
+                    } else {
+                      $(".question#{{ q['id'] }} .options .form-group .col label").css('width', maxWidth)
+                    }
+                  })
+                </script>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </form>
+    <button id="commit1" class="btn btn-success btn-3d"><i class="fa-regular fa-floppy-disk fa-xl"></i>&nbsp;&nbsp;&nbsp;Commit Response</button>
+  </div>
 {% endblock %}

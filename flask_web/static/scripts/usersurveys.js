@@ -80,7 +80,7 @@ $(document).ready(() => {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "GET",
-                url: "http://api.okeoma.tech/api/v1/survey/" + id,
+                url: "http://localhost:5000/api/v1/survey/" + id,
                 success: (response) => {
                     // const responseData = JSON.stringify(response);
                     $("#loader").hide();
@@ -170,9 +170,6 @@ $(document).ready(() => {
         response_link = homeLink + "/app/survey/respond/" + id;
         navigator.clipboard.writeText(response_link);
 
-        var tooltip = document.getElementById("myTooltip");
-        tooltip.innerHTML = "Copied: " + copyText.value;
-
         var popup = $(this).siblings('.popup'); // Find the sibling popup of the clicked button
         popup.show(); // Show the popup
         setTimeout(function() {
@@ -181,24 +178,26 @@ $(document).ready(() => {
     });
 
     $("#delete-survey").click(function () {
-        var id = $(this).attr("name");
+        let id = $(this).attr("name");
         // Show confirmation modal
+        // console.log("http://localhost:5000/api/v1/survey/" + id)
         $('#confirmationModal').modal('show');
 
         // Change modal content and button text according to requirements
         $('#confirmationModal .modal-body').html("Are you sure you want to delete the survey?");
         $('#continueBtn').text('Delete Survey').removeClass('btn-outline-success').addClass('btn-danger');
 
-        $('#continueBtn').off('click').on('click', function (id) {
+        $('#continueBtn').off('click').on('click', () => {
             $.ajax({
+                url: "http://localhost:5000/api/v1/survey/" + id,
                 type: "DELETE",
-                url: "http://api.okeoma.tech/api/v1/survey/" + id,
                 success: function (response) {
                     alert("Survey Deleted");
                     window.location.reload();
                 },
                 error: function (xhr, status, error) {
-                    alert("An error occurred");
+                    var errorMessage = xhr.responseText + " " + xhr.status; // Capture the server's error message
+                    alert(errorMessage);
                 }
             });
             $('#confirmationModal').modal('hide');
@@ -209,4 +208,9 @@ $(document).ready(() => {
         window.location.href = "/app/survey/new";
     });
 
+    $("#survey-dashboard").click(() => {
+        let id = $('a.active').attr('id');
+        // console.log(window.location.origin + "/app/dashboard/" + id)
+        window.location.href = "/app/dashboard/" + id;
+    });
 });

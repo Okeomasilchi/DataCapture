@@ -17,6 +17,7 @@ from utils.validators import parse_dict, pop_dict, check_keys, sort_list_of_dict
 from utils.error import log_error
 from datetime import datetime
 
+
 @survey_views.route("survey/<survey_id>", methods=["GET"], strict_slashes=False)
 def get_survey_by_id(survey_id):
     """
@@ -93,11 +94,14 @@ def delete_survey_by_id(survey_id):
 
     if not survey:
         abort(404)
+
+    survey.delete()
+
     try:
-        survey.delete()
         storage.save()
         return js({}), 204
     except Exception as e:
+        print(e)
         log_error("/survey/<survey_id>['DELETE']", e.args, type(e).__name__, e)
         abort(500)
 
@@ -145,7 +149,7 @@ def create_survey_by_id():
     questions = data["questions"]
     data = pop_dict(data, ["id", "created_at", "updated_at", "questions"])
 
-    
+
     try:
         survey = Survey(**data)
         survey.save()
@@ -217,3 +221,21 @@ def update_survey_by_id(survey_id):
         return redirect(url_for("survey_views.get_survey_by_id", survey_id=survey_id))
     except Exception as e:
         log_error('/survey/<survey_id>["PUT"]', e.args, type(e).__name__, e)
+
+
+@survey_views.route("dashboard/<survey_id>", methods=["GET"], strict_slashes=False)
+def get_survey_dashboard(survey_id):
+    survey = storage.get(Survey, survey_id)
+
+    if not survey:
+        abort(404)
+
+    data = survey.to_dict()[0]
+    data["questions"] = [question.to_dict()[0] for question in survey.questions]
+    data["responses"] = [response.to_dict()[0] for response in survey.responses]
+    try:
+        return js(data)
+    except Exception as e:
+        log_error("survey/<survey_id>['GET']", e.args, type(e).__name__, e)
+        abort(500)
+

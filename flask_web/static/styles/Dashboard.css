@@ -5,6 +5,11 @@
     width: 100%;
 }
 
+.form-label {
+    max-width: 300px;
+    display: inline-block;
+}
+
 .table-column {
     border: 1px solid #0000002c;
     padding: 10px;
@@ -52,11 +57,23 @@
     margin: 0 0 50px;
 }
 
+.questions {
+    max-width: 90%;
+}
+
+.options-container {
+    width: fit-content;
+}
+
+.col-auto {
+    padding: 0;
+}
+
 .options {
     display: flex;
     align-items: center;
     margin-top: 10px;
-    padding-left: 50px;
+    margin-left: 40px;
 }
 
 
@@ -70,16 +87,11 @@ label {
 
 #dashboard {
     position: relative;
-    /* Make it a reference for absolute positioning */
-
 }
 
 
 #dashboard-info {
-    position: fixed;
-    display: flex;
-    top: 88px;
-    left: 0px;
+
     width: 400px;
     max-width: 500px;
     height: 100vh;
@@ -94,42 +106,21 @@ label {
 
 .collapsed {
     width: 0;
-    /* Collapsed width */
 }
 
 #dashboard-info.active {
     overflow-y: auto;
-    /* Activate scrollbar on hover */
 }
 
 #collapseButton {
     width: fit-content;
     height: fit-content;
     position: fixed;
-    /* Position fixed to keep it visible */
     top: 50%;
-    /* Center vertically */
     transform: translateY(-50%);
-    /* Adjust vertical centering */
     left: 400px;
-    /* Adjust horizontal positioning */
     z-index: 999;
-    /* Ensure the button is above other elements */
     transition: left 0.3s ease;
-}
-
-
-/* #dashboard-result {
-    margin-left: 0px;
-} */
-
-.full-width {
-    display: flexbox;
-    align-items: center;
-    justify-content: center;
-    margin-left: 400px;
-    padding: 50px 20px 20px;
-    transition: margin-left 0.2s ease;
 }
 
 /* Customize scrollbar track */
@@ -156,24 +147,21 @@ label {
 .progress-bar-container {
     width: 100%;
     position: fixed;
-    /* To keep the progress bar at the top */
     bottom: 0;
     left: 0;
     z-index: 100;
-    /* Ensure it's above other elements */
 }
 
 #progressBar {
     background-color: #cecfcf;
-    /* Green */
 }
 
-#commit, #commit1 {
+#commit,
+#commit1 {
     color: white;
     padding: 5px 10px;
     text-align: center;
     text-decoration: none;
-    /* display: inline-block; */
     font-size: 16px;
     margin: 20px 2px 2px;
     cursor: pointer;
@@ -184,6 +172,7 @@ label {
 #commit1 {
     visibility: hidden;
 }
+
 /* ****************************************************** */
 
 
@@ -218,7 +207,7 @@ label {
 /* Media Query for Small Screens */
 @media screen and (max-width: 768px) {
 
-    #commit{
+    #commit {
         visibility: hidden;
     }
 
@@ -226,6 +215,7 @@ label {
         visibility: visible;
         margin-bottom: 30px;
     }
+
     #collapseButton {
         visibility: hidden;
     }
@@ -243,23 +233,308 @@ label {
         height: auto;
     }
 
-    /* #dashboard-info {
-        position: fixed;
-        display: flex;
-        top: 88px;
-        left: 0px;
-        width: 400px;
-        max-width: 500px;
-        padding: 45px 20px;
-        background-color: #ffffffb6;
-        border-right: 1px solid #ccc;
-        overflow-X: hidden;
-        z-index: 1;
-        transition: width 0.3s ease;
-    } */
-
     #dashboard-result {
         margin-left: 0;
         margin-top: 0;
+    }
+}
+
+body {
+    font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    background-color: #fafafa;
+    overflow-x: hidden;
+    overflow-y: auto;
+    transition: 0.5s;
+    padding: 30px 0 30px;
+    border-right: 1px solid #e7e7e7;
+}
+
+.option {
+    right: 0;
+    left: 0;
+    width: 100%;
+}
+
+#options {
+    padding: 0 10px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+.survey>div {
+    margin: 0 auto;
+    width: 100%;
+}
+
+.survey {
+    padding-top: 0;
+}
+
+#options {
+    height: 157px;
+    max-height: 157px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    padding: 10px 5px;
+    color: #0000005d;
+}
+
+.sticky i:hover {
+    color: #000000;
+}
+
+#openNav {
+    border: none;
+    background-color: transparent;
+    right: 0;
+}
+
+.border {
+    margin-top: 20px;
+    background-color: #f7f6f6;
+    border-radius: 10px;
+    border: 1px solid #000000;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+}
+
+#mySidenav {
+    z-index: 100;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #009c5b;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #009c5b;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
+.options {
+    display: inline-block;
+}
+
+.form-group {
+    margin-right: 20px;
+    /* Adjust spacing between radio button and label as needed */
+}
+
+label {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+/* *************************** checkbox ************************************ */
+
+/* Style for the custom checkbox */
+.custom-checkbox {
+    position: relative;
+    top: 3px;
+    width: 20px;
+    height: 20px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 2px solid #555;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+/* Style for the custom checkbox when checked */
+.custom-checkbox:checked {
+    background-color: transparent;
+    /* Remove background color */
+}
+
+/* Style for the custom checkbox label */
+.custom-checkbox-label {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Pseudo-element for the checkmark */
+.custom-checkbox:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 12px;
+    border: solid #009c5b;
+    border-width: 0 2px 2px 0;
+    transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    /* Initially scaled down */
+    animation: checkmarkAnimation 0.2s forwards;
+    /* Animate the checkmark */
+}
+
+/* Keyframes for the checkmark animation */
+@keyframes checkmarkAnimation {
+    0% {
+        transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(45deg) scale(1);
+    }
+}
+
+#main {
+    transition: margin-left .5s;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    padding: 5px;
+}
+
+#main span {
+    align-self: flex-start;
+}
+
+
+#response-container {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    /* Center the response-container horizontally */
+    align-items: center;
+    /* Center the response-container vertically */
+    margin: 0 auto;
+}
+
+.question-header {
+    display: flex;
+    align-items: top;
+    gap: 10px;
+}
+
+.question-header h4 {
+    margin-right: 10px;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+
+@media screen and (max-width: 789px) {
+    #response-container {
+        width: 100%;
+        padding: 20px;
+    }
+
+    #main {
+        padding: 15px;
+    }
+
+    #openNav {
+        right: 20%;
+    }
+
+    .sticky {
+        /* left: -20px; */
+        padding: 10px 1px;
     }
 }

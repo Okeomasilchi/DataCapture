@@ -4,6 +4,7 @@ from flask_web.form import UpdateAccountFrom
 from flask_login import current_user, login_required
 import requests as rq
 from flask_login import login_required
+from urllib.parse import urlparse
 
 
 def to_dict(user):
@@ -90,14 +91,22 @@ def user_survey():
         )
 
 
-@app.route("/app/user/dashboard", methods=["GET", "POST"], strict_slashes=False)
+@app.route("/app/dashboard/<survey_id>", methods=["GET"], strict_slashes=False)
 @login_required
-def dashboard():
-    if current_user.is_authenticated:
+def dashboard(survey_id):
+    if current_user.is_authenticated and survey_id:
+        r = rq.get(f"{root}dashboard/{survey_id}")
+        if r.status_code != 200:
+            flash("Survey not found", "danger")
+            return redirect(url_for("user_survey" or "home"))
+        survey = r.json()
+        ur = rq.get(f"{root}users/{survey['user_id']}")
+        if ur.status_code != 200:
+            flash("User not found", "danger")
         return render_template(
             "Dashboard.html",
             title="Dashboard",
-            user_data=to_dict(current_user),
-            data=data,
+            user_data=ur.json()[0],
             update_account=update(),
+            data=survey,
         )

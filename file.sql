@@ -19,55 +19,7 @@
 -- Table structure for table `customcategory`
 --
 
-DROP TABLE IF EXISTS `customcategory`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `customcategory` (
-  `id` varchar(60) NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `name` varchar(255) NOT NULL,
-  `user_id` varchar(60) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  KEY `idx_category_id` (`id`),
-  CONSTRAINT `customcategory_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `customcategory`
---
-
-LOCK TABLES `customcategory` WRITE;
-/*!40000 ALTER TABLE `customcategory` DISABLE KEYS */;
-/*!40000 ALTER TABLE `customcategory` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `questions`
---
-
-DROP TABLE IF EXISTS `questions`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `questions` (
-  `id` varchar(60) NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `question` text NOT NULL,
-  `options` json NOT NULL,
-  `survey_id` varchar(60) NOT NULL,
-  `random` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `survey_id` (`survey_id`),
-  CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`survey_id`) REFERENCES `surveys` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `questions`
---
+USE dc_dev_db;
 
 LOCK TABLES `questions` WRITE;
 /*!40000 ALTER TABLE `questions` DISABLE KEYS */;
@@ -139,31 +91,6 @@ UNLOCK TABLES;
 -- Table structure for table `surveys`
 --
 
-DROP TABLE IF EXISTS `surveys`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `surveys` (
-  `user_id` varchar(60) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `expiry_date` date DEFAULT NULL,
-  `visibility` tinyint(1) DEFAULT NULL,
-  `randomize` tinyint(1) DEFAULT NULL,
-  `question_type` varchar(120) NOT NULL,
-  `id` varchar(60) NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  KEY `idx_survey_id` (`id`),
-  CONSTRAINT `surveys_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `surveys`
---
-
 LOCK TABLES `surveys` WRITE;
 /*!40000 ALTER TABLE `surveys` DISABLE KEYS */;
 /*!40000 ALTER TABLE `surveys` ENABLE KEYS */;
@@ -171,27 +98,6 @@ UNLOCK TABLES;
 
 --
 -- Table structure for table `users`
---
-
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
-  `first_name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `last_name` varchar(255) NOT NULL,
-  `id` varchar(60) NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`),
-  KEY `idx_user_id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users`
 --
 
 LOCK TABLES `users` WRITE;

@@ -34,7 +34,7 @@ class Survey(BaseModel, Base):
     question_type = Column(String(120), nullable=False)
     survey_user = relationship('User', back_populates='user_surveys', overlaps="survey_user_backref")
     questions = relationship('Question', back_populates='survey', cascade="all, delete")
-    responses = relationship('Response', back_populates='survey')
+    responses = relationship('Response', cascade="all, delete", back_populates='survey')
 
     __table_args__ = (
         Index('idx_survey_id', 'id'),

@@ -130,7 +130,7 @@ $(document).ready(function () {
         const optionsDiv = $(this).closest('.border').find('#options');
 
         // Append a new input field with an updated placeholder
-        optionsDiv.append(`<input type="text" placeholder="Option ${optionCounter}" class="form-control option m-2">`);
+        optionsDiv.append(`<input type="text" autofocus placeholder="Option ${optionCounter}" class="form-control option m-2">`);
         optionCounter++;
 
         // Scroll to the bottom of the options
@@ -160,7 +160,7 @@ $(document).ready(function () {
 
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: "http://api.okeoma.tech/api/v1/survey/",
+                url: "http://localhost:5000/api/v1/survey/",
                 method: 'POST',
                 data: JSON.stringify(surveyData),
                 contentType: 'application/json',

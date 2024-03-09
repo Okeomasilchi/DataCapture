@@ -96,7 +96,7 @@ def reset_request():
                         "An email has been sent with instructions to reset your password",
                         "info",
                     )
-                
+
                 return redirect(url_for("login"))
             else:
                 flash("Email not found", "danger")
@@ -108,14 +108,13 @@ def send_reset_email(user):
     mg = msg(
         "Password Reset Request", sender="noreply@demo.com", recipients=[user["email"]]
     )
-    mg.html = f"""<h1 style="position: fixed; top: 0; width: 50%; text-align: center; color: #28a745;">DataCapture</h1>
+    mg.html = f"""<header style="margin-bottom: 30px; text-align: center; border-top: 1px solid #000; font-size: 14px; color: #777;"><h1 style="position: fixed; top: 0; width: 50%; text-align: center; color: #28a745;">DataCapture</h1></header>
 <p>To reset your password, visit the following link:</p>
 <p><a style="display: inline-block; padding: 10px 20px; margin: 10px 0; color: #fff; background-color: #007bff; border: none; border-radius: 5px; text-decoration: none;
         cursor: pointer; background-color: #009c5b;" href="{url_for('reset_token', token=token, _external=True)}">Reset Password</a></p>
 <p>If you did not make this request then simply ignore this email and no changes will be made.</p>
 <footer style="margin-top: 50px; text-align: center; border-top: 1px solid #000; font-size: 14px; color: #777;">
     <p>&copy; {datetime.now().year} DataCapture. All rights reserved.</p>
-    <p>Corporate Symbol</p>
 </footer>
 """
     mail.send(mg)

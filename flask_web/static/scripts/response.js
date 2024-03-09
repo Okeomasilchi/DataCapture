@@ -103,7 +103,7 @@ $(document).ready(function () {
             errorMessage += 'Name should only contain letters and spaces.<br>';
         }
 
-        const allowedSexValues = ['male', 'female', 'Prefer not to say'];
+        const allowedSexValues = ['male', 'female', 'trans-Gender', 'Prefer not to say'];
         if (!allowedSexValues.includes(selectedSex)) {
             isValid = false;
             errorMessage += `Please select a valid sex option.<br>`;
@@ -167,7 +167,7 @@ $(document).ready(function () {
     function sendPostRequest(jsonData) {
         return new Promise(function(resolve, reject) {
             $.ajax({
-                url: "https://www.okeoma.tech/api/v1/response/" + survey_id,
+                url: "http://localhost:5000/api/v1/response/" + survey_id,
                 type: "POST",
                 data: JSON.stringify(jsonData),
                 contentType: "application/json",
@@ -203,11 +203,17 @@ $(document).ready(function () {
             answers,
             survey_id,
         };
-        console.log(data);
 
-        res = sendPostRequest(data);
-
-        console.log(res);
+        sendPostRequest(data)
+            .then(() => {
+                alert("Survey successfully submited!!!")
+            })
+            .then(() => {
+                window.location.href = '/';
+            })
+            .catch((errorMessage) => {
+                console.log(errorMessage)
+            })
     }
 
     // Capitalize the first letter of each word

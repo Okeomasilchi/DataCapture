@@ -4,11 +4,11 @@
   <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/response.css') }}" />
   <script src="./script/script.js"></script>
   <script>
-    //$(document).ready(function () {
-    //  $(document).on('contextmenu', function (event) {
-    //    event.preventDefault()
-    //  })
-    // })
+    $(document).ready(function () {
+      $(document).on('contextmenu', function (event) {
+        event.preventDefault()
+      })
+    })
   </script>
 {% endblock %}
 
@@ -31,6 +31,7 @@
                 <option value="None" selected>None selected</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
+                <option value="trans-Gender">Trans-Gender</option>
                 <option value="Prefer not to say">Prefer not to say</option>
               </select>
             </div>
