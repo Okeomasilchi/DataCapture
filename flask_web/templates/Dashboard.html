@@ -2,14 +2,8 @@
 {% block script %}
   <script src="{{ url_for('static', filename = 'scripts/dashboard.js') }}"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/Dashboard.css') }}" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="./script/script.js"></script>
-  <script>
-    $(document).ready(function () {
-      $(document).on('contextmenu', function (event) {
-        event.preventDefault()
-      })
-    })
-  </script>
 {% endblock %}
 
 {% block content %}
@@ -36,6 +30,9 @@
               <div class="table-data">{{ user_data['first_name'] }} {{ user_data['last_name'] }}</div>
             </div>
           </div>
+          <div id="toggle-buttons" class="text-center">
+            <button id="toggle-view" class="btn btn-success btn-3d" >View Pie Chart</button>
+          </div>
         </div>
       </div>
     </section>
@@ -46,52 +43,81 @@
     <form id="response-container" action="">
       <div class="questions">
         {% set i = 0 %}
-        {% for q in data['questions'] %}
+        {% for q in response %}
           {% set i = i + 1 %}
-          <div class="question" id="{{ q['id'] }}">
+          <div class="question">
             <div class="question-header">
               <h5>{{ loop.index }}</h5>
               <p>{{ q['question'] }}</p>
             </div>
-            <div class="options-container">
-              {% set maxOptionWidth = 0 %}
-              {% for opt in q['options'] %}
-                <div class="options" name="{{ opt }}">
-                  <div class="form-group row">
-                    <div class="col-auto">
-                      <input type="checkbox" id="{{ q['id'] + opt }}" name="{{ opt }}" class="custom-checkbox" />
-                    </div>
-                    <div class="col">
-                      <label for="{{ q['id'] + opt }}"><span>{{ opt }}</span></label>
-                    </div>
-                  </div>
-                </div>
-                <script>
-                  $(document).ready(function () {
-                    // Get the width of the widest label in this question block
-                    var maxWidth = 0
-                    $(".question#{{ q['id'] }} .options").each(function () {
-                      var labelWidth = $(this).find('.form-group .col label').width()
-                      if (labelWidth > maxWidth) {
-                        maxWidth = labelWidth
-                      }
-                    })
-
-                    // Set the width of all labels in this question block to the widest width
-                    if (maxWidth > 500) {
-                      maxWidth = 500
-                      $(".question#{{ q['id'] }} .options .form-group .col label").css('width', maxWidth)
-                    } else {
-                      $(".question#{{ q['id'] }} .options .form-group .col label").css('width', maxWidth)
-                    }
-                  })
-                </script>
-              {% endfor %}
+            <div class="options-container" style="width: 100%;">
+              <canvas id="chart_{{ loop.index }}" width="200" height="300"></canvas>
+              <canvas id="histogram-{{ loop.index }}" width="200" height="300" style="display: none;"></canvas>
             </div>
           </div>
         {% endfor %}
       </div>
     </form>
-    <button id="commit1" class="btn btn-success btn-3d"><i class="fa-regular fa-floppy-disk fa-xl"></i>&nbsp;&nbsp;&nbsp;Commit Response</button>
   </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      {% for q in response %}
+      var ctx = document.getElementById('histogram-{{ loop.index }}').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: [{% for opt in q['options'] %}"{{ opt['option'] }}", {% endfor %}],
+          datasets: [{
+            label: '% Response',
+            data: [{% for opt in q['options'] %}{{ opt['%'] }}, {% endfor %}],
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+      {% endfor %}
+
+      {% for q in response %}
+      var ctx_{{ loop.index }} = document.getElementById('chart_{{ loop.index }}').getContext('2d');
+      var chart_{{ loop.index }} = new Chart(ctx_{{ loop.index }}, {
+        type: 'pie',
+        data: {
+          labels: [{% for opt in q['options'] %}"{{ opt['option'] }}",{% endfor %}],
+          datasets: [{
+            label: '{{ q["question"] }}',
+            data: [{% for opt in q['options'] %}{{ opt['%'] }},{% endfor %}],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.5)',
+              'rgba(54, 162, 235, 0.5)',
+              'rgba(255, 206, 86, 0.5)',
+              'rgba(75, 192, 192, 0.5)',
+              'rgba(153, 102, 255, 0.5)',
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+        }
+      });
+    {% endfor %}
+
+    });
+  </script>
 {% endblock %}

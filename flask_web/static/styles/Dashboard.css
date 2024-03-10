@@ -493,7 +493,6 @@ label {
     align-self: flex-start;
 }
 
-
 #response-container {
     width: 100%;
     max-width: 1000px;
@@ -536,5 +535,46 @@ label {
     .sticky {
         /* left: -20px; */
         padding: 10px 1px;
+    }
+}
+
+
+
+/* Add this CSS to your Dashboard.css file or your stylesheets */
+
+/* Customize the appearance of the progress bar */
+.progress {
+    height: 20px;
+    border-radius: 10px;
+    box-shadow: none;
+    background-color: #f0f0f0;
+    /* Background color */
+}
+
+/* Customize the appearance of the progress bar fill */
+.progress-bar {
+    border-radius: 10px;
+}
+
+/* Customize the appearance of the progress bar text */
+.progress-bar span {
+    font-size: 14px;
+    color: #ffffff;
+    /* Text color */
+}
+
+/* Add animation to the progress bar */
+.progress-bar-striped {
+    animation: progress-animation 2s linear infinite;
+}
+
+/* Define animation keyframes */
+@keyframes progress-animation {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 50px 50px;
     }
 }

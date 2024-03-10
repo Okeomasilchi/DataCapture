@@ -4,8 +4,7 @@ from flask_web.form import UpdateAccountFrom
 from flask_login import current_user, login_required
 import requests as rq
 from flask_login import login_required
-from urllib.parse import urlparse
-
+from utils.algorithm import parse_survey_data
 
 def to_dict(user):
     user_dict = {}
@@ -103,10 +102,13 @@ def dashboard(survey_id):
         ur = rq.get(f"{root}users/{survey['user_id']}")
         if ur.status_code != 200:
             flash("User not found", "danger")
+        data = ur.json()[0]
+        print(data)
         return render_template(
             "Dashboard.html",
             title="Dashboard",
-            user_data=ur.json()[0],
+            user_data=data,
             update_account=update(),
+            response=parse_survey_data(survey),
             data=survey,
         )
