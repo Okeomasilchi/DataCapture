@@ -31,7 +31,7 @@
             </div>
           </div>
           <div id="toggle-buttons" class="text-center">
-            <button id="toggle-view" class="btn btn-success btn-3d" >View Pie Chart</button>
+            <button id="toggle-view" class="btn btn-success btn-3d">View Pie Chart</button>
           </div>
         </div>
       </div>
@@ -51,8 +51,8 @@
               <p>{{ q['question'] }}</p>
             </div>
             <div class="options-container" style="width: 100%;">
-              <canvas id="chart_{{ loop.index }}" width="200" height="300"></canvas>
-              <canvas id="histogram-{{ loop.index }}" width="200" height="300" style="display: none;"></canvas>
+              <canvas id="chart_{{ loop.index }}" width="150" height="150"></canvas>
+              <canvas id="histogram-{{ loop.index }}" width="150" height="150" style="display: none;"></canvas>
             </div>
           </div>
         {% endfor %}
