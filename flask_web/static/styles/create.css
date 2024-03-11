@@ -80,19 +80,21 @@ body {
     position: sticky;
     top: 50%;
     transform: translateY(-50%);
-    background-color: #fafafa;
-    padding: 10px 0;
-    border-bottom: 1px solid #e7e7e7;
+    background-color: transparent;
+    padding: 10px 5px;
+    color: #0000005d;
 }
 
-.sticky a:hover {
-    color: #f1f1f1;
+.sticky i:hover {
+    color: #000000;
 }
 
 #openNav {
     border: none;
+    background-color: transparent;
     right: 0;
 }
+
 
 .border {
     margin-top: 20px;

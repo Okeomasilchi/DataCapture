@@ -35,7 +35,7 @@
         <div class="container">
           <a class="navbar-brand d-flex align-items-center text-white" href="/">
             <i class="fa-solid fa-magnifying-glass-chart fa-flip-horizontal fa-xl" style="color: white;"></i>
-            <span class="m-2">DataCapture</span>
+            <span id="logo"></span>
           </a>
           <button data-bs-toggle="collapse" class="navbar-toggler" id="navbtn" data-bs-target="#navcol-2">
             <span class="visually-hidden"></span>
@@ -54,7 +54,7 @@
                   <a class="nav-link m-2 btn-3d grayish-text" id="user_survey" href="{{ url_for('user_survey') }}"><i class="fa-solid fa-square-poll-vertical fa-xl"></i></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link m-2 btn-3d grayish-text" href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket fa-xl"></i></a>
+                  <a class="nav-link m-2 btn-3d grayish-text" href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket"></i></a>
                 </li>
               {% elif title == 'Survey Response' -%}
                 <li class="nav-item">
@@ -185,15 +185,20 @@
                     $("a[href='{{ url_for('create_survey') }}']").html('<i class="fa-solid fa-square-plus fa-xl"></i>&nbsp;&nbsp;&nbsp;Create Survey');
                     $("a[href='{{ url_for('user_survey') }}']").html('<i class="fa-solid fa-square-poll-vertical fa-xl"></i>&nbsp;&nbsp;&nbsp;User Survey');
                     $("a[href='{{ url_for('logout') }}']").html('<i class="fa-solid fa-right-from-bracket fa-xl"></i>&nbsp;&nbsp;&nbsp;Logout');
+                    $("#logo").removeClass('m-2');
+                    $("#logo").text('');
                 } else {
                     // Reset text to icons if screen is larger than medium
                     $("#popupButton").html('<i class="fa-solid fa-user fa-xl"></i>');
                     $("a[href='{{ url_for('create_survey') }}']").html('<i class="fa-solid fa-square-plus fa-xl"></i>');
                     $("a[href='{{ url_for('user_survey') }}']").html('<i class="fa-solid fa-square-poll-vertical fa-xl"></i>');
                     $("a[href='{{ url_for('logout') }}']").html('<i class="fa-solid fa-right-from-bracket fa-xl"></i>');
+                    $("#logo").addClass('m-2');
+                    $("#logo").text('DataCapture');
+
                 }
             }
-        
+
             // Call the function on document ready and on window resize
             $(window).on('load resize', addTextToLinks);
         });

@@ -27,6 +27,8 @@ $(document).ready(() => {
         }
     });
 
+    logo
+
     //     $('#copyright-year').text(currentYear);
 
 
@@ -104,9 +106,9 @@ $(document).ready(() => {
     //     });
 
 
-    //     // $("#navbtn").click((e) => { 
+    //     // $("#navbtn").click((e) => {
     //     //     // e.preventDefault();
-    //     //     $("#navcol-2").slideToggle()    
+    //     //     $("#navcol-2").slideToggle()
     //     // });
 
     //     $('#navbtn').click(function () {
@@ -191,7 +193,7 @@ $(document).ready(() => {
     //         $("div.choices").children(".form-group").last().remove();
     //     });
 
-    
+
     //     $('#collapseButton').click(function () {
     //         $('#dashboard-info').toggleClass('show');
     //         $('#dashboard-result').toggleClass('slide');

@@ -46,19 +46,6 @@ $(document).ready(function () {
     }
   })
 
-  //   const progressBar = document.getElementById("progressBar");
-
-  //   // Function to update the progress bar
-  //   function updateProgress() {
-  //       // Count the number of answered questions
-  //       var answeredQuestions = $('.question').filter(function () {
-  //           return $(this).find('input[type="checkbox"]:checked').length > 0;
-  //       }).length;
-  //       // Update the value of the progress bar
-  //       progressBar.value = answeredQuestions;
-  //   }
-  //   updateProgress();
-
   var fadeInTime = 400
   var fadeOutTime = 0
   $('#arrow').fadeOut(fadeOutTime)
@@ -110,4 +97,7 @@ $(document).ready(function () {
     $('[id^="histogram-"]').show()
     $('[id^="chart_"]').hide()
   }
+
+  $('[id^="chart_"]').css("width", "100%")
+  $('[id^="histogram-"]').css("width", "100%")
 })

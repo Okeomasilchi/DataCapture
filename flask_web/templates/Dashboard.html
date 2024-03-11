@@ -30,7 +30,7 @@
               <div class="table-data">{{ user_data['first_name'] }} {{ user_data['last_name'] }}</div>
             </div>
           </div>
-          <div id="toggle-buttons" class="text-center">
+          <div id="toggle-buttons" class="text-center my-5 mx-auto">
             <button id="toggle-view" class="btn btn-success btn-3d">View Pie Chart</button>
           </div>
         </div>
@@ -51,8 +51,8 @@
               <p>{{ q['question'] }}</p>
             </div>
             <div class="options-container" style="width: 100%;">
-              <canvas id="chart_{{ loop.index }}" width="150" height="150"></canvas>
-              <canvas id="histogram-{{ loop.index }}" width="150" height="150" style="display: none;"></canvas>
+              <canvas id="chart_{{ loop.index }}" class="w-100 ch"></canvas>
+              <canvas id="histogram-{{ loop.index }}" class="w-100 ch" style="display: none;"></canvas>
             </div>
           </div>
         {% endfor %}
@@ -60,7 +60,7 @@
     </form>
   </div>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    $(document).ready(function() {
       {% for q in response %}
       var ctx = document.getElementById('histogram-{{ loop.index }}').getContext('2d');
       var myChart = new Chart(ctx, {
@@ -68,7 +68,7 @@
         data: {
           labels: [{% for opt in q['options'] %}"{{ opt['option'] }}", {% endfor %}],
           datasets: [{
-            label: '% Response',
+            label: '% of responses',
             data: [{% for opt in q['options'] %}{{ opt['%'] }}, {% endfor %}],
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
             borderColor: 'rgba(54, 162, 235, 1)',
