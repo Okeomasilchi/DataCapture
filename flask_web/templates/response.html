@@ -48,7 +48,7 @@
 
   <!-- main -->
   <div id="mySidenav" class="sidenav">
-  <progress id="progressBar" class="progress-bar-container" value="0" max="{{ data['questions']|length }}"></progress>
+    <progress id="progressBar" class="progress-bar-container" value="0" max="{{ data['questions']|length }}"></progress>
     <a class="closebtn" id="closeNav"><i class="fa-solid fa-chevron-left"></i></a>
     <section id="dashboard-info" name="{{ data['survey_id'] }}">
       <div class="table-row" id="{{ current_user.id }}">
@@ -117,7 +117,7 @@
                         maxWidth = labelWidth
                       }
                     })
-
+                  
                     // Set the width of all labels in this question block to the widest width
                     if (maxWidth > 500) {
                       maxWidth = 500

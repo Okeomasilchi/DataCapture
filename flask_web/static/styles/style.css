@@ -35,6 +35,7 @@ body {
     overflow-x: hidden;
     /* height: 3000px; */
 }
+
 #messages {
     position: fixed;
     top: 72px;
@@ -397,4 +398,3 @@ img.rounded {
     -webkit-filter: blur(5px);
     /* For older Safari versions */
 }
-

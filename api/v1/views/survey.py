@@ -40,6 +40,7 @@ def get_survey_by_id(survey_id):
 
     data = survey.to_dict()[0]
     data["questions"] = [question.to_dict()[0] for question in survey.questions]
+    data["numberOfResponse"] = len(survey.responses)
     try:
         return js(data)
     except Exception as e:
@@ -69,7 +70,12 @@ def get_survey_by_user_id(user_id):
     try:
         surveys = user.user_surveys
         print([survey.to_dict()[0] for survey in surveys])
-        return js(sort_list_of_dicts([survey.to_dict()[0] for survey in surveys], "title")), 200
+        return (
+            js(
+                sort_list_of_dicts([survey.to_dict()[0] for survey in surveys], "title")
+            ),
+            200,
+        )
     except Exception as e:
         log_error("users/survey/<user_id>['GET']", e.args, type(e).__name__, e)
         abort(500)
@@ -105,16 +111,18 @@ def delete_survey_by_id(survey_id):
         log_error("/survey/<survey_id>['DELETE']", e.args, type(e).__name__, e)
         abort(500)
 
+
 def convert_to_mysql_date(date_string):
     try:
         # Parse the input date string
-        date_obj = datetime.strptime(date_string, '%Y-%m-%d')
+        date_obj = datetime.strptime(date_string, "%Y-%m-%d")
         # Format the date as a string that fits the MySQL DATE column format
-        mysql_date = date_obj.strftime('%Y-%m-%d')
+        mysql_date = date_obj.strftime("%Y-%m-%d")
         return mysql_date
     except ValueError:
         # Handle invalid date strings
         return None
+
 
 @survey_views.route("/survey", methods=["POST"], strict_slashes=False)
 def create_survey_by_id():
@@ -133,7 +141,7 @@ def create_survey_by_id():
         return js({"error": "Not a JSON"}), 400
 
     data = request.get_json()
-    data['expiry_date'] = convert_to_mysql_date(data['expiry_date'])
+    data["expiry_date"] = convert_to_mysql_date(data["expiry_date"])
     parse_dict(
         data,
         ["user_id", "description", "question_type", "title", "questions"],
@@ -149,12 +157,11 @@ def create_survey_by_id():
     questions = data["questions"]
     data = pop_dict(data, ["id", "created_at", "updated_at", "questions"])
 
-
     try:
         survey = Survey(**data)
         survey.save()
         instance = survey.to_dict()
-        survey_id = instance[0]['id']
+        survey_id = instance[0]["id"]
         # print(survey_id)
         for item in questions:
             item["survey_id"] = survey_id
@@ -238,4 +245,3 @@ def get_survey_dashboard(survey_id):
     except Exception as e:
         log_error("survey/<survey_id>['GET']", e.args, type(e).__name__, e)
         abort(500)
-

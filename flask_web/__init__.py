@@ -77,6 +77,7 @@ class User(UserMixin):
         """
         return User(user_id)
 
+
 # Represents a user in the system.
 class User(UserMixin):
     """
@@ -167,9 +168,12 @@ def save_pic(form_pic):
 def load_user(user_id):
     return User.get(user_id)
 
+
 @app.errorhandler(404)
 def not_found_error(error):
-    return render_template('error_404.html'), 404
+    return render_template("error_404.html"), 404
+
 
 from flask_web import auth_routs
+
 # from flask_web import app_route

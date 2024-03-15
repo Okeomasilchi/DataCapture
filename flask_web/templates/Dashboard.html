@@ -50,9 +50,11 @@
               <h5>{{ loop.index }}</h5>
               <p>{{ q['question'] }}</p>
             </div>
-            <div class="options-container" style="width: 100%;">
-              <canvas id="chart_{{ loop.index }}" class="w-100 ch"></canvas>
-              <canvas id="histogram-{{ loop.index }}" class="w-100 ch" style="display: none;"></canvas>
+            <div class="options-container-wrapper">
+              <div class="options-container" style="width: 100%;">
+                <canvas id="chart_{{ loop.index }}" class="w-100 ch"></canvas>
+                <canvas id="histogram-{{ loop.index }}" class="w-100 ch" style="display: none;"></canvas>
+              </div>
             </div>
           </div>
         {% endfor %}
@@ -70,9 +72,21 @@
           datasets: [{
             label: '% of responses',
             data: [{% for opt in q['options'] %}{{ opt['%'] }}, {% endfor %}],
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 1
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.7)',  // Adjust transparency as needed
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+            ],
+            borderWidth: 2
           }]
         },
         options: {
@@ -95,20 +109,20 @@
             label: '{{ q["question"] }}',
             data: [{% for opt in q['options'] %}{{ opt['%'] }},{% endfor %}],
             backgroundColor: [
-              'rgba(255, 99, 132, 0.5)',
-              'rgba(54, 162, 235, 0.5)',
-              'rgba(255, 206, 86, 0.5)',
-              'rgba(75, 192, 192, 0.5)',
-              'rgba(153, 102, 255, 0.5)',
+                'rgba(255, 99, 132, 0.7)',  // Adjust transparency as needed
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
             ],
             borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
             ],
-            borderWidth: 1
+            borderWidth: 2
           }]
         },
         options: {

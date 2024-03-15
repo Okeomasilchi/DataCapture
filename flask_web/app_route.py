@@ -6,6 +6,7 @@ import requests as rq
 from flask_login import login_required
 from utils.algorithm import parse_survey_data
 
+
 def to_dict(user):
     user_dict = {}
 
@@ -25,6 +26,7 @@ def update():
         form.email.data = current_user.email
         form.picture.data = url_for("static", filename="dpics/okeoma.jpg")
     return form
+
 
 @app.route("/", methods=["GET"], strict_slashes=False)
 def home():

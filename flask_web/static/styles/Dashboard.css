@@ -571,6 +571,13 @@ label {
 }
 
 
+.options-container-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* Horizontally center the options container */
+}
+
 
 @media screen and (max-width: 789px) {
     #response-container {
@@ -597,6 +604,6 @@ label {
     }
 
     .ch {
-        height:100%;
+        height: 100%;
     }
 }

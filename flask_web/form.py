@@ -141,17 +141,14 @@ class Token:
         target_time = current_time + datetime.timedelta(minutes)
         # Convert expiration time to Unix timestamp
         exp_time = int(target_time.timestamp())
-        payload = {
-            "id": id,
-            "exp": exp_time
-        }
-        token = jwt.encode(payload, app.config["SECRET_KEY"], algorithm='HS256')
+        payload = {"id": id, "exp": exp_time}
+        token = jwt.encode(payload, app.config["SECRET_KEY"], algorithm="HS256")
         return token
 
     @staticmethod
     def validate(token):
         try:
-            payload = jwt.decode(token, app.config["SECRET_KEY"], algorithms=['HS256'])
+            payload = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])
             user_id = payload["id"]
             exp_time = payload["exp"]
 

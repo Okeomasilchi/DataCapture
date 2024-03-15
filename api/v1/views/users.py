@@ -194,7 +194,6 @@ def validate_user_email():
     res = request.get_json()
     parse_dict(res, ["email"], status_code=400)
 
-
     if "data" in res:
         user = storage.exist(res["email"], data=True)
     else:

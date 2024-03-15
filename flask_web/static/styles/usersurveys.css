@@ -500,3 +500,23 @@ input:checked+.slider:before {
     -webkit-transform: none;
     transform: none;
 }
+
+.grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.grid-item {
+    flex: 1 1 auto;
+    max-width: 250px;
+    max-height: 300px;
+    margin: 15px;
+    overflow: hidden;
+    overflow: auto;
+}
+
+.hope {
+    overflow: hidden;
+    overflow: auto;
+}

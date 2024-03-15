@@ -77,6 +77,7 @@ def logout():
         logout_user()
         return redirect(url_for("login"))
 
+
 @app.route("/reset_password", methods=["GET", "POST"], strict_slashes=False)
 def reset_request():
     if current_user.is_authenticated:
@@ -90,7 +91,10 @@ def reset_request():
                 try:
                     send_reset_email(user)
                 except Exception as e:
-                    flash("There was a problem sending the email. Please try again soon", "Warning")
+                    flash(
+                        "There was a problem sending the email. Please try again soon",
+                        "Warning",
+                    )
                 else:
                     flash(
                         "An email has been sent with instructions to reset your password",
@@ -101,6 +105,7 @@ def reset_request():
             else:
                 flash("Email not found", "danger")
     return render_template("reset_request.html", title="Reset Request", form=form)
+
 
 def send_reset_email(user):
     token = Token.get(id=user["id"])
@@ -133,9 +138,7 @@ def reset_token(token):
         password = form.password.data
         if password is not None:
             hp = md5(password.encode()).hexdigest()
-            data = {
-                "password": hp
-            }
+            data = {"password": hp}
             r = rq.put(f"{root}users/{user}", json=data)
             if r.status_code != 200:
                 flash("Invalid or expired token", "warning")
@@ -169,19 +172,18 @@ def account():
         if form.email.data != current_user.email:
             current_user.email = form.email.data
 
-        r = rq.put(
-            f"{root}users/{current_user.id}", json=to_dict(current_user)
-        )
+        r = rq.put(f"{root}users/{current_user.id}", json=to_dict(current_user))
         if r.status_code == 200:
             flash("Your account has been updated!", "success")
         else:
             flash("Failed to update your account", "danger")
         return redirect(request.referrer or url_for("user_survey"))
 
+
 from flask_web import app_route
+
 """ error pages """
 
 # @app.errorhandler(500)
 # def internal_server_error(error):
 #     return render_template('500.html'), 500
-

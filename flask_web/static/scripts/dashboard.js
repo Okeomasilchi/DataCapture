@@ -98,6 +98,6 @@ $(document).ready(function () {
     $('[id^="chart_"]').hide()
   }
 
-  $('[id^="chart_"]').css("width", "100%")
-  $('[id^="histogram-"]').css("width", "100%")
+  $('[id^="chart_"]').css('width', '100%')
+  $('[id^="histogram-"]').css('width', '100%')
 })

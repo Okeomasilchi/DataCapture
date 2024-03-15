@@ -24,6 +24,7 @@ load_dotenv("./.env")
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
 
+
 @app.after_request
 def apply_caching(response):
     """
@@ -34,7 +35,13 @@ def apply_caching(response):
 
     return response
 
-CORS(app, resources={r"/api/*": {"origins": ["http://localhost:5001", "http://0.0.0.0", "*"]}})
+
+CORS(
+    app,
+    resources={
+        r"/api/*": {"origins": ["http://localhost:5001", "http://0.0.0.0", "*"]}
+    },
+)
 # cors = CORS(app, resources={r"/api/v1/*": {"origins": "0.0.0.0"}})
 
 
