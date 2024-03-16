@@ -48,14 +48,13 @@ def log_response(survey_id):
         data["answers"] = js(data["answers"])
         res = Response(**data)
         res.save()
-        return js({"id": res.to_dict()[0]["id"]}), 201
 
-        # try:
-
-        # except Exception as e:
-        #     print(e)
-        #     log_error('response/<survey_id>["POST"]', e.args, type(e).__name__, e)
-        #     abort(500)
+        try:
+            return js({"id": res.to_dict()[0]["id"]}), 201
+        except Exception as e:
+            # print(e)
+            log_error('response/<survey_id>["POST"]', e.args, type(e).__name__, e)
+            abort(500)
 
 
 @response_views.route("response/<survey_id>", methods=["GET"], strict_slashes=False)

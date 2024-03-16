@@ -98,11 +98,11 @@ def delete_question(survey_id):
         return {"error": "Must be in a list"}, 400
 
     for id in questions:
-        print(id)
+        # print(id)
         q = storage.get(Question, id)
         if not q:
             abort(404)
-        print(q.to_dict())
+        # print(q.to_dict())
         if q.id != id:
             return {"error": "Invalid id"}, 400
         storage.delete(q)

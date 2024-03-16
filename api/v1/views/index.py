@@ -21,6 +21,7 @@ def get_status():
     """
     returns a JSON object with the status "OK".
     """
+    # abort(404) # undergoing maintenance
     return js({"status": "OK"})
 
 
@@ -39,3 +40,18 @@ def stats():
             "users": storage.count(User),
         }
     )
+
+
+@app_views.route("/admin/c/data", strict_slashes=False)
+def get_all_relevant_data():
+    users = storage.all(User)
+    print([users])
+    return js([])
+    # if not users:
+    #     abort(404)
+
+    # try:
+        
+    # except Exception as e:
+    #     log_error("survey/<survey_id>['GET']", e.args, type(e).__name__, e)
+    #     abort(500)

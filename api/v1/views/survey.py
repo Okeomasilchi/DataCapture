@@ -69,7 +69,7 @@ def get_survey_by_user_id(user_id):
         abort(404)
     try:
         surveys = user.user_surveys
-        print([survey.to_dict()[0] for survey in surveys])
+        # print([survey.to_dict()[0] for survey in surveys])
         return (
             js(
                 sort_list_of_dicts([survey.to_dict()[0] for survey in surveys], "title")
@@ -107,7 +107,7 @@ def delete_survey_by_id(survey_id):
         storage.save()
         return js({}), 204
     except Exception as e:
-        print(e)
+        # print(e)
         log_error("/survey/<survey_id>['DELETE']", e.args, type(e).__name__, e)
         abort(500)
 

@@ -1,83 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+{%- extends 'layout.html' -%}
+{%- block script -%}
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/admin.css') }}" />
+  <script src="{{ url_for('static', filename = 'scripts/admin.js') }}"></script>
+{%- endblock -%}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/style.css">
-    <link rel="stylesheet" href="style/admin.css">
-    <script src="https://kit.fontawesome.com/6d617ef3fb.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="./script/script.js"></script>
-</head>
-
-<body>
-    <div class="main">
-        <section class="container">
-            <div class="admin">
-                <h1>Admin</h1>
-                <img src="./images/contact.png" alt="" class="admin-image">
-            </div>
-            <div class="admin-details">
-                <h1></h1>
-                <table>
-                    <div class="table-head"></div>
-                    <!-- <div class="tr"> -->
-                        <th>User-id</th>
-                        <th>User-Name</th>
-                        <th>Created</th>
-                        <th>Survey</th>
-                        <th>User-Email</th>
-                        <th>Account Status</th>
-                    </div>
-                    </thead>
-                    <tbody>
-                        <div class="table-data">
-                            <div class="td"></div>
-                            <div class="td"></div>
-                            <div class="td"></div>
-                            <div class="td"></div>
-                            <div class="td"></div>
-                            <div class="td"></div>
-                        </div>
-                        <div class="tr">
-                            <div class="td"></div>
-                            <div class="td"></div>
-                            <div class="td"></div>
-                            <div class="td"></div>
-                            <div class="td"></div>
-                            <div class="td"></div>
-                        </div>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </div>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+{%- block content -%}
+  <div id="mySidenav" class="sidenav mb-5">
+    <a class="closebtn" id="closeNav"><i class="fa-solid fa-chevron-left"></i></a>
+    <div id="api-status" class="tab px-2 mt-1 mb-5">
+        <div id="profile">
+        </div>
     </div>
-</body>
+  </div>
 
-</html>
+  <div id="main">
+    <span style="font-size:30px; cursor:pointer" id="openNav" class="sticky"><i class="fa-solid fa-chevron-right fa-sm"></i></span>
+    <div id="loader" class="spinner-box">
+      <div class="circle-border">
+        <div class="circle-core"></div>
+      </div>
+    </div>
+    <section id="dashboard" class="">
+    </section>
+  </div>
+
+{%- endblock -%}

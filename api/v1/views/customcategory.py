@@ -20,5 +20,6 @@ def get_all_custom_categories():
     Returns:
       a JavaScript array of dictionaries.
     """
-    amenities = storage.all(CustomCategory).values()
-    return js([])
+    abort(404)
+    # amenities = storage.all(CustomCategory).values()
+    # return js([])

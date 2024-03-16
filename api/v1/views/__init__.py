@@ -9,6 +9,7 @@ from flask import Blueprint
 from flask_cors import CORS
 
 app_views = Blueprint("app_views", __name__)
+admin_veiws = Blueprint("admin_veiws", __name__)
 surveycat_views = Blueprint("surveycat_views", __name__)
 question_views = Blueprint("question_views", __name__)
 customcategory_views = Blueprint("customcategory_views", __name__)
@@ -21,6 +22,7 @@ CORS(surveycat_views)
 CORS(customcategory_views)
 CORS(question_views)
 CORS(user_views)
+CORS(admin_veiws)
 CORS(response_views)
 CORS(survey_views)
 
@@ -31,3 +33,4 @@ from api.v1.views.response import *
 from api.v1.views.survey import *
 from api.v1.views.surveycategory import *
 from api.v1.views.users import *
+from api.v1.views.admin import *

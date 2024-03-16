@@ -14,4 +14,4 @@ from models.surveycategory import SurveyCategory
 
 @surveycat_views.route("/states", methods=["POST"], strict_slashes=False)
 def create_new_state():
-    return js([])
+    abort(404)

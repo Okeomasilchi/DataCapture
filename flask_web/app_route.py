@@ -105,7 +105,7 @@ def dashboard(survey_id):
         if ur.status_code != 200:
             flash("User not found", "danger")
         data = ur.json()[0]
-        print(data)
+        # print(data)
         return render_template(
             "Dashboard.html",
             title="Dashboard",
@@ -114,3 +114,16 @@ def dashboard(survey_id):
             response=parse_survey_data(survey),
             data=survey,
         )
+
+
+@app.route("/app/admin", methods=["GET"], strict_slashes=False)
+@login_required
+def admin():
+    # if not current_user.is_authenticated:
+    #     return redirect(url_for("login"))
+    # ur = rq.get(f"{root}users/{current_user.id}")
+    # if ur.status_code != 200:
+    #     flash("User not found", "danger")
+    #     return redirect(url_for("login"))
+    # data = ur.json()[0]
+    return render_template("admin.html", user_data={}, title="Admin")

@@ -112,7 +112,7 @@ $(document).ready(() => {
     apiCall(id)
       .then(data => {
         // console.log(data)
-        $('#populate').children('.row').empty()
+        $('#populate').children('.grid-container').empty()
         $('#title').text(data.title)
         $('#created_at').text(formatDate(data.created_at))
         $('#response').text(data.numberOfResponse)
