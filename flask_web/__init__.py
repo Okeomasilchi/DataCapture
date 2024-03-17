@@ -3,20 +3,24 @@ from flask_login import LoginManager, current_user, UserMixin
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
 from dotenv import load_dotenv
+from flask_admin import Admin, BaseView, expose
 import os
 import secrets
 from PIL import Image
+
 
 load_dotenv("./.env")
 # http://localhost:5001/app/survey/response/1bb7123c-eea0-41dd-b914-acc0f8e5035a
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY")
+admin = Admin(app, name='DataCapture', template_mode='bootstrap4')
 
-# Setup Flask-Login
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
 login_manager.login_message_category = "info"
+# app.config['FLASK_ADMIN_SWATCH'] = 'paper'
 app.config["REMEMBER_COOKIE_DURATION"] = 14 * 24 * 60 * 60  # 14 days in seconds
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 587
@@ -28,54 +32,12 @@ mail = Mail(app)
 root = "http://localhost:5000/api/v1/"
 
 
-class User(UserMixin):
-    """
-    Represents a user in the system.
+class AnalyticsView(BaseView):
+    @expose('/')
+    def index(self):
+        return self.render('admin/analytics_index.html')
 
-    Args:
-        id (int): The unique identifier of the user.
-        first_name (str, optional): The first name of the user. Defaults to None.
-        last_name (str, optional): The last name of the user. Defaults to None.
-        email (str, optional): The email address of the user. Defaults to None.
-        picture (str, optional): The profile picture of the user. Defaults to None.
-        **kwargs: Additional attributes that can be set dynamically.
-
-    Attributes:
-        id (int): The unique identifier of the user.
-        first_name (str): The first name of the user.
-        last_name (str): The last name of the user.
-        email (str): The email address of the user.
-        picture (str): The profile picture of the user.
-
-    Methods:
-        get(user_id): Static method that returns a User instance based on the given user_id.
-    """
-
-    def __init__(
-        self, id, first_name=None, last_name=None, email=None, picture=None, **kwargs
-    ):
-        if kwargs:
-            for k, v in kwargs.items():
-                setattr(self, k, v)
-        else:
-            self.id = id
-            self.first_name = first_name
-            self.last_name = last_name
-            self.email = email
-            self.picture = picture
-
-    @staticmethod
-    def get(user_id):
-        """
-        Static method that returns a User instance based on the given user_id.
-
-        Args:
-            user_id (int): The unique identifier of the user.
-
-        Returns:
-            User: The User instance with the specified user_id.
-        """
-        return User(user_id)
+admin.add_view(AnalyticsView(name='Analytics', endpoint='analytics'))
 
 
 # Represents a user in the system.
