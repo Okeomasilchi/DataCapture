@@ -14,6 +14,7 @@ from models.response import Response
 from models.surveycategory import SurveyCategory
 from models.survey import Survey
 from models.user import User
+from utils.error import log_error
 
 
 @app_views.route("/status", methods=["GET"], strict_slashes=False)
@@ -45,13 +46,9 @@ def stats():
 @app_views.route("/admin/c/data", strict_slashes=False)
 def get_all_relevant_data():
     users = storage.all(User)
-    print([users])
-    return js([])
-    # if not users:
-    #     abort(404)
 
-    # try:
-        
-    # except Exception as e:
-    #     log_error("survey/<survey_id>['GET']", e.args, type(e).__name__, e)
-    #     abort(500)
+    try:
+        return js([user.to_dict()[0] for _, user in users.items()])
+    except Exception as e:
+        log_error("/admin/c/data['GET']", e.args, type(e).__name__, e)
+        abort(500)

@@ -15,12 +15,21 @@
 
   <div id="main">
     <span style="font-size:30px; cursor:pointer" id="openNav" class="sticky"><i class="fa-solid fa-chevron-right fa-sm"></i></span>
+    
     <div id="loader" class="spinner-box">
       <div class="circle-border">
         <div class="circle-core"></div>
       </div>
     </div>
-    <section id="dashboard" class="">
+    
+    <section id="dashboard" class="px-5 d-flex justify-content-center align-items-center ">
+      <div class="box d-flex justify-content-center align-items-center m-4">
+        <form name="search" class="">
+          <input type="text" class="input" name="txt" onmouseout="this.value = ''; this.blur();">
+        </form>
+        <i id="sch" class="fas fa-search"></i>
+      </div>
+      <div id="table-container" class="table-responsive"></div>
     </section>
   </div>
 

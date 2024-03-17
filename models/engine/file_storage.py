@@ -94,7 +94,7 @@ class FileStorage:
 
         return i
 
-    def count(self, cls=None):
+    def count(self, cls=None, id: str = None):
         """
         Counts the number of objects in a given
         class or all classes if no class is
@@ -107,6 +107,8 @@ class FileStorage:
           Returns the length of all classes if no cls
           else returns length of the cls classes
         """
-        if cls:
+        if cls and not id:
             return len(self.all(cls))
+        elif cls and id:
+            return len(self.all(cls).get(id))
         return len(self.all())
