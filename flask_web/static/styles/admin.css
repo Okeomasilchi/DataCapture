@@ -1,4 +1,11 @@
+/* Add 3D effect to buttons */
+.btn-3d {
+  transition: transform 0.3s;
+}
 
+.btn-3d:hover {
+  transform: translate3d(0, -4px, 0);
+}
 
 .sidenav {
   height: 100%;

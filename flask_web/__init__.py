@@ -1,13 +1,14 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_login import LoginManager, current_user, UserMixin
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail
 from dotenv import load_dotenv
 from flask_admin import Admin, BaseView, expose
+from flask_web.api import APIClient
 import os
 import secrets
 from PIL import Image
-
+import requests as rq
 
 load_dotenv("./.env")
 # http://localhost:5001/app/survey/response/1bb7123c-eea0-41dd-b914-acc0f8e5035a
@@ -20,7 +21,6 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
 login_manager.login_message_category = "info"
-# app.config['FLASK_ADMIN_SWATCH'] = 'paper'
 app.config["REMEMBER_COOKIE_DURATION"] = 14 * 24 * 60 * 60  # 14 days in seconds
 app.config["MAIL_SERVER"] = "smtp.gmail.com"
 app.config["MAIL_PORT"] = 587
@@ -29,15 +29,30 @@ app.config["MAIL_USERNAME"] = os.environ.get("EMAIL_USER")
 app.config["MAIL_PASSWORD"] = os.environ.get("EMAIL_PASS")
 mail = Mail(app)
 
-root = "http://localhost:5000/api/v1/"
-
+api = APIClient("http://localhost:5000/api/v1/")
 
 class AnalyticsView(BaseView):
     @expose('/')
     def index(self):
         return self.render('admin/analytics_index.html')
 
+class UserView(BaseView):
+    @expose('/')
+    def user(self):
+        # Get the ID from the request parameters
+        id_param = request.args.get('id')
+        data = {'id': id_param}
+        data = rq.get(root + "users/" + id_param)
+        info = {}
+        
+        if data.status_code == 200:
+            info = data.json()[0]
+            print(info)
+            return self.render('admin/user.html', info=info)
+        return self.render('admin/user.html', error={"message": "User not found"})
+
 admin.add_view(AnalyticsView(name='Analytics', endpoint='analytics'))
+admin.add_view(UserView(name='UserView', endpoint='user'))
 
 
 # Represents a user in the system.
@@ -138,4 +153,3 @@ def not_found_error(error):
 
 from flask_web import auth_routs
 
-# from flask_web import app_route

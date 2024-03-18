@@ -104,8 +104,9 @@ $(document).ready(function () {
         if (key === 'account_state') {
           // Add a button to the "account state" column
           $row.append(`
-            <td>
-              <div class="d-flex justify-content-center align-items-center p-2">
+            <td class="class="d-flex justify-content-center align-items-center p-2"">
+              <button class="view-user btn btn-3d btn-outline-success">View</button>
+              <!--<div class="d-flex justify-content-center align-items-center p-2">
                 <select class="custom-select p-2">
                     <option class="m-3" value="" disabled selected>Pick an action</option>
                     <option class="m-3 bg-danger" value="delete_user">Delete User</option>
@@ -114,7 +115,7 @@ $(document).ready(function () {
                     <option class="m-3" value="view_profile">View Profile</option>
                     <option class="m-3" value="change_password">Change Password</option>
                 </select>
-              </div>
+              </div>-->
             </td>
           `)
         } else {
@@ -353,5 +354,13 @@ $(document).ready(function () {
     var inputValue = $(this).val().trim()
     // console.log('Input value:', inputValue)
     filterTableRows(inputValue) // Call function to filter table rows based on input value
+  })
+
+  $('#table-container').on('click', '.view-user', function () {
+    // Find the closest row to the clicked button
+    const $row = $(this).closest('tr')
+    const id = $row.find('td').eq(3).text()
+    // console.log(id)
+    window.location.href = `/admin/user/?id=${id}`
   })
 })
