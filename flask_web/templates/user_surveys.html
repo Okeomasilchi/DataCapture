@@ -14,8 +14,15 @@
           {%- for survey in surveys -%}
             <a class="link-click link n-link table-data tablinks d-flex align-items-center" id="{{ survey.id }}">
               <span id="link-click" class="survey-title m-0 flex-grow-1 w-100">{{ survey.title }}</span>
-              <button class="copy-button btn btn-outline-success ml-2"><i class="fa-solid fa-link"></i></button>
+              <button  type="button" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover" class="copy-button btn btn-outline-success ml-2"><i class="fa-solid fa-link"></i></button>
+              <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover">
+                Popover on right
+              </button>
             </a>
+            <button  type="button" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover" class="copy-button btn btn-outline-success ml-2"><i class="fa-solid fa-link"></i></button>
+              <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover">
+                Popover on right
+              </button>
           {%- endfor -%}
         {%- else -%}
           <div class="d-flex flex-column align-items-center">

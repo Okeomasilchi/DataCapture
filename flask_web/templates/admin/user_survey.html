@@ -1,0 +1,92 @@
+{% extends 'admin/master.html' %}
+
+{% block head %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script src="https://kit.fontawesome.com/6d617ef3fb.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'styles/admin.css') }}" />
+  <script src="{{ url_for('static', filename = 'scripts/admin.js') }}"></script>
+  <style>
+    /* Add your custom styles here */
+    .user-info {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .user-avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .user-details {
+      margin-top: 20px;
+    }
+  </style>
+{% endblock %}
+
+{%- block body -%}
+  <!-- Modal -->
+  <div class="modal fade" class="bg-info-subtle" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">Are you sure you want to delete This account?</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal">No</button>
+          <button id="delete-user" type="button" class="btn btn-danger">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if info %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>TITLE</th>
+          <th>DISCRIPTION</th>
+          <th>EXPIRATION</th>
+          <th>CREATED</th>
+          <th>UPDATED</th>
+          <th>TYPE</th>
+          <th>RANDOMISE</th>
+          <th>VISIBILITY</th>
+          <th>Owner</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in info if info %}
+        <tr>
+          <td>{{ item.id }}</td>
+          <td>{{ item.title }}</td>
+          <td>{{ item.description }}</td>
+          <td>{{ item.expiry_date }}</td>
+          <td>{{ item.created_at }}</td>
+          <td>{{ item.updated_at }}</td>
+          <td>{{ item.question_type }}</td>
+          <td>{{ item.randomize }}</td>
+          <td>{{ item.visibility }}</td>
+          <td>{{ item.user_id }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  {% else %}
+    <div class="d-flex justify-content-center align-items-center p-5">
+      <a href="/admin/analytics/" class="m-5 btn btn-3d btn-outline-success"><i class="fa-regular fa-hand-point-left"></i>&nbsp;&nbsp;&nbsp;|&nbsp;Get User</a>
+    </div>
+  {% endif %}
+  {%- if errors -%}
+    <div class="alert alert-danger" role="alert">{{ errors }}</div>
+  {%- endif -%}
+  {%- if success -%}
+    <div class="alert alert-success" role="alert">{{ success }}</div>
+  {%- endif -%}
+{%- endblock -%}

@@ -514,3 +514,13 @@ select option[value="suspend"] {
   background-color: rgba(255, 0, 0, 0.884);
   color: #fff;
 }
+
+.user-info {
+  border-radius: 15px;
+  background-color: #0000002c;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.user-avatar {
+  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+}

@@ -363,4 +363,24 @@ $(document).ready(function () {
     // console.log(id)
     window.location.href = `/admin/user/?id=${id}`
   })
+
+  $('#delete-user').click(() => {
+    var id = $('#user').attr('name')
+
+    $.ajax({
+      type: 'DELETE',
+      url: `http://localhost:5000/api/v1/users/${id}`,
+      success: function (response) {
+        window.location.href = '/admin/analytics/'
+      },
+      error: function (error) {
+        alert("Couldn't delete user at the moment please try again later or contact support")
+      }
+    })
+  })
+
+  $('#view-user-survey').click(() => {
+    var id = $('#user').attr('name')
+    window.location.href = `/admin/user_surveys/?id=${id}`
+  })
 })

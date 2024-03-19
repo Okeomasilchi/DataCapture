@@ -27,7 +27,10 @@ class APIClient:
     def get_user_by_id(self, user_id):
         url = f"{self.base_url}/users/{user_id}"
         response = requests.get(url)
-        return response.json()
+        if response.status_code == 200:
+            return response.json()[0]
+        else:
+            return None
 
     def delete_user(self, user_id):
         url = f"{self.base_url}/users/{user_id}"
@@ -61,8 +64,12 @@ class APIClient:
 
     def get_surveys_by_user_id(self, user_id):
         url = f"{self.base_url}/users/survey/{user_id}"
+        print(url)
         response = requests.get(url)
-        return response.json()
+        if response.status_code == 200:
+            return response.json()
+        else:
+            return None
 
     def delete_survey_by_id(self, survey_id):
         url = f"{self.base_url}/survey/{survey_id}"
