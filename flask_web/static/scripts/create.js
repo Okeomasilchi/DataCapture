@@ -91,7 +91,7 @@ $(document).ready(function () {
           <div class="top-section">
             <div class="heading d-flex justify-content-between m-3 align-items-center">
               <h2 class="m-0">Question</h2>
-              <button type="button" id="remove"
+              <button type="button" id="remove" data-bs-container="body" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Question Block"
                 class="btn btn-3d btn-outline-danger p-20 text-center fa-solid fa-trash-can m-0"></button>
             </div>
 
@@ -121,8 +121,8 @@ $(document).ready(function () {
           <div class="row">
             <div class="col-md-12"> <!-- Adjusted to take 100% of the width -->
                 <div class="input-group text-center mx-auto mx-auto d-flex justify-content-center">
-                    <button class="btn-3d btn btn-outline-success fa-solid fa-plus add-btn m-2 px-3"></button>
-                    <button class="btn-3d btn btn-outline-danger fa-solid fa-minus remove-btn m-2 px-3"></button>
+                    <button data-bs-container="body" data-bs-toggle="tooltip" data-bs-placement="left" title="Add Option" class="btn-3d btn btn-outline-success fa-solid fa-plus add-btn m-2 px-3"></button>
+                    <button data-bs-container="body" data-bs-toggle="tooltip" data-bs-placement="right" title="Remove last Option" class="btn-3d btn btn-outline-danger fa-solid fa-minus remove-btn m-2 px-3"></button>
                 </div>
             </div>
           </div>

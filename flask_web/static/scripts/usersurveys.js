@@ -1,16 +1,11 @@
 $(document).ready(() => {
   // alert("hello")
   $('#loader').hide()
-
-  $('.link-click').on('click', function () {
+  
+  $(".survey-title").on("click", function() {
     // Remove 'active' class from all links
-    // $(this).parent('.n-link').removeClass('active');
     $('.link').removeClass('active')
-
-    // Add 'active' class to the clicked link
-    // $(this).parent('.n-link').addClass('active');
-    $(this).addClass('active')
-    $('#closeNav').click()
+    $(this).parent('.link').addClass('active')
   })
 
   function formatDate (dateString) {
@@ -106,8 +101,8 @@ $(document).ready(() => {
 
   $('.bottom-section').hide()
 
-  $('.link-click').click(function () {
-    var id = $(this).attr('id')
+  $('.survey-title').click(function () {
+    var id = $(this).parent().attr('id');
 
     apiCall(id)
       .then(data => {
@@ -141,7 +136,7 @@ $(document).ready(() => {
                         <div class="top-section">
                             <div class="form-group d-flex justify-content-between align-items-center">
                                 <h4 class="m-0 mb-3">Question ${++questionNumber}</h4>
-                                <button class="option-tag btn btn-outline-success btn-3d m-0 py-0"><i class="fa-solid fa-arrow-down-short-wide"></i></button>
+                                <button data-bs-container="body" data-bs-toggle="tooltip" data-bs-placement="right" title="View Options" class="option-tag btn btn-outline-success btn-3d m-0 py-0"><i class="fa-solid fa-arrow-down-short-wide"></i></button>
                             </div>
                             <div class="input-group mb-4">
                                 <p class="questionTextarea" rows="5" placeholder="Type Question">${
@@ -166,7 +161,8 @@ $(document).ready(() => {
       })
   })
 
-  $('.link-click:first').click()
+  $('.survey-title:first').click()
+  $('.popup').hide()
 
   $(document).on('click', '.option-tag', function () {
     var questionBlock = $(this).closest('.question-block')
@@ -187,8 +183,7 @@ $(document).ready(() => {
   })
 
   $('.copy-button').click(function () {
-    var id = $(this).closest('a').attr('id')
-    console.log(id)
+    var id = $(this).parent().attr('id')
     var homeLink = window.location.origin
     response_link = homeLink + '/app/survey/respond/' + id
     navigator.clipboard.writeText(response_link)

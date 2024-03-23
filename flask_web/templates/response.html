@@ -25,7 +25,7 @@
               <label for="full-name">Full Name</label>
               <input type="text" class="form-control" autofocus id="full-name" placeholder="Enter your full name" />
             </div>
-            <div class="form-group">
+            <div class="form-group" data-bs-container="body" data-bs-toggle="tooltip" data-bs-placement="right" title="Select gender">
               <label for="sex">Sex</label>
               <select class="form-control" id="sex">
                 <option value="None" selected>None selected</option>
@@ -40,7 +40,7 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button id="bioSubmit" type="button" class="btn btn-outline-success btn-3d glow-border">Submit</button>
+          <button id="bioSubmit" type="button" data-bs-container="body" data-bs-toggle="tooltip" data-bs-placement="right" title="Submit Bio-Data" class="btn btn-outline-success btn-3d glow-border">Submit</button>
         </div>
       </div>
     </div>
@@ -74,7 +74,7 @@
               <div class="table-data" id="responder"></div>
             </div>
             <div class="text-center">
-              <button id="commit" class="btn btn-success btn-3d mb-5"><i class="fa-regular fa-floppy-disk fa-xl"></i>&nbsp;&nbsp;&nbsp;Commit Response</button>
+              <button id="commit" data-bs-container="body" data-bs-toggle="tooltip" data-bs-placement="right" title="Save Response" class="btn btn-success btn-3d mb-5"><i class="fa-regular fa-floppy-disk fa-xl"></i>&nbsp;&nbsp;&nbsp;Commit Response</button>
             </div>
           </div>
         </div>
@@ -92,7 +92,7 @@
           <div class="question" id="{{ q['id'] }}">
             <div class="question-header">
               <h5>{{ loop.index }}</h5>
-              <p>{{ q['question'] }}</p>
+              <p data-bs-container="body" data-bs-toggle="tooltip" data-bs-placement="right" title="Question {{ loop.index }}" >{{ q['question'] }}</p>
             </div>
             <div class="options-container">
               {% set maxOptionWidth = 0 %}
@@ -133,6 +133,6 @@
         {% endfor %}
       </div>
     </form>
-    <button id="commit1" class="btn btn-success btn-3d"><i class="fa-regular fa-floppy-disk fa-xl"></i>&nbsp;&nbsp;&nbsp;Commit Response</button>
+    <button id="commit1" data-bs-container="body" data-bs-toggle="tooltip" data-bs-placement="right" title="Save Response" class="btn btn-success btn-3d"><i class="fa-regular fa-floppy-disk fa-xl"></i>&nbsp;&nbsp;&nbsp;Commit Response</button>
   </div>
 {% endblock %}

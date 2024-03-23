@@ -6,23 +6,16 @@
 
 {%- block content -%}
   <div id="mySidenav" class="sidenav">
-    <a class="closebtn" id="closeNav"><i class="fa-solid fa-chevron-left"></i></a>
+    <a class="closebtn" data-bs-container="body" data-bs-toggle="tooltip" data-bs-placement="right" title="Close Pannel" id="closeNav"><i class="fa-solid fa-chevron-left"></i></a>
     <div class="tab px-2">
       <div class="table-row">
         <div class="table-column">Surveys</div>
         {%- if surveys -%}
           {%- for survey in surveys -%}
             <a class="link-click link n-link table-data tablinks d-flex align-items-center" id="{{ survey.id }}">
-              <span id="link-click" class="survey-title m-0 flex-grow-1 w-100">{{ survey.title }}</span>
-              <button  type="button" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover" class="copy-button btn btn-outline-success ml-2"><i class="fa-solid fa-link"></i></button>
-              <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover">
-                Popover on right
-              </button>
+              <span class="survey-title m-0 flex-grow-1 w-100">{{ survey.title }}</span>
+              <button type="button" data-bs-container="body" data-bs-toggle="tooltip" data-bs-placement="right" title="Copy Response Link" class="copy-button btn btn-outline-success ml-2"><i class="fa-solid fa-link"></i></button>
             </a>
-            <button  type="button" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover" class="copy-button btn btn-outline-success ml-2"><i class="fa-solid fa-link"></i></button>
-              <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover">
-                Popover on right
-              </button>
           {%- endfor -%}
         {%- else -%}
           <div class="d-flex flex-column align-items-center">

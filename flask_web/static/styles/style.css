@@ -31,7 +31,7 @@ body {
     color: black;
     margin-top: 2.8rem;
     margin-bottom: 0;
-    /* background-color: #ffffffbe; */
+    background-color: #f5f5f5d3;
     overflow-x: hidden;
     background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat-back.svg');
     background-position: center;
@@ -237,23 +237,6 @@ input::placeholder {
     font-style: italic;
 }
 
-/*
-.in {
-    justify-self: center;
-    align-self: center;
-    border-radius: 10px;
-    max-width: 200px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #FEFCFF;
-    background-attachment: local;
-    background-size: cover;
-    overflow-y: hidden;
-} */
-
 legend {
     font-size: 1.5em;
     font-weight: bold;
@@ -342,25 +325,8 @@ footer p {
     border-radius: 5px;
     /*margin: 20px 5px; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    /* }
-
-h1 {
-    font-family: sans-serif;
-    font-size: 3em;
-    text-shadow: 0 5px 10px rgba(0, 0, 0, 0.568);
-    text-size-adjust: 100%;
 }
 
-header h2 {
-    font-weight: bold;
-    font-style: italic;
-    color: white;
-}
-
-.big {
-    font-size: 2.5em;
-    /* Adjust as needed */
-}
 
 .big.fas.fa-question-circle.feature-icon {
     display: flex;
@@ -402,4 +368,30 @@ img.rounded {
     filter: blur(5px);
     -webkit-filter: blur(5px);
     /* For older Safari versions */
+}
+
+/* Custom tooltip styling */
+.tooltip-inner {
+    background-color: #333 !important;
+    /* Background color */
+    color: #fff !important;
+    /* Text color */
+    border-radius: 4px !important;
+    /* Border radius */
+    padding: 8px 12px !important;
+    /* Padding */
+    font-size: 14px !important;
+    /* Font size */
+    /* Add any additional styling here */
+}
+
+.tooltip.bs-tooltip-bottom .tooltip-arrow {
+    border-bottom-color: #333 !important;
+    /* Tooltip arrow color */
+}
+
+/* Optional: Change the tooltip arrow size */
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+    border-bottom-width: 8px !important;
+    /* Adjust arrow size */
 }

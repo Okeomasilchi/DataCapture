@@ -528,3 +528,10 @@ input:checked+.slider:before {
     overflow: hidden;
     overflow: auto;
 }
+
+.link-click-container {
+    display: flex;
+    /* Use flexbox to align items in rows */
+    align-items: center;
+    /* Align items vertically */
+}
