@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="login-container mb-5 mt-2">
+  <div class="login-container mb-5 mt-4">
     <div class="login-form">
       <form method="POST" action="">
         {{ form.hidden_tag() }}
@@ -94,11 +94,32 @@
               </div>
             {% endif %}
           </div>
+          <div class="form-group" id="role">
+            {{ form.role.label(class = 'form-control-label') }}
+            <br />
+            {{ form.role(class = 'form-control form-control-lg') }}
+          </div>
+          <div class="form-group" id="verification_pin">
+            {{ form.verification_pin.label(class = 'form-control-label') }}
+            <br />
+            {% if form.verification_pin.errors %}
+              {{ form.verification_pin(class = 'form-control form-control-lg is-invalid') }}
+              <div class="invalid-feedback">
+                {% for error in form.verification_pin.errors %}
+                  <div class="form-group">
+                    <span>{{ error }}</span>
+                  </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              {{ form.verification_pin(class = 'form-control form-control-lg', placeholder = 'Verification Pin') }}
+            {% endif %}
+          </div>
         </fieldset>
         <div class="pt-1 pb-1">
           <div class="form-group space btn-3d" style="display: inline-block;">{{ form.submit(class = 'btn btn-success btn-3d') }}</div>
           <div class="form-group space" style="display: inline-block; float: right;">
-            <small class="text-muted">Already Have An Account? <a class="ml-2 btn btn-outline-success btn-3d" href="{{ url_for('login') }}">Login</a></small>
+            <small class="text-muted">Have An Account? <a class="ml-2 btn btn-outline-success btn-3d" href="{{ url_for('login') }}">Login</a></small>
           </div>
         </div>
       </form>

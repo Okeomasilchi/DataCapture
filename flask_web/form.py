@@ -1,15 +1,27 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms import (
+    StringField,
+    PasswordField,
+    SubmitField,
+    BooleanField,
+    SelectField,
+    IntegerField,
+)
 from flask_login import current_user
 import requests as rq
 from flask_web import root, app
 import jwt
 import re
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
+from wtforms.validators import (
+    DataRequired,
+    Email,
+    Length,
+    EqualTo,
+    ValidationError,
+    Optional,
+)
 import datetime
 
 
@@ -25,6 +37,12 @@ class Regfrom(FlaskForm):
     confirm_password = PasswordField(
         "Confirm Password", validators=[DataRequired(), EqualTo("password")]
     )
+    role = SelectField(
+        "Role",
+        choices=[("user", "User"), ("admin", "Admin"), ("root", "Root")],
+        default="user",
+    )
+    verification_pin = IntegerField("Verification Pin", validators=[Optional()])
     submit = SubmitField("Sign Up")
 
     def validate_password(self, password):
@@ -51,6 +69,14 @@ class Regfrom(FlaskForm):
             email = r.json()["response"]
             if email:
                 raise ValidationError(f"{field.data} already in use by another user")
+
+    def validate_verification_pin(self, verification_pin):
+        if self.role.data in ["admin", "root"] and not verification_pin.data:
+            raise ValidationError(
+                "Verification pin is required for Admin or Root role."
+            )
+        elif self.role.data in ["admin", "root"] and verification_pin.data != 01234:
+            raise ValidationError("Invalid verification pin")
 
 
 class Loginfrom(FlaskForm):
